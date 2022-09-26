@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './LoginStyle';
-import { API } from '../../../config';
+import { API } from '../../config';
 
 const Login = () => {
   const [info, setInfo] = useState({
