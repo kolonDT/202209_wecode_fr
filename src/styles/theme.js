@@ -6,6 +6,7 @@ const theme = {
   bigFont: '38px',
   middleFont: '25px',
   smallFont: '18px',
+  paddingSpace: '48px',
 };
 
 export default theme;
