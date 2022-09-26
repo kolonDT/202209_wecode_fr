@@ -30,16 +30,16 @@ const Container = styled.div`
 const Logo = styled.h1`
   font-size: ${props => props.theme.style.bigFont};
   font-weight: 800;
-  padding-left: 3rem;
+  padding-left: ${props => props.theme.style.paddingSpace};
   position: fixed;
-  left: 3rem;
+  left: ${props => props.theme.style.paddingSpace};
   z-index: 10000;
 `;
 
 const SubLogo = styled.span`
   font-size: ${props => props.theme.style.middleFont};
   font-weight: 800;
-  padding-left: 14rem;
+  padding-left: 220px;
 `;
 
 const FlexContainer = styled.div`
@@ -51,14 +51,14 @@ const NavLeft = styled.div`
 `;
 const NavRight = styled.ul`
   ${props => props.theme.variables.flex('row', 'right')};
-  gap: 2rem;
-  padding-right: 10rem;
+  gap: 36px;
+  padding-right: 160px;
   font-weight: 800;
   position: relative;
 `;
 
 const Li = styled.li`
   font-size: ${props => props.theme.style.smallFont};
-  padding-right: 3rem;
+  padding-right: ${props => props.theme.style.paddingSpace};
   cursor: pointer;
 `;
