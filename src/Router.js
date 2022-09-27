@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './components/nav/Nav';
+import Editor from './pages/editor/Editor';
 import Main from './pages/main/Main';
 import Login from './pages/Login/Login';
 
@@ -10,6 +11,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/admin/login" element={<Login />} />
+        <Route path="/editor:id" element={<Editor />} />
       </Routes>
     </BrowserRouter>
   );
