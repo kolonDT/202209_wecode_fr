@@ -27,8 +27,8 @@ export const Logo = styled.p`
 `;
 
 export const LoginBox = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 700px;
+  height: 700px;
   border: 1px #ababab solid;
   border-radius: 17px;
   &:hover {
