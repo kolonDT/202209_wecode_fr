@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Nav = () => {
@@ -10,7 +11,9 @@ const Nav = () => {
           <SubLogo>코오롱이 답하다</SubLogo>
         </NavLeft>
         <NavRight>
-          <Li>+ 새설문 작성</Li>
+          <Li>
+            <Link to="/editor1">+ 새설문 작성</Link>
+          </Li>
           <Li>로그아웃</Li>
         </NavRight>
       </FlexContainer>

@@ -16,6 +16,7 @@
     "recoil": "^0.7.5",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.2",
+    "survey-react-ui": "^1.9.50",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
