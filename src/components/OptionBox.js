@@ -47,4 +47,5 @@ const Option = styled.div`
   padding: 15px 20px;
   font-size: 13px;
   margin-left: 30px;
+  cursor: pointer;
 `;
