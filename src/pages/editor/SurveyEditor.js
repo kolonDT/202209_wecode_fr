@@ -1,5 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import GlobalButton from '../../components/GlobalButton';
+import MultipleSingle from '../../components/Questions/MultipleSingle';
+import ShortDescription from '../../components/Questions/ShortDescription';
+import LongDescription from '../../components/Questions/LongDescription';
+import EmptyContainer from '../../components/Questions/EmptyContainer';
+import MultipleMultiple from '../../components/Questions/MultipleMultiple';
 import styled from 'styled-components';
 
 const SurveyEditor = () => {
@@ -7,10 +13,16 @@ const SurveyEditor = () => {
     <SurveyContainer>
       <SurveyPage>
         <TitleInput placeholder="제목 입력" />
-        <ActualQueryContainer>이곳을 클릭해서 추가하세요</ActualQueryContainer>
+        <EmptyContainer />
+        <MultipleSingle />
+        <MultipleMultiple />
+        <ShortDescription />
+        <LongDescription />
         <NextContainer>
-          <GlobalButton title="이전으로 가기" />
-          <GlobalButton title="다음으로 가기" />
+          <GlobalButton>
+            <Link to="/">이전으로 가기</Link>
+          </GlobalButton>
+          <GlobalButton>다음으로 가기</GlobalButton>
         </NextContainer>
       </SurveyPage>
     </SurveyContainer>
@@ -38,22 +50,13 @@ const SurveyPage = styled.div`
 const TitleInput = styled.input`
   font-size: ${props => props.theme.style.middleFont};
   font-family: 600;
+  width: 100%;
   padding: 15px 29px 8px;
-  margin-top: 15px;
-  margin-bottom: 22px;
-  text-align: left;
+  margin: 15px 0px 22px 0;
+  text-align: center;
   border: none;
   border-radius: 25px;
   outline: none;
-`;
-
-const ActualQueryContainer = styled.div`
-  padding: 18px 0 24px;
-  padding-bottom: 37px;
-  height: auto;
-  font-size: 16px;
-  line-height: 28px;
-  text-align: center;
 `;
 
 const NextContainer = styled.div`

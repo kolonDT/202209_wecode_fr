@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import OptionBox from '../../components/Option';
+import OptionBox from '../../components/OptionBox';
 import SurveyEditor from './SurveyEditor';
+import styled from 'styled-components';
 
 const Editor = () => {
   return (
