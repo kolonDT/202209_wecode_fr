@@ -9,7 +9,6 @@ const MultipleMultiple = () => {
         <MultiInput />
         <MultiInput />
         <MultiInput />
-        <MultiInput />
       </GlobalQuestion>
     </div>
   );

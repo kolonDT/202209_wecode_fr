@@ -7,9 +7,6 @@ const MultipleSingle = () => {
     <div>
       <GlobalQuestion>
         <MultiInput />
-        <MultiInput />
-        <MultiInput />
-        <MultiInput />
       </GlobalQuestion>
     </div>
   );

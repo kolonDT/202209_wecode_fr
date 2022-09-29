@@ -12,7 +12,7 @@ const Nav = () => {
         </NavLeft>
         <NavRight>
           <Li>
-            <Link to="/editor1">+ 새설문 작성</Link>
+            <Link to="/editor">+ 새설문 작성</Link>
           </Li>
           <Li>로그아웃</Li>
         </NavRight>

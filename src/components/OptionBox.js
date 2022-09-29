@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const OptionBox = ({ title, options }) => {
+const OptionBox = ({ title, options, setShowForm, showForm }) => {
+  const selectForm = idx => {
+    setShowForm(idx);
+  };
+
+  console.log(options);
+
   return (
     <Options>
       <OptionTitle>
@@ -9,7 +15,9 @@ const OptionBox = ({ title, options }) => {
         <OptionLine />
       </OptionTitle>
       {options.map((option, idx) => (
-        <Option key={idx}>{option}</Option>
+        <Option onClick={() => selectForm(idx)} key={idx}>
+          {option.title}
+        </Option>
       ))}
     </Options>
   );
@@ -43,7 +51,8 @@ const Options = styled.div`
   font-weight: 500;
 `;
 
-const Option = styled.div`
+const Option = styled.button`
+  display: block;
   padding: 15px 20px;
   font-size: 13px;
   margin-left: 30px;
