@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { formListState } from '../store/store';
 
 const OptionBox = ({ title, options, setShowForm, showForm }) => {
+  const setFormList = useSetRecoilState(formListState);
+
   const selectForm = idx => {
+    setFormList(prev => [
+      ...prev,
+      {
+        type: idx,
+      },
+    ]);
     setShowForm(idx);
   };
-
-  console.log(options);
 
   return (
     <Options>
@@ -15,7 +23,7 @@ const OptionBox = ({ title, options, setShowForm, showForm }) => {
         <OptionLine />
       </OptionTitle>
       {options.map((option, idx) => (
-        <Option onClick={() => selectForm(idx)} key={idx}>
+        <Option onClick={() => selectForm(idx + 1)} key={idx}>
           {option.title}
         </Option>
       ))}

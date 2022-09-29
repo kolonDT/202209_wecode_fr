@@ -1,17 +1,16 @@
 import React from 'react';
 import GlobalInput from '../GlobalInput';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { MdOutlineRemoveCircleOutline } from 'react-icons/md';
 
 const MultiInput = () => {
   return (
     <ChoicesContainer>
       <Choice>
-        <Icon>
-          <i className="uil uil-check-circle" />
-        </Icon>
+        <CheckCircle />
         <GlobalInput />
         <IconRight>
-          <i className="uil uil-plus-circle" />
+          <MdOutlineRemoveCircleOutline />
         </IconRight>
       </Choice>
     </ChoicesContainer>
@@ -24,6 +23,27 @@ const ChoicesContainer = styled.ul`
   margin-left: 50px;
   margin-right: 50px;
 `;
+const CheckCircle = styled.div`
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 18px;
+  border: 1px solid #ced4da;
+
+  cursor: pointer;
+  ${props =>
+    props.done &&
+    css`
+      border: 1px solid #38d9a9;
+      color: #38d9a9;
+    `}
+`;
+
 const Choice = styled.li`
   position: relative;
   padding: 15px 10px 4px 34px;
@@ -31,16 +51,10 @@ const Choice = styled.li`
   margin-top: 3px;
   line-height: 28px;
 `;
-
-const Icon = styled.span`
-  font-size: 20px;
-
-  &:hover {
-    color: green;
-  }
-`;
-
 const IconRight = styled.span`
+  position: absolute;
+  top: 18px;
+  right: 100px;
   font-size: 20px;
   margin-left: 100px;
 

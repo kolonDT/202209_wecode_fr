@@ -3,6 +3,7 @@ import Nav from './components/nav/Nav';
 import Editor from './pages/editor/Editor';
 import Main from './pages/main/Main';
 import Login from './pages/Login/Login';
+import Link from './pages/link/Link';
 
 const Router = () => {
   return (
@@ -12,6 +13,8 @@ const Router = () => {
         <Route path="/" element={<Main />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="/editor" element={<Editor />} />
+        {/* <Route path="/user:id" element={<User />} /> */}
+        <Route path="/link" element={<Link />} />
       </Routes>
     </BrowserRouter>
   );

@@ -7,23 +7,24 @@ import LongDescription from '../../components/Questions/LongDescription';
 import EmptyContainer from '../../components/Questions/EmptyContainer';
 import MultipleMultiple from '../../components/Questions/MultipleMultiple';
 import styled from 'styled-components';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { formListState } from '../../store/store';
 
-const SurveyEditor = ({ showForm }) => {
-  const [surveyContents, setSurveyContents] = useState([]);
+const SurveyEditor = ({ showForm, options }) => {
+  const [formList, setFormList] = useRecoilState(formListState);
 
   // const registerForm = e => {
   //   e.preventDefault();
   //   setSurveyContents([...surveyContents, surveyContents]);
   // };
-
+  console.log(formList);
   return (
     <SurveyContainer>
       <SurveyPage>
         <TitleInput placeholder="제목 입력" />
-        {showForm === 0 && <MultipleSingle />}
-        {showForm === 1 && <MultipleMultiple />}
-        {showForm === 2 && <ShortDescription />}
-        {showForm === 3 && <LongDescription />}
+        {formList.map((form, idx) => (
+          <RealSurvey key={idx}>{form.type}</RealSurvey>
+        ))}
         <NextContainer>
           <GlobalButton>
             <Link to="/">이전으로 가기</Link>
@@ -36,6 +37,8 @@ const SurveyEditor = ({ showForm }) => {
 };
 
 export default SurveyEditor;
+
+const RealSurvey = styled.div``;
 
 const SurveyContainer = styled.div`
   z-index: 1;

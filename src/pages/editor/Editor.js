@@ -8,12 +8,13 @@ import ShortDescription from '../../components/Questions/ShortDescription';
 import LongDescription from '../../components/Questions/LongDescription';
 
 const Editor = () => {
-  const [showForm, setShowForm] = useState(0);
+  const [formNum, setFormNum] = useState(0);
+
   const menuArr = [
-    { title: '객관식 단일 선택 ', contents: <MultipleSingle /> },
-    { title: '객관식 복수 선택 ', contents: <MultipleMultiple /> },
-    { title: '주관식 짧은 답변 선택 ', contents: <ShortDescription /> },
-    { title: '주관식 긴 단변 선택 ', contents: <LongDescription /> },
+    { id: 1, title: '객관식 단일 선택', contents: <MultipleSingle /> },
+    { id: 2, title: '객관식 복수 선택', contents: <MultipleMultiple /> },
+    { id: 3, title: '주관식 짧은 답변 선택', contents: <ShortDescription /> },
+    { id: 4, title: '주관식 긴 답변 선택', contents: <LongDescription /> },
   ];
 
   return (
@@ -23,13 +24,13 @@ const Editor = () => {
           <OptionBox
             title="선택 질문 항목"
             options={menuArr}
-            setShowForm={setShowForm}
-            showForm={showForm}
+            setShowForm={setFormNum}
+            showForm={formNum}
           />
         </OptionContainer>
       </SelectOption>
       <MakeSurvey>
-        <SurveyEditor showForm={showForm} />
+        <SurveyEditor showForm={formNum} options={menuArr} />
       </MakeSurvey>
     </Container>
   );

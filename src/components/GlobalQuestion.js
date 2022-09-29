@@ -1,8 +1,13 @@
 import React from 'react';
 import GlobalInput from './GlobalInput';
+import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { formListState } from '../store/store';
 
 const GlobalQuestion = ({ children }) => {
+  const [formList, setFormList] = useRecoilState(formListState);
+
   return (
     <Container>
       <QuesTionContainer>
@@ -11,7 +16,7 @@ const GlobalQuestion = ({ children }) => {
           <GlobalInput />
         </QuestionTitleInput>
         <Icon>
-          <i className="uil uil-trash-alt" />
+          <MdDelete className="uil uil-trash-alt" />
         </Icon>
       </QuesTionContainer>
       {children}
