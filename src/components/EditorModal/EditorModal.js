@@ -7,19 +7,32 @@ const EditorModal = () => {
   const [openLinkModal, setOpenLinkModal] = useState(false);
   const [text, setText] = useState(' ');
   const [form, setForm] = useState({});
-  // const [isCheckingBox, setIsCheckingBox] = useState([]);
+  // const [check, setCheck] = useState({});
+  const [check, setCheck] = useState({
+    duplicate: 0,
+    anonymous: 0,
+  });
   const adminToken = localStorage.getItem('token');
 
-  // const changeHandler = (checked, name) => {
-  //   if (checked) {
-  //     setIsCheckingBox([...isCheckingBox, name]);
-  //     console.log('1번 체크');
+  // const changeHandler = e => {
+  //   if (e.target.checked) {
+  //     setCheck(true);
   //   } else {
-  //     setIsCheckingBox(isCheckingBox.filter(el => el !== name));
-  //     console.log('2번 체크');
+  //     setCheck(false);
   //   }
   // };
 
+  const changeHandler = e => {
+    const { name, value } = e.target;
+    if (e.target.checked) {
+      setCheck({});
+    } else {
+      // setCheck(checked => 0);
+    }
+    setCheck({ ...check, [name]: value });
+  };
+
+  console.log(check);
   const landingPage = e => {
     setText(e.target.value);
   };
@@ -54,12 +67,22 @@ const EditorModal = () => {
             {/* 중복 체크 여부 */}
             <S.DuplicateAndAnonymous>
               <S.ModalText>중복 여부 체크</S.ModalText>
-              <S.Check type="checkbox" name="duplicate" />
+              <S.Check
+                type="checkbox"
+                name="duplicate"
+                value={check.duplicate}
+                onClick={changeHandler}
+              />
             </S.DuplicateAndAnonymous>
             {/* 익명 체크 여부 */}
             <S.DuplicateAndAnonymous>
               <S.ModalText>익명 여부 체크</S.ModalText>
-              <S.Check type="checkbox" name="anonymous" />
+              <S.Check
+                type="checkbox"
+                name="anonymous"
+                value={check.anonymous}
+                onClick={changeHandler}
+              />
             </S.DuplicateAndAnonymous>
             {/* 랜딩 페이지 설정 */}
             <S.LandingPage>
@@ -88,7 +111,6 @@ const EditorModal = () => {
     </S.Background>
   );
 };
-
 // 에디터 페이지에서
 
 // import EditorModal from '../../components/EditorModal/EditorModal';

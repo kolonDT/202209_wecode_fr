@@ -47,7 +47,7 @@ export const CheckBox = styled.div`
   justify-content: center;
 `;
 
-export const DuplicateAndAnonymous = styled.div`
+export const DuplicateAndAnonymous = styled.form`
   ${props => props.theme.variables.flex('row', 'space-evenly')};
   margin: 10px 20px 0 20px;
 `;

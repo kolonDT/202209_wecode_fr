@@ -1,23 +1,20 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import * as S from './MainModalStyle';
+import { MainModalTemplates } from './MainModalTemplates';
 
-const MainModal = () => {
-  const navigate = useNavigate();
-  const goToNewTemplate = () => {
-    navigate('/');
+const MainModal = ({ openModal, setOpenModal }) => {
+  const modalRef = useRef();
+
+  const modalClose = e => {
+    if (openModal && modalRef.current === e.target) {
+      setOpenModal(false);
+    }
   };
-  const goToCustomerOpinion = () => {
-    navigate('/');
-  };
-  const goToGuide = () => {
-    navigate('/');
-  };
-  const goToSatisfaction = () => {
-    navigate('/');
-  };
+
   return (
-    <S.Background>
+    <S.Background ref={modalRef} onClick={e => modalClose(e)}>
       <S.ModalSize>
         <S.Layout>
           <S.TitleBox>
@@ -26,25 +23,24 @@ const MainModal = () => {
           <S.TemplateSelect>
             <S.Template>
               {/* 새설문지 만들기 버튼*/}
-              <S.NewTemplateBox onClick={goToNewTemplate}>
-                <S.NewTemplate alt="img" src="/images/newTemplate.png" />
-                <S.NewTemplateTitle> 새 설문지 만들기 </S.NewTemplateTitle>
-              </S.NewTemplateBox>
-              {/* 고객 의견 템플릿 버튼 */}
-              <S.NewTemplateBox onClick={goToCustomerOpinion}>
-                <S.NewTemplate alt="imgs" src="/images/template.png" />
-                <S.NewTemplateTitle> 고객 의견 </S.NewTemplateTitle>
-              </S.NewTemplateBox>
-              {/* 행사 안내 템플릿 버튼 */}
-              <S.NewTemplateBox onClick={goToGuide}>
-                <S.NewTemplate alt="imgg" src="/images/template.png" />
-                <S.NewTemplateTitle> 행사 안내 </S.NewTemplateTitle>
-              </S.NewTemplateBox>
-              {/* 만족도 조사 템플릿 버튼 */}
-              <S.NewTemplateBox onClick={goToSatisfaction}>
-                <S.NewTemplate alt="imga" src="/images/template.png" />
-                <S.NewTemplateTitle> 만족도 조사 </S.NewTemplateTitle>
-              </S.NewTemplateBox>
+              <Link to="/editor">
+                <S.NewTemplateBox onClick={() => setOpenModal(false)}>
+                  <S.NewTemplate alt="img" src="/images/newTemplate.png" />
+                  <S.NewTemplateTitle> 새 설문지 만들기 </S.NewTemplateTitle>
+                </S.NewTemplateBox>
+              </Link>
+              {/* 기존 양식으로 만들기 버튼*/}
+              {MainModalTemplates.map(template => {
+                const { id, name, src } = template;
+                return (
+                  <Link key={id} to={`/editor/${id}`} state={{ name: id }}>
+                    <S.NewTemplateBox onClick={() => setOpenModal(false)}>
+                      <S.NewTemplate alt="img" src={src} />
+                      <S.NewTemplateTitle>{name} </S.NewTemplateTitle>
+                    </S.NewTemplateBox>
+                  </Link>
+                );
+              })}
             </S.Template>
           </S.TemplateSelect>
         </S.Layout>

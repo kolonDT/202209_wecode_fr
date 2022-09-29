@@ -1,18 +1,15 @@
 import React from 'react';
 import * as S from './LinkStyle';
-import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Link = () => {
-  const [text, setText] = useState('');
-  const onChange = e => {
-    setText(e.target.value);
-  };
+  const location = useLocation();
+  const surveyLink = location.state.surveyLink;
+  const name = location.state.name;
 
-  //링크 데이터 text로 받으면 됩니다
-
-  const handleCopyClipBoard = async text => {
+  const handleCopyClipBoard = async surveyLink => {
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(surveyLink);
       alert('복사 성공!');
     } catch (error) {
       alert('복사 실패!');
@@ -21,13 +18,13 @@ const Link = () => {
   return (
     <S.Layout>
       <S.DiscriptionBox>
-        <S.Title>칙칙 만족도 조사 링크</S.Title>
+        <S.Title>{name}</S.Title>
       </S.DiscriptionBox>
       <S.LinkBox>
         <S.LinkBoxDetail>
           <S.LinkGuide>아래 URL 링크를 배포하세요</S.LinkGuide>
-          <S.LinkInput value={text} onChange={onChange} />
-          <S.CopyButton onClick={() => handleCopyClipBoard(text)}>
+          <S.LinkInput value={surveyLink} readOnly />
+          <S.CopyButton onClick={() => handleCopyClipBoard(surveyLink)}>
             복사하기
           </S.CopyButton>
         </S.LinkBoxDetail>

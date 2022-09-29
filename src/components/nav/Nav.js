@@ -1,22 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import MainModal from '../MainModal/MainModal';
 
 const Nav = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
+  const goToMain = () => {
+    navigate('/main');
+  };
   return (
     <Container>
       <FlexContainer>
         <NavLeft>
-          <Logo>KODA</Logo>
+          <Logo onClick={goToMain}>KODA</Logo>
           <SubLogo>코오롱이 답하다</SubLogo>
         </NavLeft>
         <NavRight>
-          <Li>
-            <Link to="/editor1">+ 새설문 작성</Link>
-          </Li>
+          <Li onClick={() => setOpenModal(true)}>+ 새설문 작성</Li>
           <Li>로그아웃</Li>
         </NavRight>
       </FlexContainer>
+      {openModal === true && (
+        <MainModal openModal={openModal} setOpenModal={setOpenModal} />
+      )}
     </Container>
   );
 };
@@ -37,6 +45,7 @@ const Logo = styled.h1`
   position: fixed;
   left: ${props => props.theme.style.paddingSpace};
   z-index: 10000;
+  cursor: pointer;
 `;
 
 const SubLogo = styled.span`

@@ -7,6 +7,7 @@ export const Background = styled.div`
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 8;
 `;
 
 export const ModalSize = styled.div`
@@ -22,6 +23,7 @@ export const ModalSize = styled.div`
   &:hover {
     box-shadow: 0 0 10px rgb(50 50 50 / 30%);
   }
+  z-index: 10;
 `;
 
 export const Layout = styled.div`
