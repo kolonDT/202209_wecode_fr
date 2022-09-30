@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { formListState } from '../store/store';
+import { formListState, idState } from '../store/store';
 
 const OptionBox = ({ title, options, setShowForm, showForm }) => {
   const setFormList = useSetRecoilState(formListState);
+  const [plus, setPlus] = useRecoilState(idState);
+
+  const getSequentialNum = () => {
+    setPlus(prev => prev + 1);
+  };
 
   const selectForm = idx => {
+    getSequentialNum();
     setFormList(prev => [
       ...prev,
       {
         type: idx,
+        id: plus,
       },
     ]);
     setShowForm(idx);
@@ -65,4 +71,9 @@ const Option = styled.button`
   font-size: 13px;
   margin-left: 30px;
   cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    color: ${props => props.theme.style.mainLine};
+  }
 `;

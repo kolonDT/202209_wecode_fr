@@ -9,29 +9,48 @@ import MultipleMultiple from '../../components/Questions/MultipleMultiple';
 import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { formListState } from '../../store/store';
+import { FormProvider, useForm } from 'react-hook-form';
 
 const SurveyEditor = ({ showForm, options }) => {
   const [formList, setFormList] = useRecoilState(formListState);
+  const methods = useForm();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { errors },
+  // } = useForm({
+  //   mode: 'onBlur',
+  // });
+  console.log(methods);
 
-  // const registerForm = e => {
-  //   e.preventDefault();
-  //   setSurveyContents([...surveyContents, surveyContents]);
-  // };
-  console.log(formList);
+  const onSubmit = data => {
+    console.log(data);
+  };
+
   return (
     <SurveyContainer>
-      <SurveyPage>
-        <TitleInput placeholder="제목 입력" />
-        {formList.map((form, idx) => (
-          <RealSurvey key={idx}>{form.type}</RealSurvey>
-        ))}
-        <NextContainer>
-          <GlobalButton>
-            <Link to="/">이전으로 가기</Link>
-          </GlobalButton>
-          <GlobalButton>다음으로 가기</GlobalButton>
-        </NextContainer>
-      </SurveyPage>
+      <FormProvider {...methods}>
+        <SurveyPage onSubmit={methods.handleSubmit(onSubmit)}>
+          <TitleInput
+            placeholder="제목을 입력하세요"
+            {...methods.register('surveyTitle')}
+          />
+          {formList.length > 0 ? (
+            formList.map((form, idx) => (
+              <RealSurvey key={idx}>{QUESTION_ARRAY[form.type]}</RealSurvey>
+            ))
+          ) : (
+            <EmptyContainer />
+          )}
+          <NextContainer>
+            <GlobalButton>
+              <Link to="/">이전으로 가기</Link>
+            </GlobalButton>
+            <GlobalButton>다음으로 가기</GlobalButton>
+          </NextContainer>
+        </SurveyPage>
+      </FormProvider>
     </SurveyContainer>
   );
 };
@@ -45,7 +64,7 @@ const SurveyContainer = styled.div`
   padding: 5px 10px;
 `;
 
-const SurveyPage = styled.div`
+const SurveyPage = styled.form`
   position: relative;
   width: 770px;
   margin: 99px auto 95px;
@@ -78,3 +97,10 @@ const NextContainer = styled.div`
   -webkit-box-pack: end;
   -ms-flex-pack: end;
 `;
+
+const QUESTION_ARRAY = {
+  1: <MultipleSingle />,
+  2: <MultipleMultiple />,
+  3: <ShortDescription />,
+  4: <LongDescription />,
+};

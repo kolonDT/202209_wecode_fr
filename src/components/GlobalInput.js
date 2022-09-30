@@ -1,8 +1,12 @@
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 
 const GlobalInput = () => {
-  return <QuestionContent placeholder="제목 입력" />;
+  const { register } = useFormContext(); // retrieve all hook methods
+  return (
+    <QuestionContent placeholder="항목 입력" {...register('globalInput')} />
+  );
 };
 
 export default GlobalInput;

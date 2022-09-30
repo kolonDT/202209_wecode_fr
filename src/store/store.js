@@ -4,6 +4,11 @@ export const formListState = atom({
   key: 'form',
   default: [],
 });
+
+export const idState = atom({
+  key: 'id',
+  default: 0,
+});
 // export const todoListState = atom({
 //   key: 'todo',
 //   // 유니크한 키값 줘야함

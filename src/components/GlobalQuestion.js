@@ -2,20 +2,26 @@ import React from 'react';
 import GlobalInput from './GlobalInput';
 import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { formListState } from '../store/store';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { formListState, idState } from '../store/store';
+import { useFormContext } from 'react-hook-form';
 
 const GlobalQuestion = ({ children }) => {
   const [formList, setFormList] = useRecoilState(formListState);
+  const getId = useRecoilValue(idState);
+
+  const onRemove = id => {
+    setFormList(formList.filter(form => form.id !== id));
+  };
 
   return (
     <Container>
       <QuesTionContainer>
         <QuestionTitleInput>
-          <QuestionNum>1</QuestionNum>
+          <QuestionNum>{formList.map(form => form.id + 1)}</QuestionNum>
           <GlobalInput />
         </QuestionTitleInput>
-        <Icon>
+        <Icon onClick={() => onRemove(getId)}>
           <MdDelete className="uil uil-trash-alt" />
         </Icon>
       </QuesTionContainer>
@@ -48,6 +54,7 @@ const QuestionNum = styled.span`
   font-weight: 400;
   font-size: 20px;
   top: 2px;
+  left: 30px;
 `;
 
 const Icon = styled.div`

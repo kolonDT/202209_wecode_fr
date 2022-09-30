@@ -11,12 +11,12 @@ const Editor = () => {
   const [formNum, setFormNum] = useState(0);
 
   const menuArr = [
-    { id: 1, title: '객관식 단일 선택', contents: <MultipleSingle /> },
-    { id: 2, title: '객관식 복수 선택', contents: <MultipleMultiple /> },
-    { id: 3, title: '주관식 짧은 답변 선택', contents: <ShortDescription /> },
-    { id: 4, title: '주관식 긴 답변 선택', contents: <LongDescription /> },
+    { id: 1, title: '객관식 단일 선택' },
+    { id: 2, title: '객관식 복수 선택' },
+    { id: 3, title: '주관식 짧은 답변 선택' },
+    { id: 4, title: '주관식 긴 답변 선택' },
   ];
-
+  console.log('랜더링돼요');
   return (
     <Container>
       <SelectOption>
