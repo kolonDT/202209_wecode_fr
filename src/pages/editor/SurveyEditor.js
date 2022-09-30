@@ -7,7 +7,7 @@ import LongDescription from '../../components/Questions/LongDescription';
 import EmptyContainer from '../../components/Questions/EmptyContainer';
 import MultipleMultiple from '../../components/Questions/MultipleMultiple';
 import styled from 'styled-components';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { formListState } from '../../store/store';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -22,7 +22,6 @@ const SurveyEditor = ({ showForm, options }) => {
   // } = useForm({
   //   mode: 'onBlur',
   // });
-  console.log(methods);
 
   const onSubmit = data => {
     console.log(data);
@@ -38,7 +37,9 @@ const SurveyEditor = ({ showForm, options }) => {
           />
           {formList.length > 0 ? (
             formList.map((form, idx) => (
-              <RealSurvey key={idx}>{QUESTION_ARRAY[form.type]}</RealSurvey>
+              <RealSurvey key={idx}>
+                {QUESTION_ARRAY(idx + 1)[form.type]}
+              </RealSurvey>
             ))
           ) : (
             <EmptyContainer />
@@ -97,10 +98,18 @@ const NextContainer = styled.div`
   -webkit-box-pack: end;
   -ms-flex-pack: end;
 `;
+export const QUESTION_ARRAY_TYPE = {
+  multipleSingle: 1,
+  multipleMultiple: 2,
+  shortDescription: 3,
+  longDescription: 4,
+};
 
-const QUESTION_ARRAY = {
-  1: <MultipleSingle />,
-  2: <MultipleMultiple />,
-  3: <ShortDescription />,
-  4: <LongDescription />,
+const QUESTION_ARRAY = sortIndex => {
+  return {
+    1: <MultipleSingle sortIndex={sortIndex} />,
+    2: <MultipleMultiple sortIndex={sortIndex} />,
+    3: <ShortDescription sortIndex={sortIndex} />,
+    4: <LongDescription sortIndex={sortIndex} />,
+  };
 };

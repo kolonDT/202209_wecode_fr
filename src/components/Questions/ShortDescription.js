@@ -1,12 +1,15 @@
 import React from 'react';
+import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import ShortInput from '../Elements/ShortInput';
 import GlobalQuestion from '../GlobalQuestion';
 
-const ShortDescription = () => {
-  console.log('현재 제일 아래 컴포넌트 랜더링돼요');
+const ShortDescription = ({ sortIndex }) => {
   return (
     <div>
-      <GlobalQuestion>
+      <GlobalQuestion
+        sortIndex={sortIndex}
+        type={QUESTION_ARRAY_TYPE.shortDescription}
+      >
         <ShortInput />
       </GlobalQuestion>
     </div>

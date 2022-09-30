@@ -2,26 +2,26 @@ import React from 'react';
 import GlobalInput from './GlobalInput';
 import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { formListState, idState } from '../store/store';
-import { useFormContext } from 'react-hook-form';
 
-const GlobalQuestion = ({ children }) => {
+const GlobalQuestion = ({ children, sortIndex }) => {
   const [formList, setFormList] = useRecoilState(formListState);
-  const getId = useRecoilValue(idState);
+  const setPlus = useSetRecoilState(idState);
 
-  const onRemove = id => {
-    setFormList(formList.filter(form => form.id !== id));
+  const onRemove = sortIndex => {
+    setFormList(formList.filter(form => form.id !== sortIndex));
+    setPlus(prev => prev - 1);
   };
 
   return (
     <Container>
       <QuesTionContainer>
         <QuestionTitleInput>
-          <QuestionNum>{formList.map(form => form.id + 1)}</QuestionNum>
+          <QuestionNum>{sortIndex}</QuestionNum>
           <GlobalInput />
         </QuestionTitleInput>
-        <Icon onClick={() => onRemove(getId)}>
+        <Icon onClick={() => onRemove(sortIndex)}>
           <MdDelete className="uil uil-trash-alt" />
         </Icon>
       </QuesTionContainer>

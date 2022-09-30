@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { formListState, idState } from '../store/store';
@@ -6,17 +7,16 @@ const OptionBox = ({ title, options, setShowForm, showForm }) => {
   const setFormList = useSetRecoilState(formListState);
   const [plus, setPlus] = useRecoilState(idState);
 
-  const getSequentialNum = () => {
+  const getPlus = () => {
     setPlus(prev => prev + 1);
   };
-
   const selectForm = idx => {
-    getSequentialNum();
+    getPlus();
     setFormList(prev => [
       ...prev,
       {
+        id: plus + 1,
         type: idx,
-        id: plus,
       },
     ]);
     setShowForm(idx);

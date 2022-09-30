@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import OptionBox from '../../components/OptionBox';
 import SurveyEditor from './SurveyEditor';
 import styled from 'styled-components';
-import MultipleSingle from '../../components/Questions/MultipleSingle';
-import MultipleMultiple from '../../components/Questions/MultipleMultiple';
-import ShortDescription from '../../components/Questions/ShortDescription';
-import LongDescription from '../../components/Questions/LongDescription';
 
 const Editor = () => {
   const [formNum, setFormNum] = useState(0);
@@ -16,7 +12,7 @@ const Editor = () => {
     { id: 3, title: '주관식 짧은 답변 선택' },
     { id: 4, title: '주관식 긴 답변 선택' },
   ];
-  console.log('랜더링돼요');
+
   return (
     <Container>
       <SelectOption>

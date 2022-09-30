@@ -1,11 +1,18 @@
 import React from 'react';
 import GlobalQuestion from '../GlobalQuestion';
 import MultiInput from '../Elements/MultiInput';
+import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 
-const MultipleSingle = () => {
+const MultipleSingle = ({ sortIndex }) => {
   return (
     <div>
-      <GlobalQuestion>
+      <GlobalQuestion
+        sortIndex={sortIndex}
+        type={QUESTION_ARRAY_TYPE.multipleSingle}
+      >
+        <MultiInput />
+        <MultiInput />
+        <MultiInput />
         <MultiInput />
       </GlobalQuestion>
     </div>

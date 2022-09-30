@@ -2,8 +2,9 @@ import React from 'react';
 import GlobalQuestion from '../GlobalQuestion';
 import MultiInput from '../Elements/MultiInput';
 import { useFieldArray, useForm, useFormContext } from 'react-hook-form';
+import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 
-const MultipleMultiple = () => {
+const MultipleMultiple = ({ sortIndex }) => {
   const { control, register } = useFormContext(); // retrieve all hook methods
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
@@ -12,10 +13,12 @@ const MultipleMultiple = () => {
     }
   );
 
-  console.log(fields);
   return (
     <div>
-      <GlobalQuestion>
+      <GlobalQuestion
+        sortIndex={sortIndex}
+        type={QUESTION_ARRAY_TYPE.multipleMultiple}
+      >
         {/* {MULTI_LIST.map((question, idx) => (
           <MultiInput key={idx} question={question} />
         ))} */}
@@ -25,6 +28,10 @@ const MultipleMultiple = () => {
             {...register(`test.${index}.value`)}
           />
         ))}
+        <MultiInput />
+        <MultiInput />
+        <MultiInput />
+        <MultiInput />
       </GlobalQuestion>
     </div>
   );
