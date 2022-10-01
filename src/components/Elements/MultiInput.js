@@ -1,5 +1,4 @@
 import React from 'react';
-import GlobalInput from '../GlobalInput';
 import styled, { css } from 'styled-components';
 import { MdOutlineRemoveCircleOutline } from 'react-icons/md';
 
@@ -8,7 +7,7 @@ const MultiInput = () => {
     <ChoicesContainer>
       <Choice>
         <CheckCircle />
-        <GlobalInput />
+        <MultipleContent placeholder="항목 입력" />
         <IconRight>
           <MdOutlineRemoveCircleOutline />
         </IconRight>
@@ -42,6 +41,14 @@ const CheckCircle = styled.div`
       border: 1px solid #38d9a9;
       color: #38d9a9;
     `}
+`;
+
+const MultipleContent = styled.input`
+  padding-left: 15px;
+  font-size: ${props => props.theme.style.smallFont};
+  text-align: left;
+  border: none;
+  outline: none;
 `;
 
 const Choice = styled.li`

@@ -1,25 +1,31 @@
-import React from 'react';
-import GlobalInput from './GlobalInput';
+import React, { forwardRef } from 'react';
 import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { formListState, idState } from '../store/store';
+import { formListState, formNumState, keyState } from '../store/store';
+import { useFormContext } from 'react-hook-form';
 
 const GlobalQuestion = ({ children, sortIndex }) => {
   const [formList, setFormList] = useRecoilState(formListState);
-  const setPlus = useSetRecoilState(idState);
+  const { control, register } = useFormContext(); // retrieve all hook methods
+
+  //삭제 기능 제대로 다시 만들어야해요.. 우선 잠시 패쓰 지금 에러 천지
 
   const onRemove = sortIndex => {
-    setFormList(formList.filter(form => form.id !== sortIndex));
-    setPlus(prev => prev - 1);
+    setFormList(formList.formData.filter(form => form.id !== sortIndex));
   };
+
+  const { onChange } = register;
 
   return (
     <Container>
       <QuesTionContainer>
         <QuestionTitleInput>
           <QuestionNum>{sortIndex}</QuestionNum>
-          <GlobalInput />
+          <QuestionContent
+            placeholder={`${sortIndex}번 질문을 입력하세요`}
+            {...register('form')}
+          />
         </QuestionTitleInput>
         <Icon onClick={() => onRemove(sortIndex)}>
           <MdDelete className="uil uil-trash-alt" />
@@ -40,6 +46,14 @@ const Container = styled.div`
     cursor: pointer;
     background-color: rgba(33, 33, 33, 0.1);
   }
+`;
+
+const QuestionContent = styled.input`
+  padding-left: 15px;
+  font-size: ${props => props.theme.style.smallFont};
+  text-align: left;
+  border: none;
+  outline: none;
 `;
 
 const QuesTionContainer = styled.div`

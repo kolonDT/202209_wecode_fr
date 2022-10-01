@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import OptionBox from '../../components/OptionBox';
 import SurveyEditor from './SurveyEditor';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { formListState, formNumState } from '../../store/store';
+import { mock } from '../../mocks/mock';
 
 const Editor = () => {
-  const [formNum, setFormNum] = useState(0);
+  const [formNum, setFormNum] = useRecoilState(formNumState);
+  const [formList, setFormList] = useRecoilState(formListState);
 
   const menuArr = [
     { id: 1, title: '객관식 단일 선택' },
@@ -12,7 +16,6 @@ const Editor = () => {
     { id: 3, title: '주관식 짧은 답변 선택' },
     { id: 4, title: '주관식 긴 답변 선택' },
   ];
-
   return (
     <Container>
       <SelectOption>
@@ -20,13 +23,17 @@ const Editor = () => {
           <OptionBox
             title="선택 질문 항목"
             options={menuArr}
-            setShowForm={setFormNum}
-            showForm={formNum}
+            setFormNum={setFormNum}
+            formNum={formNum}
           />
         </OptionContainer>
       </SelectOption>
       <MakeSurvey>
-        <SurveyEditor showForm={formNum} options={menuArr} />
+        <SurveyEditor
+          formNum={formNum}
+          setFormNum={setFormNum}
+          options={menuArr}
+        />
       </MakeSurvey>
     </Container>
   );

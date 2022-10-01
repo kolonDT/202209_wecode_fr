@@ -2,12 +2,26 @@ import { atom, selector } from 'recoil';
 
 export const formListState = atom({
   key: 'form',
-  default: [],
+  default: {
+    surveyName: '설문조사',
+    formData: [],
+  },
 });
-export const idState = atom({
-  key: 'num',
+
+// export const optionState = atom({
+//   key: 'option',
+//   default: [],
+// });
+
+export const formNumState = atom({
+  key: 'key',
   default: 0,
 });
+
+// export const idState = atom({
+//   key: 'num',
+//   default: 0,
+// });
 
 // export const todoListState = atom({
 //   key: 'todo',

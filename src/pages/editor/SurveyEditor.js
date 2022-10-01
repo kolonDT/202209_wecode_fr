@@ -10,10 +10,37 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { formListState } from '../../store/store';
 import { FormProvider, useForm } from 'react-hook-form';
+import { type } from '@testing-library/user-event/dist/type';
 
-const SurveyEditor = ({ showForm, options }) => {
+const SurveyEditor = ({ options, formNum, setFormNum }) => {
   const [formList, setFormList] = useRecoilState(formListState);
-  const methods = useForm();
+
+  //삭제 기능을 위해 고유의 id 값을 가지고 있는 배열이 있어야함을 알게 됐다.
+
+  //이걸 하려면 목데이터로 정확하게 만들어놔야가능하다
+  // console.log(formList.formData);
+
+  // const [key, setKey] = useState(1);
+
+  // const [formListNum, setFormListNum] = useState(Object.keys(formList));
+
+  const methods = useForm({
+    reValidateMode: 'all',
+    mode: 'all',
+
+    defaultValues: {
+      surveyName: '목데이터 연습',
+      formData: [
+        {
+          id: '',
+          type: '',
+          question: '',
+          option: [],
+        },
+      ],
+    },
+  });
+
   // const {
   //   register,
   //   handleSubmit,
@@ -27,16 +54,31 @@ const SurveyEditor = ({ showForm, options }) => {
     console.log(data);
   };
 
+  const QUESTION_ARRAY = sortIndex => {
+    return {
+      1: (
+        <MultipleSingle
+          sortIndex={sortIndex}
+          label="multipleSingle"
+          placeholder="제목을 입력하세요"
+        />
+      ),
+      2: <MultipleMultiple sortIndex={sortIndex} label="multipleMultiple" />,
+      3: <ShortDescription sortIndex={sortIndex} label="shortDescription" />,
+      4: <LongDescription sortIndex={sortIndex} label="longDescription" />,
+    };
+  };
+
   return (
     <SurveyContainer>
       <FormProvider {...methods}>
         <SurveyPage onSubmit={methods.handleSubmit(onSubmit)}>
           <TitleInput
             placeholder="제목을 입력하세요"
-            {...methods.register('surveyTitle')}
+            {...methods.register('surveyName')}
           />
-          {formList.length > 0 ? (
-            formList.map((form, idx) => (
+          {formList.formData.length > 0 ? (
+            formList.formData.map((form, idx) => (
               <RealSurvey key={idx}>
                 {QUESTION_ARRAY(idx + 1)[form.type]}
               </RealSurvey>
@@ -44,6 +86,7 @@ const SurveyEditor = ({ showForm, options }) => {
           ) : (
             <EmptyContainer />
           )}
+
           <NextContainer>
             <GlobalButton>
               <Link to="/">이전으로 가기</Link>
@@ -103,13 +146,4 @@ export const QUESTION_ARRAY_TYPE = {
   multipleMultiple: 2,
   shortDescription: 3,
   longDescription: 4,
-};
-
-const QUESTION_ARRAY = sortIndex => {
-  return {
-    1: <MultipleSingle sortIndex={sortIndex} />,
-    2: <MultipleMultiple sortIndex={sortIndex} />,
-    3: <ShortDescription sortIndex={sortIndex} />,
-    4: <LongDescription sortIndex={sortIndex} />,
-  };
 };

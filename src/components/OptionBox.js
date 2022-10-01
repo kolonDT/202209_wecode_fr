@@ -1,25 +1,25 @@
 import React from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { formListState, idState } from '../store/store';
+import { formListState } from '../store/store';
 
-const OptionBox = ({ title, options, setShowForm, showForm }) => {
+const OptionBox = ({ title, options, formNum, setFormNum }) => {
   const setFormList = useSetRecoilState(formListState);
-  const [plus, setPlus] = useRecoilState(idState);
 
-  const getPlus = () => {
-    setPlus(prev => prev + 1);
-  };
-  const selectForm = idx => {
-    getPlus();
-    setFormList(prev => [
-      ...prev,
-      {
-        id: plus + 1,
-        type: idx,
-      },
-    ]);
-    setShowForm(idx);
+  const clickOption = idx => {
+    setFormNum(formNum + 1);
+    setFormList(prev => ({
+      surveyName: '설문조사',
+      formData: [
+        ...prev.formData,
+        {
+          id: formNum + 1,
+          type: idx,
+          question: '',
+          option: [],
+        },
+      ],
+    }));
   };
 
   return (
@@ -29,7 +29,7 @@ const OptionBox = ({ title, options, setShowForm, showForm }) => {
         <OptionLine />
       </OptionTitle>
       {options.map((option, idx) => (
-        <Option onClick={() => selectForm(idx + 1)} key={idx}>
+        <Option onClick={() => clickOption(idx + 1)} key={idx}>
           {option.title}
         </Option>
       ))}
