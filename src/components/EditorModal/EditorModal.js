@@ -4,35 +4,28 @@ import { API } from '../../config';
 import * as S from './EditorModalStyle';
 
 const EditorModal = () => {
+  // 링크 모달 State (에디터 모달 완료 후 링크 모달로 이동)
   const [openLinkModal, setOpenLinkModal] = useState(false);
+  // 랜딩페이지 URL State
   const [text, setText] = useState(' ');
+  // formData State
   const [form, setForm] = useState({});
-  // const [check, setCheck] = useState({});
+  // checkBox State
   const [check, setCheck] = useState({
-    duplicate: 0,
-    anonymous: 0,
+    duplicate: false,
+    anonymous: false,
   });
   const adminToken = localStorage.getItem('token');
 
-  // const changeHandler = e => {
-  //   if (e.target.checked) {
-  //     setCheck(true);
-  //   } else {
-  //     setCheck(false);
-  //   }
-  // };
-
   const changeHandler = e => {
-    const { name, value } = e.target;
+    const { name } = e.target;
     if (e.target.checked) {
-      setCheck({});
+      setCheck({ ...check, [name]: true });
     } else {
-      // setCheck(checked => 0);
+      setCheck({ ...check, [name]: false });
     }
-    setCheck({ ...check, [name]: value });
   };
 
-  console.log(check);
   const landingPage = e => {
     setText(e.target.value);
   };
@@ -48,8 +41,8 @@ const EditorModal = () => {
         surveyName: 'test122111',
         startDate: '2022-09-27',
         endDate: '2022-10-07',
-        anonymousAllow: 1,
-        duplicationAllow: 1,
+        anonymousAllow: check.anonymous,
+        duplicationAllow: check.duplicate,
         landingUrl: '{text}',
       }),
     })
@@ -70,7 +63,6 @@ const EditorModal = () => {
               <S.Check
                 type="checkbox"
                 name="duplicate"
-                value={check.duplicate}
                 onClick={changeHandler}
               />
             </S.DuplicateAndAnonymous>
@@ -80,7 +72,7 @@ const EditorModal = () => {
               <S.Check
                 type="checkbox"
                 name="anonymous"
-                value={check.anonymous}
+                // value={check.anonymous}
                 onClick={changeHandler}
               />
             </S.DuplicateAndAnonymous>

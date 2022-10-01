@@ -15,7 +15,7 @@ const Editor = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   const getData = async () => {
     if (!adminToken) {
@@ -28,10 +28,11 @@ const Editor = () => {
         },
       });
       const { formData } = res.data;
-      console.log('adfadf', formData);
       setForm(formData);
     }
   };
+
+  console.log(form);
 
   //form 으로 데이터 받아만 온 상태
   return (

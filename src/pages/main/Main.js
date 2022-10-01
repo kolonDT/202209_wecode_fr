@@ -1,4 +1,9 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import TemplateList from './TemplateList';
+import * as S from './MainStyle';
+import { API } from '../../config';
+import axios from 'axios';
 
 const Main = () => {
   const [searchParams, setSearchParams] = useSearchParams();
