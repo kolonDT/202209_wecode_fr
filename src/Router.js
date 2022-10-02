@@ -10,7 +10,7 @@ import UserSurvey from './pages/user/UserSurvey';
 const Router = () => {
   return (
     <BrowserRouter>
-      {/* <Nav /> */}
+      <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/admin/login" element={<Login />} />
