@@ -9,14 +9,14 @@ const OptionBox = ({ title, options, formNum, setFormNum }) => {
   const clickOption = idx => {
     setFormNum(formNum + 1);
     setFormList(prev => ({
-      surveyName: '설문조사',
+      surveyName: '',
       formData: [
         ...prev.formData,
         {
           id: formNum + 1,
           type: idx,
           question: '',
-          option: [],
+          options: [],
         },
       ],
     }));

@@ -3,28 +3,33 @@ import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { formListState, formNumState, keyState } from '../store/store';
-import { useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
-const GlobalQuestion = ({ children, sortIndex }) => {
+const GlobalQuestion = ({ children, sortIndex, name }) => {
   const [formList, setFormList] = useRecoilState(formListState);
-  const { control, register } = useFormContext(); // retrieve all hook methods
+  const methods = useFormContext(); // retrieve all hook methods
+
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
+    {
+      name: 'formData',
+    }
+  );
 
   //삭제 기능 제대로 다시 만들어야해요.. 우선 잠시 패쓰 지금 에러 천지
 
   const onRemove = sortIndex => {
     setFormList(formList.formData.filter(form => form.id !== sortIndex));
   };
-
-  const { onChange } = register;
-
   return (
     <Container>
       <QuesTionContainer>
         <QuestionTitleInput>
-          <QuestionNum>{sortIndex}</QuestionNum>
+          <QuestionNum {...methods.register(`formData[${sortIndex - 1}].id`)}>
+            {sortIndex}
+          </QuestionNum>
           <QuestionContent
             placeholder={`${sortIndex}번 질문을 입력하세요`}
-            {...register('form')}
+            {...methods.register(`formData[${sortIndex - 1}].question`)}
           />
         </QuestionTitleInput>
         <Icon onClick={() => onRemove(sortIndex)}>

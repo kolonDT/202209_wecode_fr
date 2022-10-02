@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import GlobalButton from '../../components/GlobalButton';
 import MultipleSingle from '../../components/Questions/MultipleSingle';
@@ -10,11 +10,14 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { formListState } from '../../store/store';
 import { FormProvider, useForm } from 'react-hook-form';
-import { type } from '@testing-library/user-event/dist/type';
+import { mock } from '../../mocks/mock';
 
 const SurveyEditor = ({ options, formNum, setFormNum }) => {
   const [formList, setFormList] = useRecoilState(formListState);
 
+  // const [formListIndex, setFormListIndex] = useState(
+  //   Object.keys(values.flights)
+  // );
   //삭제 기능을 위해 고유의 id 값을 가지고 있는 배열이 있어야함을 알게 됐다.
 
   //이걸 하려면 목데이터로 정확하게 만들어놔야가능하다
@@ -29,18 +32,17 @@ const SurveyEditor = ({ options, formNum, setFormNum }) => {
     mode: 'all',
 
     defaultValues: {
-      surveyName: '목데이터 연습',
+      surveyName: '',
       formData: [
         {
-          id: '',
+          id: 1,
           type: '',
           question: '',
-          option: [],
+          options: [],
         },
       ],
     },
   });
-
   // const {
   //   register,
   //   handleSubmit,
@@ -68,7 +70,7 @@ const SurveyEditor = ({ options, formNum, setFormNum }) => {
       4: <LongDescription sortIndex={sortIndex} label="longDescription" />,
     };
   };
-
+  console.log(formList);
   return (
     <SurveyContainer>
       <FormProvider {...methods}>
@@ -77,8 +79,8 @@ const SurveyEditor = ({ options, formNum, setFormNum }) => {
             placeholder="제목을 입력하세요"
             {...methods.register('surveyName')}
           />
-          {formList.formData.length > 0 ? (
-            formList.formData.map((form, idx) => (
+          {mock.formData.length > 0 ? (
+            mock.formData.map((form, idx) => (
               <RealSurvey key={idx}>
                 {QUESTION_ARRAY(idx + 1)[form.type]}
               </RealSurvey>

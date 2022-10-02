@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import GlobalQuestion from '../GlobalQuestion';
-import DescriptionInput from '../Elements/LongInput';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
 import { formListState } from '../../store/store';
@@ -15,16 +14,17 @@ const LongDescription = ({ sortIndex, onChange, onBlur, name, label }) => {
       <GlobalQuestion
         sortIndex={sortIndex}
         type={QUESTION_ARRAY_TYPE.longDescription}
-        register={register}
         name="formData.0.question"
       >
-        <DescriptionInput
-          register={register}
-          name="formData.0.questionAnswer"
-        />
+        <LongInput cols="60" rows="2" />;
       </GlobalQuestion>
     </div>
   );
 };
 
 export default LongDescription;
+
+const LongInput = styled.textarea`
+  margin: 20px 0 20px 100px;
+  outline: none;
+`;
