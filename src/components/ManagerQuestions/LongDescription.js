@@ -4,8 +4,13 @@ import GlobalQuestion from '../GlobalQuestion';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
 
-const LongDescription = ({ sortIndex, question, onRemove }) => {
-  const { register } = useFormContext(); // retrieve all hook methods
+const LongDescription = ({ sortIndex, question }) => {
+  const { register, errors } = useFormContext(); // retrieve all hook methods
+  // const validateQuestion = value => {
+  //   if (value.length < 2) {
+  //     return '질문을 입력해주세요';
+  //   }
+  //   return true;
 
   return (
     <div>
@@ -15,8 +20,18 @@ const LongDescription = ({ sortIndex, question, onRemove }) => {
         name="formData.0.question"
         question={question}
         register={register}
-        onRemove={onRemove}
+        // onRemove={onRemove}
+        errors={errors}
+
+        // ref={register({
+        //   required: '질문은 필ㅇㅇ수값입니다.',
+        //   validate: validateQuestion,
+        //   message: '질문은 필수값입니다',
+        // })}
       >
+        {/* {errors[formData.0.question].value === 'required' && (
+          <p className="errorMsg">Email is required.</p>
+        )} */}
         <LongInput cols="60" rows="2" disabled value="답변을 적어주세요" />
       </GlobalQuestion>
     </div>

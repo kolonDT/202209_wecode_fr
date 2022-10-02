@@ -13,9 +13,11 @@ const Editor = () => {
   const [formNum, setFormNum] = useRecoilState(formNumState);
   const [formList, setFormList] = useRecoilState(formListState);
   const [openEditorModal, setOpenEditorModal] = useRecoilState(openState);
+
   console.log(formNum);
   const adminToken = localStorage.getItem('token');
   const navigate = useNavigate();
+
   const location = useLocation();
   const id = location.state.name;
 

@@ -5,6 +5,7 @@ import Main from './pages/main/Main';
 import Login from './pages/Login/Login';
 import Link from './pages/link/Link';
 import UserSurvey from './pages/user/UserContainer';
+import Statistics from './pages/statistics/StatisticsPage';
 
 const Router = () => {
   return (
@@ -12,11 +13,13 @@ const Router = () => {
       <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/option" element={<Main />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="/link/:id" element={<Link />} />
-        <Route path="/main" element={<Main />} />
         <Route path="/editor/:id" element={<Editor />} />
         <Route path="/surveypage/1" element={<UserSurvey />} />
+        <Route path="/statistic/:id" element={<Statistics />} />
       </Routes>
     </BrowserRouter>
   );

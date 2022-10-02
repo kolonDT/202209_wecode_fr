@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const Background = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
+
 export const Layout = styled.div`
   width: 1190px;
   height: 100%;
@@ -121,7 +126,7 @@ export const PreButton = styled.button`
 export const NextButton = styled.button`
   width: 50px;
   height: 50px;
-  margin-left: 10px;
+  margin-left: 23px;
   border: none;
   color: #2087c9;
   background-color: #ffff;
@@ -130,6 +135,10 @@ export const NextButton = styled.button`
   :hover {
     opacity: 0.7;
   }
+`;
+
+export const Page = styled.div`
+  font-size: 30px;
 `;
 
 export const PageinationNum = styled.div`
@@ -141,4 +150,10 @@ export const PageinationNum = styled.div`
   :hover {
     opacity: 0.3;
   }
+`;
+
+export const Btn = styled.button`
+  width: 100px;
+  border: 1px solid black;
+  background-color: aliceblue;
 `;

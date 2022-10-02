@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Layout = styled.div`
+export const Layout = styled.button`
   width: 1190px;
   height: 100px;
   border: 1px solid black;
@@ -55,7 +55,6 @@ export const Period = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid black; */
 `;
 
 export const Buttons = styled.div`
@@ -89,7 +88,6 @@ export const ResultButton = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #2087c9;
-  /* background-color: #d64a22; */
   color: #ffffff;
   border: none;
   border-radius: 5.5px;
@@ -100,7 +98,7 @@ export const ResultButton = styled.div`
   }
 `;
 
-export const ModifyButton = styled.div`
+export const DeleteButton = styled.button`
   width: 80px;
   height: 50px;
   display: flex;
@@ -113,5 +111,11 @@ export const ModifyButton = styled.div`
   cursor: pointer;
   :hover {
     opacity: 0.7;
+  }
+  &:disabled {
+    background-color: #cccccc;
+    :hover {
+      opacity: 1;
+    }
   }
 `;

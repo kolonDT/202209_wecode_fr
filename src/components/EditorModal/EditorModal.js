@@ -11,11 +11,11 @@ const EditorModal = () => {
     register,
     formState: { isDirty, errors },
   } = useFormContext();
-
+  const [openLinkModal, setOpenLinkModal] = useState(false);
+  const setOpenEditorModal = useSetRecoilState(openState);
   // console.log('edim', errors);
   // console.log('edidm', isDirty);
   // 링크 모달 State (에디터 모달 완료 후 링크 모달로 이동)
-  const [openLinkModal, setOpenLinkModal] = useState(false);
   // 랜딩페이지 URL State
   const [text, setText] = useState(' ');
   // formData State
@@ -27,7 +27,14 @@ const EditorModal = () => {
   });
   const adminToken = localStorage.getItem('token');
 
-  const setOpenEditorModal = useSetRecoilState(openState);
+  // const changeHandler = e => {
+  //   const { name } = e.target;
+  //   if (e.target.checked) {
+  //     setCheck({ ...check, [name]: 1 });
+  //   } else {
+  //     setCheck({ ...check, [name]: 0 });
+  //   }
+  // };
 
   const getData = () => {
     fetch(`${API.EDITOR}`, {

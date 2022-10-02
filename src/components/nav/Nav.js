@@ -1,14 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import MainModal from '../MainModal/MainModal';
 
 const Nav = () => {
   const [openModal, setOpenModal] = useState(false);
-  const navigate = useNavigate();
   const goToMain = () => {
-    navigate('/main');
+    window.location.replace('/');
   };
   return (
     <Container>

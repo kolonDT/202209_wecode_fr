@@ -3,9 +3,17 @@ import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { formListState } from '../store/store';
-
-const GlobalQuestion = ({ register, children, sortIndex, type, onRemove }) => {
+import { useFormContext } from 'react-hook-form';
+const GlobalQuestion = ({ register, children, sortIndex, type, errors }) => {
   const [formList, setFormList] = useRecoilState(formListState);
+  // const {register, errors} = useFormContext;
+  console.log('error', errors);
+
+  const onRemove = sortIndex => {
+    setFormList(formList.formData.filter(form => form.id !== sortIndex));
+  };
+
+  // const { register } = useForm({ mode: 'onBlur' });
 
   return (
     <Container>
@@ -14,8 +22,18 @@ const GlobalQuestion = ({ register, children, sortIndex, type, onRemove }) => {
           <QuestionNum>{type !== 7 && sortIndex}</QuestionNum>
           <QuestionContent
             placeholder={`${sortIndex}번 질문을 입력하세요`}
-            {...register(`formData[${sortIndex - 1}].question`)}
+            {...register(`formData[${sortIndex - 1}].question`, {
+              required: '질문을 입력해주세요',
+              minLength: {
+                value: 3,
+                message: '3글자 이상 입력해주세요',
+              },
+              pattern: {
+                value: /^[A-za-z0-9가-힣]{3,10}$/,
+              },
+            })}
           />
+          {/* <p>{errors.`formData[${sortIndex - 1}].question`?.message}</p> */}
         </QuestionTitleInput>
         <Icon onClick={() => onRemove(sortIndex)}>
           <MdDelete className="uil uil-trash-alt" />

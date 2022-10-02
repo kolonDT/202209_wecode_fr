@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MultipleSingle from '../../components/ManagerQuestions/MultipleSingle';
 import ShortDescription from '../../components/ManagerQuestions/ShortDescription';
@@ -42,7 +42,7 @@ const SurveyEditor = ({
   //   fetch('http://localhost:3000/data/data.json')
   //     .then(res => res.json())
   //     .then(result => setFormList(result));
-  // }, [setFormList]);
+  // }, []);
 
   const methods = useForm();
   const {

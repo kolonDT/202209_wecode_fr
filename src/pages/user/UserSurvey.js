@@ -6,12 +6,12 @@ import LongDescription from '../../components/ManagerQuestions/LongDescription';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import MultipleSingle from '../../components/ManagerQuestions/MultipleSingle';
 import ShortDescription from '../../components/ManagerQuestions/ShortDescription';
-import Consent from '../../components/UsersQuestions/Consent';
+import Consent from '../../components/UsersQuestions/PrivacyConsent';
 import ImageShow from '../../components/UsersQuestions/ImageShow';
 import LongDes from '../../components/UsersQuestions/LongDes';
 import MultipleM from '../../components/UsersQuestions/MultipleM';
 import MultipleS from '../../components/UsersQuestions/MultipleS';
-import Phone from '../../components/UsersQuestions/Phone';
+import Phone from '../../components/UsersQuestions/PhoneInput';
 import ShortDes from '../../components/UsersQuestions/ShortDes';
 
 const UserSurvey = ({ form, userId, setSurvey, survey }) => {
