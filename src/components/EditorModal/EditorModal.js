@@ -4,21 +4,27 @@ import { API } from '../../config';
 import * as S from './EditorModalStyle';
 
 const EditorModal = () => {
+  // 링크 모달 State (에디터 모달 완료 후 링크 모달로 이동)
   const [openLinkModal, setOpenLinkModal] = useState(false);
+  // 랜딩페이지 URL State
   const [text, setText] = useState(' ');
+  // formData State
   const [form, setForm] = useState({});
-  // const [isCheckingBox, setIsCheckingBox] = useState([]);
+  // checkBox State
+  const [check, setCheck] = useState({
+    duplicate: false,
+    anonymous: false,
+  });
   const adminToken = localStorage.getItem('token');
 
-  // const changeHandler = (checked, name) => {
-  //   if (checked) {
-  //     setIsCheckingBox([...isCheckingBox, name]);
-  //     console.log('1번 체크');
-  //   } else {
-  //     setIsCheckingBox(isCheckingBox.filter(el => el !== name));
-  //     console.log('2번 체크');
-  //   }
-  // };
+  const changeHandler = e => {
+    const { name } = e.target;
+    if (e.target.checked) {
+      setCheck({ ...check, [name]: true });
+    } else {
+      setCheck({ ...check, [name]: false });
+    }
+  };
 
   const landingPage = e => {
     setText(e.target.value);
@@ -35,8 +41,8 @@ const EditorModal = () => {
         surveyName: 'test122111',
         startDate: '2022-09-27',
         endDate: '2022-10-07',
-        anonymousAllow: 1,
-        duplicationAllow: 1,
+        anonymousAllow: check.anonymous,
+        duplicationAllow: check.duplicate,
         landingUrl: '{text}',
       }),
     })
@@ -54,12 +60,21 @@ const EditorModal = () => {
             {/* 중복 체크 여부 */}
             <S.DuplicateAndAnonymous>
               <S.ModalText>중복 여부 체크</S.ModalText>
-              <S.Check type="checkbox" name="duplicate" />
+              <S.Check
+                type="checkbox"
+                name="duplicate"
+                onClick={changeHandler}
+              />
             </S.DuplicateAndAnonymous>
             {/* 익명 체크 여부 */}
             <S.DuplicateAndAnonymous>
               <S.ModalText>익명 여부 체크</S.ModalText>
-              <S.Check type="checkbox" name="anonymous" />
+              <S.Check
+                type="checkbox"
+                name="anonymous"
+                // value={check.anonymous}
+                onClick={changeHandler}
+              />
             </S.DuplicateAndAnonymous>
             {/* 랜딩 페이지 설정 */}
             <S.LandingPage>
@@ -88,7 +103,6 @@ const EditorModal = () => {
     </S.Background>
   );
 };
-
 // 에디터 페이지에서
 
 // import EditorModal from '../../components/EditorModal/EditorModal';

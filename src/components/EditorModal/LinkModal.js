@@ -4,10 +4,6 @@ import * as S from './LinkModalStyle';
 
 const LinkModal = ({ form }) => {
   const { surveyLink } = form;
-  // const [text, setText] = useState('');
-  // const onChange = e => {
-  //   setText(e.target.value);
-  // };
   const navigate = useNavigate();
   const goToMain = () => {
     navigate('/main');

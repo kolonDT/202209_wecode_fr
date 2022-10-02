@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
+import axios from 'axios';
 import OptionBox from '../../components/OptionBox';
 import SurveyEditor from './SurveyEditor';
+import { API } from '../../config';
 import styled from 'styled-components';
 
 const Editor = () => {
+  const [form, setForm] = useState({});
+  const adminToken = localStorage.getItem('token');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const id = location.state.name;
+
+  useEffect(() => {
+    getData();
+  });
+
+  const getData = async () => {
+    if (!adminToken) {
+      alert('로그아웃 되었습니다');
+      navigate('./admin/login');
+    } else {
+      const res = await axios.get(`${API.MAIN}/main/form/${id}`, {
+        headers: {
+          Authorization: adminToken,
+        },
+      });
+      const { formData } = res.data;
+      setForm(formData);
+    }
+  };
+
+  console.log(form);
+
+  //form 으로 데이터 받아만 온 상태
   return (
     <Container>
       <SelectOption>
