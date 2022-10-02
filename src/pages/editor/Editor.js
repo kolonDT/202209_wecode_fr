@@ -1,14 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
+import axios from 'axios';
 import OptionBox from '../../components/OptionBox';
 import SurveyEditor from './SurveyEditor';
+import { API } from '../../config';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { formListState, formNumState } from '../../store/store';
 import { mock } from '../../mocks/mock';
 
 const Editor = () => {
+  const [form, setForm] = useState({});
+  const adminToken = localStorage.getItem('token');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const id = location.state.name;
+
+  useEffect(() => {
+    getData();
+  });
+
   const [formNum, setFormNum] = useRecoilState(formNumState);
   const [formList, setFormList] = useRecoilState(formListState);
+
+  const getData = async () => {
+    if (!adminToken) {
+      alert('로그아웃 되었습니다');
+      navigate('./admin/login');
+    } else {
+      const res = await axios.get(`${API.MAIN}/main/form/${id}`, {
+        headers: {
+          Authorization: adminToken,
+        },
+      });
+      const { formData } = res.data;
+      setForm(formData);
+    }
+  };
 
   const menuArr = [
     { id: 1, title: '객관식 단일 선택' },
@@ -16,6 +44,7 @@ const Editor = () => {
     { id: 3, title: '주관식 짧은 답변 선택' },
     { id: 4, title: '주관식 긴 답변 선택' },
   ];
+
   return (
     <Container>
       <SelectOption>
