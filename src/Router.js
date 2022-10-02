@@ -4,7 +4,8 @@ import Editor from './pages/editor/Editor';
 import Main from './pages/main/Main';
 import Login from './pages/Login/Login';
 import Link from './pages/link/Link';
-import EditorModal from './components/EditorModal/EditorModal';
+
+import UserSurvey from './pages/user/UserSurvey';
 
 const Router = () => {
   return (
@@ -16,7 +17,7 @@ const Router = () => {
         <Route path="/link/:id" element={<Link />} />
         <Route path="/main" element={<Main />} />
         <Route path="/editor/:id" element={<Editor />} />
-        <Route path="/modal" element={<EditorModal />} />
+        <Route path="/surveypage/:id" element={<UserSurvey />} />
       </Routes>
     </BrowserRouter>
   );
