@@ -1,5 +1,33 @@
 import { atom, selector } from 'recoil';
 
+export const formListState = atom({
+  key: 'form',
+  default: {
+    surveyName: '설문조사',
+    formData: [],
+  },
+});
+
+// export const optionState = atom({
+//   key: 'option',
+//   default: [],
+// });
+
+export const formNumState = atom({
+  key: 'key',
+  default: 0,
+});
+
+export const openState = atom({
+  key: 'modal',
+  default: false,
+});
+
+// export const idState = atom({
+//   key: 'num',
+//   default: 0,
+// });
+
 // export const todoListState = atom({
 //   key: 'todo',
 //   // 유니크한 키값 줘야함

@@ -19,7 +19,7 @@ const Login = () => {
 
   const toLogin = e => {
     e.preventDefault();
-    fetch(`${API.LOGIN}/admin/login`, {
+    fetch(`${API.LOGIN}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

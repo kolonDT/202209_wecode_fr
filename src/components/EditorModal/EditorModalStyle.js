@@ -47,7 +47,7 @@ export const CheckBox = styled.div`
   justify-content: center;
 `;
 
-export const DuplicateAndAnonymous = styled.form`
+export const DuplicateAndAnonymous = styled.div`
   ${props => props.theme.variables.flex('row', 'space-evenly')};
   margin: 10px 20px 0 20px;
 `;
@@ -71,7 +71,8 @@ export const ButtonBox = styled.div`
 export const Button = styled.button`
   width: 80px;
   height: 50px;
-  background-color: #2087c9;
+  margin-left: 20px;
+  background-color: ${props => props.theme.style.mainBlue};
   opacity: 0.86;
   color: #ffffff;
   border: none;
@@ -79,7 +80,7 @@ export const Button = styled.button`
   font-size: ${props => props.theme.style.smallFont};
   font-weight: 500;
   cursor: pointer;
-  :hover {
+  &:hover {
     opacity: 1;
   }
 `;

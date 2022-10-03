@@ -1,9 +1,14 @@
 import { React, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
 import LinkModal from '../../components/EditorModal/LinkModal';
 import { API } from '../../config';
+import { openState } from '../../store/store';
 import * as S from './EditorModalStyle';
 
 const EditorModal = () => {
+  const methods = useFormContext();
+
   // 링크 모달 State (에디터 모달 완료 후 링크 모달로 이동)
   const [openLinkModal, setOpenLinkModal] = useState(false);
   // 랜딩페이지 URL State
@@ -17,18 +22,8 @@ const EditorModal = () => {
   });
   const adminToken = localStorage.getItem('token');
 
-  const changeHandler = e => {
-    const { name } = e.target;
-    if (e.target.checked) {
-      setCheck({ ...check, [name]: true });
-    } else {
-      setCheck({ ...check, [name]: false });
-    }
-  };
+  const setOpenEditorModal = useSetRecoilState(openState);
 
-  const landingPage = e => {
-    setText(e.target.value);
-  };
   const getData = () => {
     fetch(`${API.EDITOR}`, {
       method: 'POST',
@@ -43,7 +38,7 @@ const EditorModal = () => {
         endDate: '2022-10-07',
         anonymousAllow: check.anonymous,
         duplicationAllow: check.duplicate,
-        landingUrl: '{text}',
+        landingUrl: text,
       }),
     })
       .then(res => res.json())
@@ -62,8 +57,8 @@ const EditorModal = () => {
               <S.ModalText>중복 여부 체크</S.ModalText>
               <S.Check
                 type="checkbox"
-                name="duplicate"
-                onClick={changeHandler}
+                name="anonymousAllow"
+                {...methods.register(`anonymousAllow`)}
               />
             </S.DuplicateAndAnonymous>
             {/* 익명 체크 여부 */}
@@ -71,18 +66,18 @@ const EditorModal = () => {
               <S.ModalText>익명 여부 체크</S.ModalText>
               <S.Check
                 type="checkbox"
-                name="anonymous"
+                name="duplicationAllow"
+                {...methods.register(`duplicationAllow`)}
                 // value={check.anonymous}
-                onClick={changeHandler}
               />
             </S.DuplicateAndAnonymous>
             {/* 랜딩 페이지 설정 */}
             <S.LandingPage>
               <S.LandingText>참여 완료 후 랜딩 설정</S.LandingText>
               <S.LandingInput
-                value={text}
-                onChange={landingPage}
+                name="landingUrl"
                 placeholder=" 랜딩 페이지를 입력하세요."
+                {...methods.register(`landingUrl`)}
               />
             </S.LandingPage>
           </S.CheckBox>
@@ -91,10 +86,17 @@ const EditorModal = () => {
             <S.Button
               onClick={() => {
                 setOpenLinkModal(true);
-                getData();
               }}
+              type="submit"
             >
               완료
+            </S.Button>
+            <S.Button
+              onClick={() => {
+                setOpenEditorModal(false);
+              }}
+            >
+              취소
             </S.Button>
             {openLinkModal === true && <LinkModal form={form} />}
           </S.ButtonBox>
@@ -103,11 +105,5 @@ const EditorModal = () => {
     </S.Background>
   );
 };
-// 에디터 페이지에서
-
-// import EditorModal from '../../components/EditorModal/EditorModal';
-// 상단에 const [openEditorModal, SetOpenEditorModal] = useState(false);
-// 완료버튼에 onClick={() => SetOpenEditorModal(true)}
-// 아무 곳에나 {openEditorModal === true && <EditorModal />}
 
 export default EditorModal;

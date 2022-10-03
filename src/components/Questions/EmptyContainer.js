@@ -10,7 +10,7 @@ const EmptyContainer = () => {
 export default EmptyContainer;
 
 const ActualQueryContainer = styled.div`
-  padding: 18px 0 24px;
+  padding: 40px 0 24px;
   padding-bottom: 37px;
   height: auto;
   font-size: 16px;

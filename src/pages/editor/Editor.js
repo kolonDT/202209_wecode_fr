@@ -5,9 +5,15 @@ import OptionBox from '../../components/OptionBox';
 import SurveyEditor from './SurveyEditor';
 import { API } from '../../config';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { formListState, formNumState, openState } from '../../store/store';
 
 const Editor = () => {
-  const [form, setForm] = useState({});
+  const [totalForm, setTotalForm] = useState({});
+  const [formNum, setFormNum] = useRecoilState(formNumState);
+  const [formList, setFormList] = useRecoilState(formListState);
+  const [openEditorModal, setOpenEditorModal] = useRecoilState(openState);
+
   const adminToken = localStorage.getItem('token');
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,22 +34,40 @@ const Editor = () => {
         },
       });
       const { formData } = res.data;
-      setForm(formData);
+      setTotalForm(formData);
     }
   };
 
-  console.log(form);
+  const menuArr = [
+    { id: 1, title: '객관식 단일 선택' },
+    { id: 2, title: '객관식 복수 선택' },
+    { id: 3, title: '주관식 짧은 답변 선택' },
+    { id: 4, title: '주관식 긴 답변 선택' },
+    { id: 5, title: '이미지 업로드 선택' },
+    { id: 6, title: '핸드폰 번호 입력 선택' },
+    { id: 7, title: '개인 정보 동의 여부 선택' },
+  ];
 
-  //form 으로 데이터 받아만 온 상태
   return (
     <Container>
       <SelectOption>
-        <OpitionContainer>
-          <OptionBox title="선택 질문 항목" options={SELECT_CATEGORY} />
-        </OpitionContainer>
+        <OptionContainer>
+          <OptionBox
+            title="선택 질문 항목"
+            options={menuArr}
+            setFormNum={setFormNum}
+            formNum={formNum}
+          />
+        </OptionContainer>
       </SelectOption>
       <MakeSurvey>
-        <SurveyEditor />
+        <SurveyEditor
+          formNum={formNum}
+          setFormNum={setFormNum}
+          options={menuArr}
+          setOpenEditorModal={setOpenEditorModal}
+          openEditorModal={openEditorModal}
+        />
       </MakeSurvey>
     </Container>
   );
@@ -56,26 +80,20 @@ const Container = styled.div`
   width: 100vw;
   height: auto;
   margin: 0 auto;
-  border: 1px solid grey;
 `;
 
 const SelectOption = styled.div`
   flex: 1;
   background-color: #fff;
-  border-right: 1px solid black;
+  box-shadow: rgb(0 0 0 / 50%) 0px 0px 5px;
+  backdrop-filter: blur(30px);
+  min-height: 95vh;
 `;
 
 const MakeSurvey = styled.div`
   flex: 2.5;
 `;
 
-const OpitionContainer = styled.div`
+const OptionContainer = styled.div`
   padding: 10px;
 `;
-
-const SELECT_CATEGORY = [
-  '객관식 단일 선택',
-  '객관식 복수 선택',
-  '주관식 짧은 답변 선택',
-  '주관식 긴 답변 선택',
-];
