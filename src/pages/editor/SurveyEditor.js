@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import GlobalButton from '../../components/GlobalButton';
 import MultipleSingle from '../../components/Questions/MultipleSingle';
 import ShortDescription from '../../components/Questions/ShortDescription';
@@ -11,8 +12,17 @@ import { useRecoilState } from 'recoil';
 import { formListState } from '../../store/store';
 import { FormProvider, useForm } from 'react-hook-form';
 import { mock } from '../../mocks/mock';
+import EditorModal from '../../components/EditorModal/EditorModal';
+import ImageUpload from '../../components/Questions/ImageUpload';
+import PhoneInput from '../../components/Questions/PhoneInput';
 
-const SurveyEditor = ({ options, formNum, setFormNum }) => {
+const SurveyEditor = ({
+  options,
+  formNum,
+  setFormNum,
+  setOpenEditorModal,
+  openEditorModal,
+}) => {
   const [formList, setFormList] = useRecoilState(formListState);
 
   // const [formListIndex, setFormListIndex] = useState(
@@ -27,74 +37,105 @@ const SurveyEditor = ({ options, formNum, setFormNum }) => {
 
   // const [formListNum, setFormListNum] = useState(Object.keys(formList));
 
-  const methods = useForm({
-    reValidateMode: 'all',
-    mode: 'all',
-
-    defaultValues: {
-      surveyName: '',
-      formData: [
-        {
-          id: 1,
-          type: '',
-          question: '',
-          options: [],
-        },
-      ],
-    },
-  });
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   watch,
-  //   formState: { errors },
-  // } = useForm({
-  //   mode: 'onBlur',
-  // });
-
+  const methods = useForm();
+  const { register } = methods;
   const onSubmit = data => {
     console.log(data);
   };
+  // console.log(methods.formState.errors);
 
-  const QUESTION_ARRAY = sortIndex => {
+  const QUESTION_ARRAY = (sortIndex, ...args) => {
     return {
       1: (
         <MultipleSingle
           sortIndex={sortIndex}
           label="multipleSingle"
-          placeholder="제목을 입력하세요"
+          question={args[0]}
+          option={args[1]}
         />
       ),
-      2: <MultipleMultiple sortIndex={sortIndex} label="multipleMultiple" />,
-      3: <ShortDescription sortIndex={sortIndex} label="shortDescription" />,
-      4: <LongDescription sortIndex={sortIndex} label="longDescription" />,
+      2: (
+        <MultipleMultiple
+          sortIndex={sortIndex}
+          label="multipleMultiple"
+          question={args[0]}
+          option={args[1]}
+        />
+      ),
+      3: (
+        <ShortDescription
+          sortIndex={sortIndex}
+          label="shortDescription"
+          question={args[0]}
+        />
+      ),
+      4: (
+        <LongDescription
+          sortIndex={sortIndex}
+          label="longDescription"
+          question={args[0]}
+        />
+      ),
+      5: <ImageUpload />,
+      6: <PhoneInput />,
     };
   };
-  console.log(formList);
+
   return (
     <SurveyContainer>
       <FormProvider {...methods}>
         <SurveyPage onSubmit={methods.handleSubmit(onSubmit)}>
           <TitleInput
             placeholder="제목을 입력하세요"
-            {...methods.register('surveyName')}
+            {...register('surveyName')}
           />
-          {mock.formData.length > 0 ? (
-            mock.formData.map((form, idx) => (
-              <RealSurvey key={idx}>
-                {QUESTION_ARRAY(idx + 1)[form.type]}
-              </RealSurvey>
+          <InputContainer>
+            <DateP>시작 날짜</DateP>
+            {/* <DateInput
+              placeholder="ex)2022-09-19"
+              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...methods.register('startDate', {
+                required: 'this is a required',
+                maxLength: {
+                  value: 13,
+                  message: 'warning',
+                },
+              })}
+            />
+
+            <DateP>종료 날짜</DateP>
+            <DateInput
+              placeholder="ex)2022-10-19"
+              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...methods.register('endDate', {
+                required: 'this is a required',
+                maxLength: {
+                  value: 13,
+                  message: 'warning',
+                },
+              })}
+            /> */}
+          </InputContainer>
+
+          {formList.formData.length > 0 ? (
+            formList.formData.map((form, idx) => (
+              <div key={idx}>
+                {QUESTION_ARRAY(idx + 1, form.question, form.option)[form.type]}
+              </div>
             ))
           ) : (
             <EmptyContainer />
           )}
 
           <NextContainer>
-            <GlobalButton>
+            <Button>
               <Link to="/">이전으로 가기</Link>
-            </GlobalButton>
-            <GlobalButton>다음으로 가기</GlobalButton>
+            </Button>
+            <Button onClick={() => setOpenEditorModal(true)}>
+              다음으로 가기
+            </Button>
           </NextContainer>
+          {openEditorModal === true && <EditorModal />}
         </SurveyPage>
       </FormProvider>
     </SurveyContainer>
@@ -103,7 +144,38 @@ const SurveyEditor = ({ options, formNum, setFormNum }) => {
 
 export default SurveyEditor;
 
-const RealSurvey = styled.div``;
+const InputContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const DateP = styled.p`
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+`;
+
+// const DateInput = styled.input`
+//   margin-right: 30px;
+// `;
+
+const Button = styled.button`
+  margin-left: ${children => children.children === '...' || '30px'};
+  padding: ${children =>
+    children.children === '이전으로 가기' || '다음으로 가기' ? '5Px 10px' : 0};
+  color: #ffffff;
+  border-color: ${props => props.theme.style.mainBlue};
+  background-color: ${props => props.theme.style.mainBlue};
+  border-radius: 5.5px;
+  height: 50px;
+  position: ${children => children.children === '...' && 'absolute'};
+  opacity: 0.86;
+
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+`;
 
 const SurveyContainer = styled.div`
   z-index: 1;

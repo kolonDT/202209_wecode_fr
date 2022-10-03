@@ -6,7 +6,7 @@ import { useFormContext } from 'react-hook-form';
 import { formListState } from '../../store/store';
 import { useRecoilValue } from 'recoil';
 
-const LongDescription = ({ sortIndex, onChange, onBlur, name, label }) => {
+const LongDescription = ({ sortIndex, onChange, onBlur, question }) => {
   const { register } = useFormContext(); // retrieve all hook methods
 
   return (
@@ -15,6 +15,8 @@ const LongDescription = ({ sortIndex, onChange, onBlur, name, label }) => {
         sortIndex={sortIndex}
         type={QUESTION_ARRAY_TYPE.longDescription}
         name="formData.0.question"
+        question={question}
+        register={register}
       >
         <LongInput cols="60" rows="2" />;
       </GlobalQuestion>

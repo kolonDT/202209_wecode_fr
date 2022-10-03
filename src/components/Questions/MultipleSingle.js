@@ -1,33 +1,40 @@
 import React, { forwardRef } from 'react';
 import GlobalQuestion from '../GlobalQuestion';
-
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import styled, { css } from 'styled-components';
-import { MdOutlineRemoveCircleOutline } from 'react-icons/md';
+import {
+  MdOutlineAddCircleOutline,
+  MdOutlineRemoveCircleOutline,
+} from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 import { formListState } from '../../store/store';
 
-const MultipleSingle = ({ sortIndex, label }) => {
-  const { register } = useFormContext(); // retrieve all hook methods
+const MultipleSingle = ({ sortIndex, label, question, option }) => {
   const [formList, setFormList] = useRecoilState(formListState);
+  const { register, control } = useFormContext({
+    defaultValues: {},
+  }); // retrieve all hook methods
 
-  // const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
-  //   {
-  //     defaultValues: {
-  //       surveyName: '목데이터 연습',
-  //       formData: [
-  //         {
-  //           id: '',
-  //           type: '',
-  //           question: '',
-  //           options: [],
-  //         },
-  //       ],
-  //     }, // unique name for your Field Array
-  //   }
-  // );
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
+    {
+      control,
+      name: `formData[${sortIndex - 1}].option.0`, // unique name for your Field Array
+    }
+  );
 
+  console.log('fields', fields);
+
+  const addColorQuantity = e => {
+    e.preventDefault();
+    //여기서 에러
+    append({ option: '' });
+  };
+
+  const subColorQuanaity = idx => e => {
+    e.preventDefault();
+    remove(idx);
+  };
   // setFormList(prev => ({
   //   surveyName: '설문조사',
   //   formData: [
@@ -40,37 +47,53 @@ const MultipleSingle = ({ sortIndex, label }) => {
   //     },
   //   ],
   // }));
+  // {...register(`formData[${index}].option`)}
   return (
     <div>
-      {/* {fields.map((field, index) => (
-        <input
-          key={field.id} // important to include key with field's id
-          {...register(`test.${index}.value`)}
-        />
-      ))} */}
       <GlobalQuestion
         sortIndex={sortIndex}
         type={QUESTION_ARRAY_TYPE.multipleSingle}
-        name="formData.id"
+        register={register}
       >
-        <ChoicesContainer>
+        {fields.map((field, index) => (
+          <Input
+            key={field.id}
+            // {...register(
+            //   `formData[${sortIndex - 1}].option.0[${sortIndex - 1}]`
+            // )}
+          />
+        ))}
+        <Button onClick={addColorQuantity}>
+          <MdOutlineAddCircleOutline />
+        </Button>
+
+        {/* <ChoicesContainer>
           {OPTIONS.map((list, idx) => (
             <Choice key={idx}>
               <CheckCircle />
-              <MultipleContent placeholder={list} />
-              <IconRight>
+              <MultipleContent
+                placeholder={list}
+                {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
+              />
+              <Button name="add">
+                <MdOutlineAddCircleOutline />
+              </Button>
+              <Button name="minus">
                 <MdOutlineRemoveCircleOutline />
-              </IconRight>
+              </Button>
             </Choice>
           ))}
-        </ChoicesContainer>
+        </ChoicesContainer> */}
       </GlobalQuestion>
     </div>
   );
 };
 
 export default MultipleSingle;
-const OPTIONS = ['BMW', 'ZEEP', 'HOPE'];
+const OPTIONS = ['BMW', 'ZEEP', '싱글'];
+const Input = styled.input``;
+
+const ButtonTest = styled.button``;
 
 const ChoicesContainer = styled.ul`
   margin-left: 50px;
@@ -113,14 +136,15 @@ const Choice = styled.li`
   margin-top: 3px;
   line-height: 28px;
 `;
-const IconRight = styled.span`
+
+const Button = styled.span`
   position: absolute;
   top: 18px;
-  right: 100px;
+  right: ${props => (props.name === 'minus' ? '70px' : '100px')};
   font-size: 20px;
-  margin-left: 100px;
+  margin-left: 1000px;
 
   &:hover {
-    color: green;
+    color: ${props => (props.name === 'add' ? 'green' : 'red')};
   }
 `;

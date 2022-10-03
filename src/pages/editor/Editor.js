@@ -6,8 +6,9 @@ import SurveyEditor from './SurveyEditor';
 import { API } from '../../config';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { formListState, formNumState } from '../../store/store';
+import { formListState, formNumState, openState } from '../../store/store';
 import { mock } from '../../mocks/mock';
+import EditorModal from '../../components/EditorModal/EditorModal';
 
 const Editor = () => {
   const [form, setForm] = useState({});
@@ -22,6 +23,7 @@ const Editor = () => {
 
   const [formNum, setFormNum] = useRecoilState(formNumState);
   const [formList, setFormList] = useRecoilState(formListState);
+  const [openEditorModal, setOpenEditorModal] = useRecoilState(openState);
 
   const getData = async () => {
     if (!adminToken) {
@@ -43,6 +45,8 @@ const Editor = () => {
     { id: 2, title: '객관식 복수 선택' },
     { id: 3, title: '주관식 짧은 답변 선택' },
     { id: 4, title: '주관식 긴 답변 선택' },
+    { id: 5, title: '이미지 업로드 선택' },
+    { id: 6, title: '핸드폰 번호 입력 선택' },
   ];
 
   return (
@@ -62,6 +66,8 @@ const Editor = () => {
           formNum={formNum}
           setFormNum={setFormNum}
           options={menuArr}
+          setOpenEditorModal={setOpenEditorModal}
+          openEditorModal={openEditorModal}
         />
       </MakeSurvey>
     </Container>

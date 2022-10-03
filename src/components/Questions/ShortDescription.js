@@ -13,6 +13,7 @@ const ShortDescription = ({ sortIndex, onChange, onBlur, name, label }) => {
         sortIndex={sortIndex}
         type={QUESTION_ARRAY_TYPE.shortDescription}
         name="formData."
+        register={register}
       >
         <ShortInput cols="30" rows="2" />;
       </GlobalQuestion>

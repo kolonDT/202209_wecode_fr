@@ -5,31 +5,21 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { formListState, formNumState, keyState } from '../store/store';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-const GlobalQuestion = ({ children, sortIndex, name }) => {
+const GlobalQuestion = ({ register, children, sortIndex }) => {
   const [formList, setFormList] = useRecoilState(formListState);
-  const methods = useFormContext(); // retrieve all hook methods
-
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
-    {
-      name: 'formData',
-    }
-  );
-
-  //삭제 기능 제대로 다시 만들어야해요.. 우선 잠시 패쓰 지금 에러 천지
 
   const onRemove = sortIndex => {
     setFormList(formList.formData.filter(form => form.id !== sortIndex));
   };
+
   return (
     <Container>
       <QuesTionContainer>
         <QuestionTitleInput>
-          <QuestionNum {...methods.register(`formData[${sortIndex - 1}].id`)}>
-            {sortIndex}
-          </QuestionNum>
+          <QuestionNum>{sortIndex}</QuestionNum>
           <QuestionContent
             placeholder={`${sortIndex}번 질문을 입력하세요`}
-            {...methods.register(`formData[${sortIndex - 1}].question`)}
+            {...register(`formData[${sortIndex - 1}].question`)}
           />
         </QuestionTitleInput>
         <Icon onClick={() => onRemove(sortIndex)}>

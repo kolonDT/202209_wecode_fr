@@ -18,6 +18,11 @@ export const formNumState = atom({
   default: 0,
 });
 
+export const openState = atom({
+  key: 'modal',
+  default: false,
+});
+
 // export const idState = atom({
 //   key: 'num',
 //   default: 0,
