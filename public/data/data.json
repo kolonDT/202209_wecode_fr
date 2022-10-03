@@ -1,5 +1,5 @@
 {
-  "surveyNamer": "목데이터 연습",
+  "surveyName": "목데이터로 시도",
   "formData": [
     {
       "type": 4,
@@ -20,6 +20,13 @@
       "type": 2,
       "question": "나는 4번",
       "questionAnwser": "4번의 답"
+    },
+    {
+      "type": 3,
+      "question": "나는 5번",
+      "questionAnwser": "5번의 답"
     }
-  ]
+  ],
+  "startDate": "2022-10-19",
+  "endDate": "2022-10-29"
 }

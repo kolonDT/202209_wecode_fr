@@ -1,47 +1,114 @@
-import { React, useEffect, useState } from 'react';
-import { API } from '../../config';
-import * as S from './UserSurveyStyle';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import LongDescription from '../../components/ManagerQuestions/LongDescription';
+import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
+import MultipleSingle from '../../components/ManagerQuestions/MultipleSingle';
+import ShortDescription from '../../components/ManagerQuestions/ShortDescription';
+import Consent from '../../components/UsersQuestions/Consent';
+import ImageShow from '../../components/UsersQuestions/ImageShow';
+import LongDes from '../../components/UsersQuestions/LongDes';
+import MultipleM from '../../components/UsersQuestions/MultipleM';
+import MultipleS from '../../components/UsersQuestions/MultipleS';
+import Phone from '../../components/UsersQuestions/Phone';
+import ShortDes from '../../components/UsersQuestions/ShortDes';
 
-const UserSurveyStyle = () => {
-  const [form, setForm] = useState({}); // form 데이터 받는 State
-  const [survey, setSurvey] = useState({}); // form 데이터 이외의 State
-  const location = useLocation();
-  const url = location.pathname;
-  const id = url.substring(12);
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
-    const res = await axios.get(`${API.MAIN}/surveypage/${id}`);
-    const { result } = res.data;
-    const { formData, etc } = result;
-    setForm(formData);
-    setSurvey(etc);
-  };
-
-  const { name, duplication_allow, anonymous_allow, startDate, endDate } =
-    survey;
+const UserSurvey = ({ form, userId }) => {
+  console.log(form);
+  console.log(userId);
 
   return (
-    <S.Background>
-      <S.SurveyBox>
-        <S.Title>
-          참여도 조사
-          {/* {name} */}
-        </S.Title>
-        <S.Period>
-          참여 기간 : 2010.09.31-2014.09.32
-          {/* {startDate}-{endDate} */}
-        </S.Period>
-        <S.Survey />
-        {/* S.Survey는 서베이 형식 나오면 들어갈 자리 */}
-      </S.SurveyBox>
-    </S.Background>
+    <div>
+      {form?.formData?.map((el, idx) => (
+        <div key={idx}>
+          {QUESTION_ARRAY(idx + 1, el.question, el.option)[el.type]}
+        </div>
+      ))}
+      <Button>완료</Button>
+    </div>
   );
 };
 
-export default UserSurveyStyle;
+export default UserSurvey;
+
+const Button = styled.button`
+  display: block;
+  margin-left: 85%;
+  margin-bottom: 30px;
+  padding: ${children =>
+    children.children === '이전으로 가기' || '다음으로 가기' ? '5Px 20px' : 0};
+  color: #ffffff;
+  border-color: ${props => props.theme.style.mainBlue};
+  background-color: ${props => props.theme.style.mainBlue};
+  border-radius: 5.5px;
+  height: 50px;
+  position: ${children => children.children === '...' && 'absolute'};
+  opacity: 0.86;
+
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+// {formList.formData.length > 0 ? (
+//             formList.formData.map((form, idx) => (
+//               <div key={idx}>
+//                 {QUESTION_ARRAY(idx + 1, form.question, form.option)[form.type]}
+//               </div>
+//             ))
+//           ) : (
+//             <EmptyContainer />
+//           )}
+
+//           <NextContainer>
+//             <Button>
+//               <Link to="/">이전으로 가기</Link>
+//             </Button>
+//             <Button onClick={() => setOpenEditorModal(true)}>
+//               다음으로 가기
+//             </Button>
+//           </NextContainer>
+//           {openEditorModal === true && <EditorModal />}
+//         </SurveyPage>
+//       </FormProvider>
+//     </SurveyContainer>
+//   );
+// };
+
+const QUESTION_ARRAY = (sortIndex, ...args) => {
+  return {
+    1: (
+      <MultipleS
+        sortIndex={sortIndex}
+        label="multipleSingle"
+        question={args[0]}
+        option={args[1]}
+      />
+    ),
+    2: (
+      <MultipleM
+        sortIndex={sortIndex}
+        label="multipleMultiple"
+        question={args[0]}
+        option={args[1]}
+      />
+    ),
+    3: (
+      <ShortDes
+        sortIndex={sortIndex}
+        label="shortDescription"
+        question={args[0]}
+      />
+    ),
+    4: (
+      <LongDes
+        sortIndex={sortIndex}
+        label="longDescription"
+        question={args[0]}
+      />
+    ),
+    5: <ImageShow />,
+    6: <Phone />,
+    7: <Consent />,
+  };
+};

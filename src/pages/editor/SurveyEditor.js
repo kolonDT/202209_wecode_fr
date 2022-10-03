@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import MultipleSingle from '../../components/Questions/MultipleSingle';
-import ShortDescription from '../../components/Questions/ShortDescription';
-import LongDescription from '../../components/Questions/LongDescription';
-import EmptyContainer from '../../components/Questions/EmptyContainer';
-import MultipleMultiple from '../../components/Questions/MultipleMultiple';
+import MultipleSingle from '../../components/ManagerQuestions/MultipleSingle';
+import ShortDescription from '../../components/ManagerQuestions/ShortDescription';
+import LongDescription from '../../components/ManagerQuestions/LongDescription';
+import EmptyContainer from '../../components/ManagerQuestions/EmptyContainer';
+import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { formListState } from '../../store/store';
 import { FormProvider, useForm } from 'react-hook-form';
 import EditorModal from '../../components/EditorModal/EditorModal';
-import ImageUpload from '../../components/Questions/ImageUpload';
-import PhoneInput from '../../components/Questions/PhoneInput';
-import PrivacyConsent from '../../components/Questions/PrivacyConsent';
+import ImageUpload from '../../components/ManagerQuestions/ImageUpload';
+import PhoneInput from '../../components/ManagerQuestions/PhoneInput';
+import PrivacyConsent from '../../components/ManagerQuestions/PrivacyConsent';
 import { API } from '../../config';
 
 const SurveyEditor = ({
