@@ -24,10 +24,7 @@ const OptionBox = ({ title, options, formNum, setFormNum }) => {
 
   return (
     <Options>
-      <OptionTitle>
-        {title}
-        <OptionLine />
-      </OptionTitle>
+      <OptionTitle>{title}</OptionTitle>
       {options.map((option, idx) => (
         <Option onClick={() => clickOption(idx + 1)} key={idx}>
           {option.title}
@@ -47,22 +44,12 @@ const OptionTitle = styled.div`
   color: #999;
   background-color: #fff;
 `;
-const OptionLine = styled.span`
-  content: '';
-  display: block;
-  width: 100%;
-  height: 1px;
-  background: #ccc;
-  position: absolute;
-  top: -5px;
-  left: 0;
-  right: 0;
-`;
 
 const Options = styled.div`
   padding-top: 20px;
   font-size: ${props => props.theme.style.middleFont};
   font-weight: 500;
+  height: 100%;
 `;
 
 const Option = styled.button`

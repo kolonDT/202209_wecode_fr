@@ -1,9 +1,8 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { formListState, formNumState, keyState } from '../store/store';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
+import { formListState } from '../store/store';
 
 const GlobalQuestion = ({ register, children, sortIndex }) => {
   const [formList, setFormList] = useRecoilState(formListState);
@@ -39,7 +38,7 @@ const Container = styled.div`
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(33, 33, 33, 0.1);
+    background-color: rgba(33, 33, 33, 0.05);
   }
 `;
 
@@ -49,6 +48,11 @@ const QuestionContent = styled.input`
   text-align: left;
   border: none;
   outline: none;
+
+  ${Container}:hover & {
+    background-color: rgba(33, 33, 33, 0.01);
+    cursor: pointer;
+  }
 `;
 
 const QuesTionContainer = styled.div`
@@ -64,6 +68,7 @@ const QuestionNum = styled.span`
   font-size: 20px;
   top: 2px;
   left: 30px;
+  color: rgba(33, 33, 33, 0.5);
 `;
 
 const Icon = styled.div`

@@ -1,53 +1,19 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import GlobalQuestion from '../GlobalQuestion';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
-import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
-import styled, { css } from 'styled-components';
+import { useFormContext } from 'react-hook-form';
 import {
   MdOutlineAddCircleOutline,
   MdOutlineRemoveCircleOutline,
 } from 'react-icons/md';
-import { useRecoilState } from 'recoil';
-import { formListState } from '../../store/store';
+import styled, { css } from 'styled-components';
 
 const MultipleSingle = ({ sortIndex, label, question, option }) => {
-  const [formList, setFormList] = useRecoilState(formListState);
-  const { register, control } = useFormContext({
+  const { register } = useFormContext({
     defaultValues: {},
-  }); // retrieve all hook methods
+  });
 
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
-    {
-      control,
-      name: `formData[${sortIndex - 1}].option.0`, // unique name for your Field Array
-    }
-  );
-
-  console.log('fields', fields);
-
-  const addColorQuantity = e => {
-    e.preventDefault();
-    //여기서 에러
-    append({ option: '' });
-  };
-
-  const subColorQuanaity = idx => e => {
-    e.preventDefault();
-    remove(idx);
-  };
-  // setFormList(prev => ({
-  //   surveyName: '설문조사',
-  //   formData: [
-  //     ...prev.formData,
-  //     {
-  //       id: formNum + 1,
-  //       type: idx,
-  //       question: '',
-  //       options: [],
-  //     },
-  //   ],
-  // }));
-  // {...register(`formData[${index}].option`)}
+  // c
   return (
     <div>
       <GlobalQuestion
@@ -55,19 +21,7 @@ const MultipleSingle = ({ sortIndex, label, question, option }) => {
         type={QUESTION_ARRAY_TYPE.multipleSingle}
         register={register}
       >
-        {fields.map((field, index) => (
-          <Input
-            key={field.id}
-            // {...register(
-            //   `formData[${sortIndex - 1}].option.0[${sortIndex - 1}]`
-            // )}
-          />
-        ))}
-        <Button onClick={addColorQuantity}>
-          <MdOutlineAddCircleOutline />
-        </Button>
-
-        {/* <ChoicesContainer>
+        <ChoicesContainer>
           {OPTIONS.map((list, idx) => (
             <Choice key={idx}>
               <CheckCircle />
@@ -83,17 +37,14 @@ const MultipleSingle = ({ sortIndex, label, question, option }) => {
               </Button>
             </Choice>
           ))}
-        </ChoicesContainer> */}
+        </ChoicesContainer>
       </GlobalQuestion>
     </div>
   );
 };
 
 export default MultipleSingle;
-const OPTIONS = ['BMW', 'ZEEP', '싱글'];
-const Input = styled.input``;
-
-const ButtonTest = styled.button``;
+const OPTIONS = ['BMW', 'ZEEP', '싱글', '농구'];
 
 const ChoicesContainer = styled.ul`
   margin-left: 50px;

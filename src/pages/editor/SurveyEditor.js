@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import GlobalButton from '../../components/GlobalButton';
 import MultipleSingle from '../../components/Questions/MultipleSingle';
 import ShortDescription from '../../components/Questions/ShortDescription';
 import LongDescription from '../../components/Questions/LongDescription';
 import EmptyContainer from '../../components/Questions/EmptyContainer';
 import MultipleMultiple from '../../components/Questions/MultipleMultiple';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { formListState } from '../../store/store';
 import { FormProvider, useForm } from 'react-hook-form';
-import { mock } from '../../mocks/mock';
 import EditorModal from '../../components/EditorModal/EditorModal';
 import ImageUpload from '../../components/Questions/ImageUpload';
 import PhoneInput from '../../components/Questions/PhoneInput';
+import PrivacyConsent from '../../components/Questions/PrivacyConsent';
+import { API } from '../../config';
 
 const SurveyEditor = ({
   options,
@@ -23,7 +22,7 @@ const SurveyEditor = ({
   setOpenEditorModal,
   openEditorModal,
 }) => {
-  const [formList, setFormList] = useRecoilState(formListState);
+  const formList = useRecoilValue(formListState);
 
   // const [formListIndex, setFormListIndex] = useState(
   //   Object.keys(values.flights)
@@ -37,12 +36,14 @@ const SurveyEditor = ({
 
   // const [formListNum, setFormListNum] = useState(Object.keys(formList));
 
+  // useEffect(() => {
+  //   fetch('http://localhost:3000/data/data.json')
+  //     .then(res => res.json())
+  //     .then(result => setFormList(result));
+  // }, [setFormList]);
+
   const methods = useForm();
   const { register } = methods;
-  const onSubmit = data => {
-    console.log(data);
-  };
-  // console.log(methods.formState.errors);
 
   const QUESTION_ARRAY = (sortIndex, ...args) => {
     return {
@@ -78,9 +79,24 @@ const SurveyEditor = ({
       ),
       5: <ImageUpload />,
       6: <PhoneInput />,
+      7: <PrivacyConsent />,
     };
   };
 
+  const adminToken = localStorage.getItem('token');
+  const onSubmit = data => {
+    fetch(`${API.EDITOR}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: adminToken,
+      },
+      body: data,
+    })
+      .then(res => res.json())
+      .then(result => console.log(result));
+  };
+  // console.log(methods.formState.errors);
   return (
     <SurveyContainer>
       <FormProvider {...methods}>
@@ -91,7 +107,7 @@ const SurveyEditor = ({
           />
           <InputContainer>
             <DateP>시작 날짜</DateP>
-            {/* <DateInput
+            <DateInput
               placeholder="ex)2022-09-19"
               pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
               {...methods.register('startDate', {
@@ -114,7 +130,7 @@ const SurveyEditor = ({
                   message: 'warning',
                 },
               })}
-            /> */}
+            />
           </InputContainer>
 
           {formList.formData.length > 0 ? (
@@ -153,11 +169,15 @@ const DateP = styled.p`
   margin-right: 5px;
   display: flex;
   align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
-// const DateInput = styled.input`
-//   margin-right: 30px;
-// `;
+const DateInput = styled.input`
+  margin-right: 30px;
+`;
 
 const Button = styled.button`
   margin-left: ${children => children.children === '...' || '30px'};

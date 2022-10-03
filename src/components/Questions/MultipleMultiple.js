@@ -1,18 +1,16 @@
 import React from 'react';
 import GlobalQuestion from '../GlobalQuestion';
-import { useFieldArray, useForm, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
-import { forwardRef } from 'react';
-import { MdOutlineRemoveCircleOutline } from 'react-icons/md';
+
+import {
+  MdOutlineAddCircleOutline,
+  MdOutlineRemoveCircleOutline,
+} from 'react-icons/md';
 import styled, { css } from 'styled-components';
 
 const MultipleMultiple = ({ sortIndex, onChange, onBlur, name, label }) => {
-  const { control, register } = useFormContext(); // retrieve all hook methods
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
-    {
-      name: 'test', // unique name for your Field Array
-    }
-  );
+  const { register } = useFormContext(); // retrieve all hook methods
 
   return (
     <div>
@@ -21,24 +19,20 @@ const MultipleMultiple = ({ sortIndex, onChange, onBlur, name, label }) => {
         type={QUESTION_ARRAY_TYPE.multipleMultiple}
         register={register}
       >
-        {/* {MULTI_LIST.map((question, idx) => (
-          <MultiInput key={idx} question={question} />
-        ))} */}
-        {/* {fields.map((field, index) => (
-          <input
-            key={field.id} // important to include key with field's id
-            {...register(`test.${index}.value`)}
-          />
-        ))} */}
-
         <ChoicesContainer>
           {MULTI_LISTS.map((list, idx) => (
             <Choice key={idx}>
               <CheckCircle />
-              <MultipleContent placeholder="항목 입력" />
-              <IconRight>
+              <MultipleContent
+                placeholder="항목 입력"
+                {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
+              />
+              <Button name="add">
+                <MdOutlineAddCircleOutline />
+              </Button>
+              <Button name="minus">
                 <MdOutlineRemoveCircleOutline />
-              </IconRight>
+              </Button>
             </Choice>
           ))}
         </ChoicesContainer>
@@ -91,14 +85,14 @@ const Choice = styled.li`
   margin-top: 3px;
   line-height: 28px;
 `;
-const IconRight = styled.span`
+const Button = styled.span`
   position: absolute;
   top: 18px;
-  right: 100px;
+  right: ${props => (props.name === 'minus' ? '70px' : '100px')};
   font-size: 20px;
-  margin-left: 100px;
+  margin-left: 1000px;
 
   &:hover {
-    color: green;
+    color: ${props => (props.name === 'add' ? 'green' : 'red')};
   }
 `;
