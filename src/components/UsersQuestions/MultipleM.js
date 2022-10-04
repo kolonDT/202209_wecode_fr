@@ -1,56 +1,41 @@
 import React from 'react';
 import GlobalQuestion from '../GlobalQuestion';
-import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
-import {
-  MdOutlineAddCircleOutline,
-  MdOutlineRemoveCircleOutline,
-} from 'react-icons/md';
+import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
+
 import styled, { css } from 'styled-components';
+import UserQuestion from '../UserQuestion';
 
-const MultipleSingle = ({ sortIndex, label, question, option }) => {
-  const { register } = useFormContext({
-    defaultValues: {},
-  });
-
-  // c
+const MultipleM = ({ sortIndex, question, option }) => {
+  // const { register } = useFormContext();
+  console.log(option);
   return (
     <div>
-      <GlobalQuestion
+      <UserQuestion
         sortIndex={sortIndex}
-        type={QUESTION_ARRAY_TYPE.multipleSingle}
-        register={register}
+        type={QUESTION_ARRAY_TYPE.multipleMultiple}
+        question={question}
       >
         <ChoicesContainer>
-          {OPTIONS.map((list, idx) => (
+          {option.map((list, idx) => (
             <Choice key={idx}>
               <CheckCircle />
-              <MultipleContent
-                placeholder={list}
-                {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
-              />
-              <Button name="add">
-                <MdOutlineAddCircleOutline />
-              </Button>
-              <Button name="minus">
-                <MdOutlineRemoveCircleOutline />
-              </Button>
+              <MultipleContent value={list} />
             </Choice>
           ))}
         </ChoicesContainer>
-      </GlobalQuestion>
+      </UserQuestion>
     </div>
   );
 };
 
-export default MultipleSingle;
-const OPTIONS = ['BMW', 'ZEEP', '싱글', '농구'];
+export default MultipleM;
+
+const MULTI_LISTS = ['BMW', 'ZEEP', 'HOPE'];
 
 const ChoicesContainer = styled.ul`
   margin-left: 50px;
-  margin-right: 50px;
 `;
-
 const CheckCircle = styled.div`
   position: absolute;
   top: 18px;
@@ -73,6 +58,7 @@ const CheckCircle = styled.div`
 `;
 
 const MultipleContent = styled.input`
+  display: flex;
   padding-left: 15px;
   font-size: ${props => props.theme.style.smallFont};
   text-align: left;
@@ -87,7 +73,6 @@ const Choice = styled.li`
   margin-top: 3px;
   line-height: 28px;
 `;
-
 const Button = styled.span`
   position: absolute;
   top: 18px;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const PhoneInput = () => {
+const Phone = () => {
   return <div>PhoneInput</div>;
 };
 
-export default PhoneInput;
+export default Phone;

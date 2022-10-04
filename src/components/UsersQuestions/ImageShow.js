@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ImageUpload = () => {
+const ImageShow = () => {
   return <div>ImageUpload</div>;
 };
 
-export default ImageUpload;
+export default ImageShow;

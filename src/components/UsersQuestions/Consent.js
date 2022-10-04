@@ -1,7 +1,7 @@
 import React from 'react';
 
-const PrivacyConsent = () => {
+const Consent = () => {
   return <div>PrivacyConsent</div>;
 };
 
-export default PrivacyConsent;
+export default Consent;
