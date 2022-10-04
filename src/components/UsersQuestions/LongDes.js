@@ -6,7 +6,7 @@ import { useFormContext } from 'react-hook-form';
 import UserQuestion from '../UserQuestion';
 
 const LongDes = ({ sortIndex, question }) => {
-  const { register } = useFormContext(); // retrieve all hook methods
+  // const { register } = useFormContext();
 
   return (
     <div>
@@ -15,7 +15,6 @@ const LongDes = ({ sortIndex, question }) => {
         type={QUESTION_ARRAY_TYPE.longDescription}
         name="formData.0.question"
         question={question}
-        register={register}
       >
         <LongInput cols="60" rows="2" value="답변을 적어주세요" />
       </UserQuestion>
@@ -25,7 +24,7 @@ const LongDes = ({ sortIndex, question }) => {
 
 export default LongDes;
 
-const LongInput = styled.textarea`
+const LongInput = styled.p`
   font-size: 16px;
   line-height: 28px;
   border: 1px solid;

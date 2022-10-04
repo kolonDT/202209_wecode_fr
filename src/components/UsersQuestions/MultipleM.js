@@ -15,23 +15,20 @@ const MultipleM = ({
   question,
   option,
 }) => {
-  const { register } = useFormContext(); // retrieve all hook methods
+  // const { register } = useFormContext();
 
   return (
     <div>
       <UserQuestion
         sortIndex={sortIndex}
         type={QUESTION_ARRAY_TYPE.multipleMultiple}
-        register={register}
         question={question}
       >
         <ChoicesContainer>
           {MULTI_LISTS.map((list, idx) => (
             <Choice key={idx}>
               <CheckCircle />
-              <MultipleContent
-                {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
-              />
+              <MultipleContent />
             </Choice>
           ))}
         </ChoicesContainer>

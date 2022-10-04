@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
+import { Survey } from 'survey-react-ui';
 import LongDescription from '../../components/ManagerQuestions/LongDescription';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import MultipleSingle from '../../components/ManagerQuestions/MultipleSingle';
@@ -13,22 +15,30 @@ import Phone from '../../components/UsersQuestions/Phone';
 import ShortDes from '../../components/UsersQuestions/ShortDes';
 
 const UserSurvey = ({ form, userId }) => {
-  console.log(form);
-  console.log(userId);
+  const methods = useForm();
+  const { register } = methods;
 
+  const onSubmit = data => {
+    console.log(data);
+  };
   return (
-    <div>
-      {form?.formData?.map((el, idx) => (
-        <div key={idx}>
-          {QUESTION_ARRAY(idx + 1, el.question, el.option)[el.type]}
-        </div>
-      ))}
-      <Button>완료</Button>
-    </div>
+    <FormProvider {...methods}>
+      <SurveyForm onSubmit={methods.handleSubmit(onSubmit)}>
+        <input />
+        {form?.formData?.map((el, idx) => (
+          <div key={idx}>
+            {QUESTION_ARRAY(idx + 1, el.question, el.option)[el.type]}
+          </div>
+        ))}
+        <Button type="submit">완료</Button>
+      </SurveyForm>
+    </FormProvider>
   );
 };
 
 export default UserSurvey;
+
+const SurveyForm = styled.form``;
 
 const Button = styled.button`
   display: block;

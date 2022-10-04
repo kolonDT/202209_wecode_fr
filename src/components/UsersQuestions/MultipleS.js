@@ -10,9 +10,7 @@ import styled, { css } from 'styled-components';
 import UserQuestion from '../UserQuestion';
 
 const MultipleS = ({ sortIndex, label, question, option }) => {
-  const { register } = useFormContext({
-    defaultValues: {},
-  });
+  // const { register } = useFormContext();
 
   // c
   return (
@@ -20,17 +18,13 @@ const MultipleS = ({ sortIndex, label, question, option }) => {
       <UserQuestion
         sortIndex={sortIndex}
         type={QUESTION_ARRAY_TYPE.multipleSingle}
-        register={register}
         question={question}
       >
         <ChoicesContainer>
           {option.map((list, idx) => (
             <Choice key={idx}>
               <CheckCircle />
-              <MultipleContent
-                placeholder={list}
-                {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
-              />
+              <MultipleContent />
             </Choice>
           ))}
         </ChoicesContainer>

@@ -82,8 +82,10 @@ const SurveyEditor = ({
       7: <PrivacyConsent />,
     };
   };
+  // const formData = new FormData();
 
   const adminToken = localStorage.getItem('token');
+
   const onSubmit = data => {
     fetch(`${API.EDITOR}`, {
       method: 'POST',
@@ -91,11 +93,14 @@ const SurveyEditor = ({
         'Content-Type': 'application/json',
         Authorization: adminToken,
       },
-      body: data,
+      body: JSON.stringify(data),
     })
       .then(res => res.json())
       .then(result => console.log(result));
   };
+  // const onSubmit = data => {
+  //   console.log(data);
+  // };
   // console.log(methods.formState.errors);
   return (
     <SurveyContainer>

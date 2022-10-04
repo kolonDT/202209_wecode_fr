@@ -5,7 +5,7 @@ import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import UserQuestion from '../UserQuestion';
 
 const ShortDes = ({ sortIndex, question }) => {
-  const { register } = useFormContext(); // retrieve all hook methods
+  // const { register } = useFormContext();
 
   return (
     <div>
@@ -13,7 +13,6 @@ const ShortDes = ({ sortIndex, question }) => {
         sortIndex={sortIndex}
         type={QUESTION_ARRAY_TYPE.shortDescription}
         name="formData."
-        register={register}
         question={question}
       >
         <ShortInput cols="20" rows="1" value="답변을 적어주세요" />
@@ -24,7 +23,7 @@ const ShortDes = ({ sortIndex, question }) => {
 
 export default ShortDes;
 
-const ShortInput = styled.textarea`
+const ShortInput = styled.p`
   display: flex;
   justify-content: start;
   font-size: 16px;

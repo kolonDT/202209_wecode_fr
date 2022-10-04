@@ -2,7 +2,7 @@ import React from 'react';
 import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
 
-const UserQuestion = ({ register, children, sortIndex, question }) => {
+const UserQuestion = ({ children, sortIndex, question }) => {
   return (
     <Container>
       <QuesTionContainer>
