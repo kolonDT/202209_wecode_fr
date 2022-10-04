@@ -8,7 +8,7 @@ import {
 } from 'react-icons/md';
 import styled, { css } from 'styled-components';
 
-const MultipleSingle = ({ sortIndex, label }) => {
+const MultipleSingle = ({ sortIndex }) => {
   const { register } = useFormContext({
     defaultValues: {},
   });

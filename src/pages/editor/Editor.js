@@ -19,24 +19,25 @@ const Editor = () => {
   const location = useLocation();
   const id = location.state.name;
 
-  useEffect(() => {
-    getData();
-  });
+  // console.log(id);
+  // useEffect(() => {
+  //   getData();
+  // });
 
-  const getData = async () => {
-    if (!adminToken) {
-      alert('로그아웃 되었습니다');
-      navigate('./admin/login');
-    } else {
-      const res = await axios.get(`${API.MAIN}/main/form/${id}`, {
-        headers: {
-          Authorization: adminToken,
-        },
-      });
-      const { formData } = res.data;
-      setTotalForm(formData);
-    }
-  };
+  // const getData = async () => {
+  //   if (!adminToken) {
+  //     alert('로그아웃 되었습니다');
+  //     navigate('./admin/login');
+  //   } else {
+  //     const res = await axios.get(`${API.MAIN}/main/form/${id}`, {
+  //       headers: {
+  //         Authorization: adminToken,
+  //       },
+  //     });
+  //     const { formData } = res.data;
+  //     setTotalForm(formData);
+  //   }
+  // };
 
   const menuArr = [
     { id: 1, title: '객관식 단일 선택' },
@@ -67,6 +68,7 @@ const Editor = () => {
           options={menuArr}
           setOpenEditorModal={setOpenEditorModal}
           openEditorModal={openEditorModal}
+          id={id}
         />
       </MakeSurvey>
     </Container>

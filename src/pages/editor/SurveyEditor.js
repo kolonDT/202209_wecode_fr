@@ -6,7 +6,7 @@ import LongDescription from '../../components/ManagerQuestions/LongDescription';
 import EmptyContainer from '../../components/ManagerQuestions/EmptyContainer';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { formListState } from '../../store/store';
 import { FormProvider, useForm } from 'react-hook-form';
 import EditorModal from '../../components/EditorModal/EditorModal';
@@ -14,6 +14,7 @@ import ImageUpload from '../../components/ManagerQuestions/ImageUpload';
 import PhoneInput from '../../components/ManagerQuestions/PhoneInput';
 import PrivacyConsent from '../../components/ManagerQuestions/PrivacyConsent';
 import { API } from '../../config';
+import axios from 'axios';
 
 const SurveyEditor = ({
   options,
@@ -21,8 +22,9 @@ const SurveyEditor = ({
   setFormNum,
   setOpenEditorModal,
   openEditorModal,
+  id,
 }) => {
-  const formList = useRecoilValue(formListState);
+  const [formList, setFormList] = useRecoilState(formListState);
 
   // const [formListIndex, setFormListIndex] = useState(
   //   Object.keys(values.flights)
@@ -43,64 +45,33 @@ const SurveyEditor = ({
   // }, [setFormList]);
 
   const methods = useForm();
-  const { register } = methods;
+  const {
+    register,
+    formState: { errors },
+  } = methods;
 
-  const QUESTION_ARRAY = (sortIndex, ...args) => {
-    return {
-      1: (
-        <MultipleSingle
-          sortIndex={sortIndex}
-          label="multipleSingle"
-          question={args[0]}
-          option={args[1]}
-        />
-      ),
-      2: (
-        <MultipleMultiple
-          sortIndex={sortIndex}
-          label="multipleMultiple"
-          question={args[0]}
-          option={args[1]}
-        />
-      ),
-      3: (
-        <ShortDescription
-          sortIndex={sortIndex}
-          label="shortDescription"
-          question={args[0]}
-        />
-      ),
-      4: (
-        <LongDescription
-          sortIndex={sortIndex}
-          label="longDescription"
-          question={args[0]}
-        />
-      ),
-      5: <ImageUpload />,
-      6: <PhoneInput />,
-      7: <PrivacyConsent />,
-    };
-  };
-  // const formData = new FormData();
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3003/data/${id}data.json`)
+      .then(res => setFormList(res.data));
+  }, [setFormList, id]);
 
-  const adminToken = localStorage.getItem('token');
+  // const onSubmit = data => {
+  //   fetch(`${API.EDITOR}`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: adminToken,
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => console.log(result));
+  // };
 
   const onSubmit = data => {
-    fetch(`${API.EDITOR}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: adminToken,
-      },
-      body: JSON.stringify(data),
-    })
-      .then(res => res.json())
-      .then(result => console.log(result));
+    console.log(data);
   };
-  // const onSubmit = data => {
-  //   console.log(data);
-  // };
   // console.log(methods.formState.errors);
   return (
     <SurveyContainer>
@@ -114,27 +85,16 @@ const SurveyEditor = ({
             <DateP>시작 날짜</DateP>
             <DateInput
               placeholder="ex)2022-09-19"
-              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...methods.register('startDate', {
-                required: 'this is a required',
-                maxLength: {
-                  value: 13,
-                  message: 'warning',
-                },
-              })}
+              // pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...methods.register('startDate')}
             />
+            {/* {errors && <span>{errors.startDate.message}</span>} */}
 
             <DateP>종료 날짜</DateP>
             <DateInput
               placeholder="ex)2022-10-19"
-              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...methods.register('endDate', {
-                required: 'this is a required',
-                maxLength: {
-                  value: 13,
-                  message: 'warning',
-                },
-              })}
+              // pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...methods.register('endDate')}
             />
           </InputContainer>
 
@@ -184,7 +144,7 @@ const DateInput = styled.input`
   margin-right: 30px;
 `;
 
-const Button = styled.button`
+const Button = styled.p`
   margin-left: ${children => children.children === '...' || '30px'};
   padding: ${children =>
     children.children === '이전으로 가기' || '다음으로 가기' ? '5Px 10px' : 0};
@@ -245,4 +205,63 @@ export const QUESTION_ARRAY_TYPE = {
   multipleMultiple: 2,
   shortDescription: 3,
   longDescription: 4,
+  imageUpload: 5,
+  phoneInput: 6,
+  privacyConsent: 7,
+};
+
+export const QUESTION_ARRAY = (sortIndex, ...args) => {
+  return {
+    1: (
+      <MultipleSingle
+        sortIndex={sortIndex}
+        label="multipleSingle"
+        question={args[0]}
+        option={args[1]}
+      />
+    ),
+    2: (
+      <MultipleMultiple
+        sortIndex={sortIndex}
+        label="multipleMultiple"
+        question={args[0]}
+        option={args[1]}
+      />
+    ),
+    3: (
+      <ShortDescription
+        sortIndex={sortIndex}
+        label="shortDescription"
+        question={args[0]}
+      />
+    ),
+    4: (
+      <LongDescription
+        sortIndex={sortIndex}
+        label="longDescription"
+        question={args[0]}
+      />
+    ),
+    5: (
+      <ImageUpload
+        sortIndex={sortIndex}
+        label="imageUpload"
+        question={args[0]}
+      />
+    ),
+    6: (
+      <PhoneInput
+        sortIndex={sortIndex}
+        label="imageUpload"
+        question={args[0]}
+      />
+    ),
+    7: (
+      <PrivacyConsent
+        sortIndex={sortIndex}
+        label="imageUpload"
+        question={args[0]}
+      />
+    ),
+  };
 };

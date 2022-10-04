@@ -7,8 +7,13 @@ import { openState } from '../../store/store';
 import * as S from './EditorModalStyle';
 
 const EditorModal = () => {
-  const methods = useFormContext();
+  const {
+    register,
+    formState: { isDirty, errors },
+  } = useFormContext();
 
+  // console.log('edim', errors);
+  // console.log('edidm', isDirty);
   // 링크 모달 State (에디터 모달 완료 후 링크 모달로 이동)
   const [openLinkModal, setOpenLinkModal] = useState(false);
   // 랜딩페이지 URL State
@@ -58,7 +63,7 @@ const EditorModal = () => {
               <S.Check
                 type="checkbox"
                 name="anonymousAllow"
-                {...methods.register(`anonymousAllow`)}
+                {...register(`anonymousAllow`)}
               />
             </S.DuplicateAndAnonymous>
             {/* 익명 체크 여부 */}
@@ -67,7 +72,7 @@ const EditorModal = () => {
               <S.Check
                 type="checkbox"
                 name="duplicationAllow"
-                {...methods.register(`duplicationAllow`)}
+                {...register(`duplicationAllow`)}
                 // value={check.anonymous}
               />
             </S.DuplicateAndAnonymous>
@@ -77,7 +82,7 @@ const EditorModal = () => {
               <S.LandingInput
                 name="landingUrl"
                 placeholder=" 랜딩 페이지를 입력하세요."
-                {...methods.register(`landingUrl`)}
+                {...register(`landingUrl`)}
               />
             </S.LandingPage>
           </S.CheckBox>
@@ -85,7 +90,8 @@ const EditorModal = () => {
           <S.ButtonBox>
             <S.Button
               onClick={() => {
-                setOpenLinkModal(true);
+                // errors ? setOpenEditorModal(false) : setOpenLinkModal(true);
+                // setOpenLinkModal(true);
               }}
               type="submit"
             >

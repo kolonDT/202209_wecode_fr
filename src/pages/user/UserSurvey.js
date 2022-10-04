@@ -14,17 +14,16 @@ import MultipleS from '../../components/UsersQuestions/MultipleS';
 import Phone from '../../components/UsersQuestions/Phone';
 import ShortDes from '../../components/UsersQuestions/ShortDes';
 
-const UserSurvey = ({ form, userId }) => {
+const UserSurvey = ({ form, userId, setSurvey, survey }) => {
   const methods = useForm();
-  const { register } = methods;
 
   const onSubmit = data => {
     console.log(data);
   };
+
   return (
     <FormProvider {...methods}>
       <SurveyForm onSubmit={methods.handleSubmit(onSubmit)}>
-        <input />
         {form?.formData?.map((el, idx) => (
           <div key={idx}>
             {QUESTION_ARRAY(idx + 1, el.question, el.option)[el.type]}
@@ -60,31 +59,6 @@ const Button = styled.button`
   }
 `;
 
-// {formList.formData.length > 0 ? (
-//             formList.formData.map((form, idx) => (
-//               <div key={idx}>
-//                 {QUESTION_ARRAY(idx + 1, form.question, form.option)[form.type]}
-//               </div>
-//             ))
-//           ) : (
-//             <EmptyContainer />
-//           )}
-
-//           <NextContainer>
-//             <Button>
-//               <Link to="/">이전으로 가기</Link>
-//             </Button>
-//             <Button onClick={() => setOpenEditorModal(true)}>
-//               다음으로 가기
-//             </Button>
-//           </NextContainer>
-//           {openEditorModal === true && <EditorModal />}
-//         </SurveyPage>
-//       </FormProvider>
-//     </SurveyContainer>
-//   );
-// };
-
 const QUESTION_ARRAY = (sortIndex, ...args) => {
   return {
     1: (
@@ -117,8 +91,47 @@ const QUESTION_ARRAY = (sortIndex, ...args) => {
         question={args[0]}
       />
     ),
-    5: <ImageShow />,
-    6: <Phone />,
-    7: <Consent />,
+    5: (
+      <ImageShow
+        sortIndex={sortIndex}
+        label="multipleSingle"
+        question={args[0]}
+      />
+    ),
+    6: (
+      <Phone sortIndex={sortIndex} label="multipleSingle" question={args[0]} />
+    ),
+    7: (
+      <Consent
+        sortIndex={sortIndex}
+        label="multipleSingle"
+        question={args[0]}
+      />
+    ),
   };
 };
+
+// {formList.formData.length > 0 ? (
+//             formList.formData.map((form, idx) => (
+//               <div key={idx}>
+//                 {QUESTION_ARRAY(idx + 1, form.question, form.option)[form.type]}
+//               </div>
+//             ))
+//           ) : (
+//             <EmptyContainer />
+//           )}
+
+//           <NextContainer>
+//             <Button>
+//               <Link to="/">이전으로 가기</Link>
+//             </Button>
+//             <Button onClick={() => setOpenEditorModal(true)}>
+//               다음으로 가기
+//             </Button>
+//           </NextContainer>
+//           {openEditorModal === true && <EditorModal />}
+//         </SurveyPage>
+//       </FormProvider>
+//     </SurveyContainer>
+//   );
+// };

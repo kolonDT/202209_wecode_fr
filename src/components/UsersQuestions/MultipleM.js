@@ -6,17 +6,9 @@ import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import styled, { css } from 'styled-components';
 import UserQuestion from '../UserQuestion';
 
-const MultipleM = ({
-  sortIndex,
-  onChange,
-  onBlur,
-  name,
-  label,
-  question,
-  option,
-}) => {
+const MultipleM = ({ sortIndex, question, option }) => {
   // const { register } = useFormContext();
-
+  console.log(option);
   return (
     <div>
       <UserQuestion
@@ -25,10 +17,10 @@ const MultipleM = ({
         question={question}
       >
         <ChoicesContainer>
-          {MULTI_LISTS.map((list, idx) => (
+          {option.map((list, idx) => (
             <Choice key={idx}>
               <CheckCircle />
-              <MultipleContent />
+              <MultipleContent value={list} />
             </Choice>
           ))}
         </ChoicesContainer>
@@ -43,7 +35,6 @@ const MULTI_LISTS = ['BMW', 'ZEEP', 'HOPE'];
 
 const ChoicesContainer = styled.ul`
   margin-left: 50px;
-  margin-right: 50px;
 `;
 const CheckCircle = styled.div`
   position: absolute;
@@ -67,6 +58,7 @@ const CheckCircle = styled.div`
 `;
 
 const MultipleContent = styled.input`
+  display: flex;
   padding-left: 15px;
   font-size: ${props => props.theme.style.smallFont};
   text-align: left;

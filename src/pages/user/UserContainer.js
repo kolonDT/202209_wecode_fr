@@ -17,11 +17,10 @@ const UserContainer = () => {
   const id = url.substring(12);
 
   useEffect(() => {
-    fetch('http://localhost:3000/data/data.json')
+    fetch('http://localhost:3003/data/data.json')
       .then(res => res.json())
       .then(result => setForm(result));
   }, []);
-  console.log(form);
 
   return (
     <S.Background>
@@ -30,7 +29,12 @@ const UserContainer = () => {
         <S.Period>
           참여 기간 :{form.startDate} ~ {form.endDate}
         </S.Period>
-        <UserSurvey form={form} userId={id} />
+        <UserSurvey
+          form={form}
+          userId={id}
+          survey={survey}
+          setSurvey={setSurvey}
+        />
       </S.SurveyForm>
     </S.Background>
   );

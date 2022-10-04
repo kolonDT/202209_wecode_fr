@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { formListState } from '../store/store';
 
-const GlobalQuestion = ({ register, children, sortIndex }) => {
+const GlobalQuestion = ({ register, children, sortIndex, type }) => {
   const [formList, setFormList] = useRecoilState(formListState);
 
   const onRemove = sortIndex => {
@@ -15,7 +15,7 @@ const GlobalQuestion = ({ register, children, sortIndex }) => {
     <Container>
       <QuesTionContainer>
         <QuestionTitleInput>
-          <QuestionNum>{sortIndex}</QuestionNum>
+          <QuestionNum>{type !== 7 && sortIndex}</QuestionNum>
           <QuestionContent
             placeholder={`${sortIndex}번 질문을 입력하세요`}
             {...register(`formData[${sortIndex - 1}].question`)}

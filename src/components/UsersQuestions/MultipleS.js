@@ -12,7 +12,7 @@ import UserQuestion from '../UserQuestion';
 const MultipleS = ({ sortIndex, label, question, option }) => {
   // const { register } = useFormContext();
 
-  // c
+  console.log(option);
   return (
     <div>
       <UserQuestion
@@ -24,7 +24,7 @@ const MultipleS = ({ sortIndex, label, question, option }) => {
           {option.map((list, idx) => (
             <Choice key={idx}>
               <CheckCircle />
-              <MultipleContent />
+              <MultipleContent value={list} />
             </Choice>
           ))}
         </ChoicesContainer>
@@ -37,7 +37,6 @@ export default MultipleS;
 
 const ChoicesContainer = styled.ul`
   margin-left: 50px;
-  margin-right: 50px;
 `;
 
 const CheckCircle = styled.div`
@@ -62,6 +61,7 @@ const CheckCircle = styled.div`
 `;
 
 const MultipleContent = styled.input`
+  display: flex;
   padding-left: 15px;
   font-size: ${props => props.theme.style.smallFont};
   text-align: left;

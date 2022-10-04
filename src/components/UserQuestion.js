@@ -29,6 +29,7 @@ const QuestionContent = styled.p`
 `;
 
 const QuesTionContainer = styled.div`
+  justify-content: center;
   position: relative;
 `;
 const QuestionTitleInput = styled.div`

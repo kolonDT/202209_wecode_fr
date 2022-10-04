@@ -6,7 +6,7 @@ import { useFormContext } from 'react-hook-form';
 import UserQuestion from '../UserQuestion';
 
 const LongDes = ({ sortIndex, question }) => {
-  // const { register } = useFormContext();
+  const { register } = useFormContext();
 
   return (
     <div>
@@ -16,7 +16,11 @@ const LongDes = ({ sortIndex, question }) => {
         name="formData.0.question"
         question={question}
       >
-        <LongInput cols="60" rows="2" value="답변을 적어주세요" />
+        <LongInput
+          cols="60"
+          rows="2"
+          {...register(`formData[${sortIndex - 1}].questions`)}
+        />
       </UserQuestion>
     </div>
   );
@@ -24,7 +28,9 @@ const LongDes = ({ sortIndex, question }) => {
 
 export default LongDes;
 
-const LongInput = styled.p`
+const LongInput = styled.input`
+  display: flex;
+  justify-content: center;
   font-size: 16px;
   line-height: 28px;
   border: 1px solid;
@@ -33,7 +39,6 @@ const LongInput = styled.p`
   width: 70%;
   resize: none;
   padding: 4px 9px;
-  margin: 30px 0 10px 10px;
   outline: none;
   color: rgba(0, 41, 130, 0.7);
   border-color: rgba(0, 41, 130, 0.5);
