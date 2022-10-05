@@ -2,12 +2,12 @@ import React from 'react';
 import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
 
-const UserQuestion = ({ children, sortIndex, question }) => {
+const UserQuestion = ({ children, sortIndex, question, type }) => {
   return (
     <Container>
       <QuesTionContainer>
         <QuestionTitleInput>
-          <QuestionNum>{sortIndex}</QuestionNum>
+          <QuestionNum>{sortIndex}*</QuestionNum>
           <QuestionContent>{question}</QuestionContent>
         </QuestionTitleInput>
       </QuesTionContainer>
@@ -20,6 +20,7 @@ export default UserQuestion;
 
 const Container = styled.div`
   padding: 25px 29px;
+  position: relative;
 `;
 
 const QuestionContent = styled.p`
@@ -29,7 +30,6 @@ const QuestionContent = styled.p`
 `;
 
 const QuesTionContainer = styled.div`
-  justify-content: center;
   position: relative;
 `;
 const QuestionTitleInput = styled.div`
@@ -40,6 +40,7 @@ const QuestionNum = styled.span`
   position: absolute;
   font-weight: 400;
   font-size: 20px;
-  top: -2px;
-  left: 30px;
+  top: -1px;
+  left: 10px;
+  color: rgba(33, 33, 33, 0.5);
 `;

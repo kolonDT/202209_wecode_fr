@@ -5,10 +5,31 @@ import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 
 import styled, { css } from 'styled-components';
 import UserQuestion from '../UserQuestion';
+import EssentialBox from '../EssentialBox';
 
 const MultipleM = ({ sortIndex, question, option }) => {
-  // const { register } = useFormContext();
-  console.log(option);
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+  // {...register(name, {
+  //   required: {
+  //     value: required,
+  //     message: `${title}을 입력해주세요`
+  //   },
+  //   pattern: {
+  //     value: pattern,
+  //     message: patternMessage
+  //   },
+  //   minLength: {
+  //     value: minLength,
+  //     message: `최소 ${minLength}자 이상 입력해주세요`
+  //   }
+  // })}
+
+  errors?.userData?.map(data =>
+    data?.selects?.map(select => console.log(select))
+  );
   return (
     <div>
       <UserQuestion
@@ -19,8 +40,16 @@ const MultipleM = ({ sortIndex, question, option }) => {
         <ChoicesContainer>
           {option.map((list, idx) => (
             <Choice key={idx}>
-              <CheckCircle />
-              <MultipleContent value={list} />
+              <CheckCircle
+                type="checkbox"
+                {...register(`userData[${sortIndex - 1}].selects.0[${idx}]`, {
+                  required: {
+                    value: '복수',
+                    message: `답변 필수 질문입니다. 아래 질문에 답하세요 `,
+                  },
+                })}
+              />
+              <MultipleContent>{list}</MultipleContent>
             </Choice>
           ))}
         </ChoicesContainer>
@@ -31,15 +60,13 @@ const MultipleM = ({ sortIndex, question, option }) => {
 
 export default MultipleM;
 
-const MULTI_LISTS = ['BMW', 'ZEEP', 'HOPE'];
-
 const ChoicesContainer = styled.ul`
   margin-left: 50px;
 `;
-const CheckCircle = styled.div`
+const CheckCircle = styled.input`
   position: absolute;
   top: 18px;
-  left: 20px;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,9 +84,9 @@ const CheckCircle = styled.div`
     `}
 `;
 
-const MultipleContent = styled.input`
+const MultipleContent = styled.p`
   display: flex;
-  padding-left: 15px;
+  padding-left: 10px;
   font-size: ${props => props.theme.style.smallFont};
   text-align: left;
   border: none;

@@ -1,5 +1,8 @@
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import { Navigate } from 'react-router';
 import styled from 'styled-components';
 import { Survey } from 'survey-react-ui';
 import LongDescription from '../../components/ManagerQuestions/LongDescription';
@@ -19,17 +22,22 @@ const UserSurvey = ({ form, userId, setSurvey, survey }) => {
 
   const onSubmit = data => {
     console.log(data);
+    // const formMutation = useMutation();
   };
+
+  // useEffect(() => {
+  //   axios.get();
+  // }, []);
 
   return (
     <FormProvider {...methods}>
       <SurveyForm onSubmit={methods.handleSubmit(onSubmit)}>
         {form?.formData?.map((el, idx) => (
           <div key={idx}>
-            {QUESTION_ARRAY(idx + 1, el.question, el.option)[el.type]}
+            {QUESTION_ARRAY(idx + 1, el.question, el.option, userId)[el.type]}
           </div>
         ))}
-        <Button type="submit">완료</Button>
+        <Button type="submit}">완료</Button>
       </SurveyForm>
     </FormProvider>
   );
@@ -91,13 +99,7 @@ const QUESTION_ARRAY = (sortIndex, ...args) => {
         question={args[0]}
       />
     ),
-    5: (
-      <ImageShow
-        sortIndex={sortIndex}
-        label="multipleSingle"
-        question={args[0]}
-      />
-    ),
+    5: <ImageShow sortIndex={sortIndex} userId={args[2]} question={args[0]} />,
     6: (
       <Phone sortIndex={sortIndex} label="multipleSingle" question={args[0]} />
     ),

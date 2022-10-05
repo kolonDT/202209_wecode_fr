@@ -1,17 +1,12 @@
 import { React, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useSetRecoilState } from 'recoil';
+import { errorSelector, useSetRecoilState } from 'recoil';
 import LinkModal from '../../components/EditorModal/LinkModal';
 import { API } from '../../config';
 import { openState } from '../../store/store';
 import * as S from './EditorModalStyle';
 
-const EditorModal = () => {
-  const {
-    register,
-    formState: { isDirty, errors },
-  } = useFormContext();
-
+const EditorModal = ({ errors, register }) => {
   // console.log('edim', errors);
   // console.log('edidm', isDirty);
   // 링크 모달 State (에디터 모달 완료 후 링크 모달로 이동)
@@ -28,27 +23,14 @@ const EditorModal = () => {
   const adminToken = localStorage.getItem('token');
 
   const setOpenEditorModal = useSetRecoilState(openState);
+  const errorNum = Object.keys(errors).length;
+  console.log('beforeClickNum', errorNum);
 
-  const getData = () => {
-    fetch(`${API.EDITOR}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: adminToken,
-      },
-      body: JSON.stringify({
-        formData: 'datajson',
-        surveyName: 'test122111',
-        startDate: '2022-09-27',
-        endDate: '2022-10-07',
-        anonymousAllow: check.anonymous,
-        duplicationAllow: check.duplicate,
-        landingUrl: text,
-      }),
-    })
-      .then(res => res.json())
-      .then(result => setForm(result));
+  const checkValidation = errors => {
+    console.log('afterErrorNum', errors);
+    Object.keys(errors).length === 0 && setOpenLinkModal(true);
   };
+
   return (
     <S.Background>
       <S.Layout>
@@ -88,13 +70,7 @@ const EditorModal = () => {
           </S.CheckBox>
           {/* 완료 버튼 */}
           <S.ButtonBox>
-            <S.Button
-              onClick={() => {
-                // errors ? setOpenEditorModal(false) : setOpenLinkModal(true);
-                // setOpenLinkModal(true);
-              }}
-              type="submit"
-            >
+            <S.Button type="submit" onClick={() => checkValidation(errorNum)}>
               완료
             </S.Button>
             <S.Button

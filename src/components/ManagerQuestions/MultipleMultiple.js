@@ -30,7 +30,7 @@ const MultipleMultiple = ({
         <ChoicesContainer>
           {MULTI_LISTS.map((list, idx) => (
             <Choice key={idx}>
-              <CheckCircle />
+              <CheckSquare />
               <MultipleContent
                 placeholder="항목 입력"
                 {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
@@ -57,7 +57,7 @@ const ChoicesContainer = styled.ul`
   margin-left: 50px;
   margin-right: 50px;
 `;
-const CheckCircle = styled.div`
+const CheckSquare = styled.div`
   position: absolute;
   top: 18px;
   left: 20px;
@@ -66,7 +66,7 @@ const CheckCircle = styled.div`
   align-items: center;
   width: 18px;
   height: 18px;
-  border-radius: 18px;
+  border-radius: 2px;
   border: 1px solid #ced4da;
 
   cursor: pointer;

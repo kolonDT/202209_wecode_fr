@@ -6,6 +6,7 @@ const Link = () => {
   const location = useLocation();
   const surveyLink = location.state.surveyLink;
   const name = location.state.name;
+  console.log(surveyLink);
 
   const handleCopyClipBoard = async surveyLink => {
     try {

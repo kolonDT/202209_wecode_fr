@@ -49,7 +49,7 @@ const MultipleSingle = ({ sortIndex, onRemove }) => {
 
 export default MultipleSingle;
 
-const OPTIONS = ['1번', '2번', '3번', '4번'];
+const OPTIONS = ['1번', '2번', '3번', '농구'];
 
 const ChoicesContainer = styled.ul`
   position: relative;

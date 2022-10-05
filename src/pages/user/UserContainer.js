@@ -15,13 +15,15 @@ const UserContainer = () => {
   const url = location.pathname;
 
   const id = url.substring(12);
+  console.log(id);
 
   useEffect(() => {
-    fetch('http://localhost:3003/data/data.json')
+    fetch('http://localhost:3000/data/data.json')
       .then(res => res.json())
       .then(result => setForm(result));
   }, []);
 
+  console.log(form);
   return (
     <S.Background>
       <S.SurveyForm>

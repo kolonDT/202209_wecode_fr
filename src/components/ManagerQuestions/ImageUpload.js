@@ -46,8 +46,7 @@ const ImageUpload = ({ sortIndex, label, onRemove }) => {
           // 'Content-Type': 'multipart/form-data',
           // },
         })
-        .then(res => console.log(res))
-        .then(alert('이미지 저장 완료'))
+        .then(res => alert(res.data.message))
         .catch(err => {
           throw err;
         });

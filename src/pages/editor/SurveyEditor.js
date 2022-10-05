@@ -15,6 +15,7 @@ import PhoneInput from '../../components/ManagerQuestions/PhoneInput';
 import PrivacyConsent from '../../components/ManagerQuestions/PrivacyConsent';
 import { API } from '../../config';
 import axios from 'axios';
+import EssentialBox from '../../components/EssentialBox';
 
 const SurveyEditor = ({
   options,
@@ -56,22 +57,24 @@ const SurveyEditor = ({
       .then(res => setFormList(res.data));
   }, [id]);
 
-  // const onSubmit = data => {
-  //   fetch(`${API.EDITOR}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: adminToken,
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => console.log(result));
-  // };
-
+  const adminToken = localStorage.getItem('token');
   const onSubmit = data => {
-    console.log(data);
+    fetch(`${API.EDITOR}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: adminToken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(result => console.log(result));
   };
+
+  // const onSubmit = data => {
+  //   console.log(data);
+  // };
+  console.log('sur', errors);
 
   //삭제 함수
   const onRemove = id => {
@@ -88,23 +91,46 @@ const SurveyEditor = ({
         <SurveyPage onSubmit={methods.handleSubmit(onSubmit)}>
           <TitleInput
             placeholder="제목을 입력하세요"
-            {...register('surveyName')}
+            {...register('surveyName', {
+              required: {
+                value: '복수',
+                message: `제목은 필수!`,
+              },
+            })}
           />
+          {errors && (
+            <EssentialBox value="제목">
+              {errors?.surveyName?.message}
+            </EssentialBox>
+          )}
           <InputContainer>
             <DateP>시작 날짜</DateP>
             <DateInput
               placeholder="ex)2022-09-19"
-              // pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...methods.register('startDate')}
+              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...register('startDate', {
+                required: {
+                  value: '복수',
+                  message: `날짜 형식을 맞춰주세요!`,
+                },
+              })}
             />
-            {/* {errors && <span>{errors.startDate.message}</span>} */}
+            {errors && (
+              <EssentialBox>{errors?.startDate?.message}</EssentialBox>
+            )}
 
             <DateP>종료 날짜</DateP>
             <DateInput
               placeholder="ex)2022-10-19"
-              // pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...methods.register('endDate')}
+              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...register('endDate', {
+                required: {
+                  value: '복수',
+                  message: `날짜 형식을 맞춰주세요!`,
+                },
+              })}
             />
+            {errors && <EssentialBox>{errors?.endDate?.message}</EssentialBox>}
           </InputContainer>
 
           {formList?.formData?.length > 0 ? (
@@ -129,7 +155,9 @@ const SurveyEditor = ({
               다음으로 가기
             </Button>
           </NextContainer>
-          {openEditorModal === true && <EditorModal />}
+          {openEditorModal === true && (
+            <EditorModal register={register} errors={errors} />
+          )}
         </SurveyPage>
       </FormProvider>
     </SurveyContainer>
