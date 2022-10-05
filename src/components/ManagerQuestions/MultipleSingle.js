@@ -7,19 +7,23 @@ import {
   MdOutlineRemoveCircleOutline,
 } from 'react-icons/md';
 import styled, { css } from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { formListState } from '../../store/store';
+import { MdDelete } from 'react-icons/md';
 
-const MultipleSingle = ({ sortIndex }) => {
+const MultipleSingle = ({ sortIndex, onRemove }) => {
   const { register } = useFormContext({
     defaultValues: {},
   });
+  const [formList, setFormList] = useRecoilState(formListState);
 
-  // c
   return (
     <div>
       <GlobalQuestion
         sortIndex={sortIndex}
         type={QUESTION_ARRAY_TYPE.multipleSingle}
         register={register}
+        onRemove={onRemove}
       >
         <ChoicesContainer>
           {OPTIONS.map((list, idx) => (
@@ -29,12 +33,12 @@ const MultipleSingle = ({ sortIndex }) => {
                 placeholder={list}
                 {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
               />
-              <Button name="add">
+              {/* <Button name="add">
                 <MdOutlineAddCircleOutline />
               </Button>
               <Button name="minus">
                 <MdOutlineRemoveCircleOutline />
-              </Button>
+              </Button> */}
             </Choice>
           ))}
         </ChoicesContainer>
@@ -44,9 +48,11 @@ const MultipleSingle = ({ sortIndex }) => {
 };
 
 export default MultipleSingle;
-const OPTIONS = ['BMW', 'ZEEP', '싱글', '농구'];
+
+const OPTIONS = ['1번', '2번', '3번', '4번'];
 
 const ChoicesContainer = styled.ul`
+  position: relative;
   margin-left: 50px;
   margin-right: 50px;
 `;

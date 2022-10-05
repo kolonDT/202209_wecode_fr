@@ -13,31 +13,11 @@ const Editor = () => {
   const [formNum, setFormNum] = useRecoilState(formNumState);
   const [formList, setFormList] = useRecoilState(formListState);
   const [openEditorModal, setOpenEditorModal] = useRecoilState(openState);
-
+  console.log(formNum);
   const adminToken = localStorage.getItem('token');
   const navigate = useNavigate();
   const location = useLocation();
   const id = location.state.name;
-
-  // console.log(id);
-  // useEffect(() => {
-  //   getData();
-  // });
-
-  // const getData = async () => {
-  //   if (!adminToken) {
-  //     alert('로그아웃 되었습니다');
-  //     navigate('./admin/login');
-  //   } else {
-  //     const res = await axios.get(`${API.MAIN}/main/form/${id}`, {
-  //       headers: {
-  //         Authorization: adminToken,
-  //       },
-  //     });
-  //     const { formData } = res.data;
-  //     setTotalForm(formData);
-  //   }
-  // };
 
   const menuArr = [
     { id: 1, title: '객관식 단일 선택' },
