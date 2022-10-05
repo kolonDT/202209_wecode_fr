@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import GlobalQuestion from '../GlobalQuestion';
 
-const PhoneInput = ({ sortIndex, question }) => {
+const PhoneInput = ({ sortIndex, question, onRemove }) => {
   const { register } = useFormContext(); // retrieve all hook methods
 
   return (
@@ -14,6 +14,7 @@ const PhoneInput = ({ sortIndex, question }) => {
         question={question}
         type={QUESTION_ARRAY_TYPE.phoneInput}
         register={register}
+        onRemove={onRemove}
       >
         <Display>
           <Phone name="phone" disabled value="ex)01068202190" />

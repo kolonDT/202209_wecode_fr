@@ -52,9 +52,9 @@ const SurveyEditor = ({
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3003/data/${id}data.json`)
+      .get(`http://localhost:3000/data/${id}data.json`)
       .then(res => setFormList(res.data));
-  }, [setFormList, id]);
+  }, [id]);
 
   // const onSubmit = data => {
   //   fetch(`${API.EDITOR}`, {
@@ -72,7 +72,16 @@ const SurveyEditor = ({
   const onSubmit = data => {
     console.log(data);
   };
-  // console.log(methods.formState.errors);
+
+  //삭제 함수
+  const onRemove = id => {
+    setFormNum(formNum - 1);
+    setFormList(prev => ({
+      ...prev,
+      formData: formList.formData.filter(form => form.id !== id),
+    }));
+  };
+
   return (
     <SurveyContainer>
       <FormProvider {...methods}>
@@ -98,10 +107,14 @@ const SurveyEditor = ({
             />
           </InputContainer>
 
-          {formList.formData.length > 0 ? (
+          {formList?.formData?.length > 0 ? (
             formList.formData.map((form, idx) => (
               <div key={idx}>
-                {QUESTION_ARRAY(idx + 1, form.question, form.option)[form.type]}
+                {
+                  QUESTION_ARRAY(idx + 1, form.question, form.option, onRemove)[
+                    form.type
+                  ]
+                }
               </div>
             ))
           ) : (
@@ -109,10 +122,10 @@ const SurveyEditor = ({
           )}
 
           <NextContainer>
-            <Button>
+            <Button type="button">
               <Link to="/">이전으로 가기</Link>
             </Button>
-            <Button onClick={() => setOpenEditorModal(true)}>
+            <Button type="button" onClick={() => setOpenEditorModal(true)}>
               다음으로 가기
             </Button>
           </NextContainer>
@@ -144,7 +157,7 @@ const DateInput = styled.input`
   margin-right: 30px;
 `;
 
-const Button = styled.p`
+const Button = styled.button`
   margin-left: ${children => children.children === '...' || '30px'};
   padding: ${children =>
     children.children === '이전으로 가기' || '다음으로 가기' ? '5Px 10px' : 0};
@@ -218,6 +231,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="multipleSingle"
         question={args[0]}
         option={args[1]}
+        onRemove={args[2]}
       />
     ),
     2: (
@@ -226,6 +240,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="multipleMultiple"
         question={args[0]}
         option={args[1]}
+        onRemove={args[2]}
       />
     ),
     3: (
@@ -233,6 +248,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         sortIndex={sortIndex}
         label="shortDescription"
         question={args[0]}
+        onRemove={args[2]}
       />
     ),
     4: (
@@ -240,6 +256,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         sortIndex={sortIndex}
         label="longDescription"
         question={args[0]}
+        onRemove={args[2]}
       />
     ),
     5: (
@@ -247,6 +264,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         sortIndex={sortIndex}
         label="imageUpload"
         question={args[0]}
+        onRemove={args[2]}
       />
     ),
     6: (
@@ -254,6 +272,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         sortIndex={sortIndex}
         label="imageUpload"
         question={args[0]}
+        onRemove={args[2]}
       />
     ),
     7: (
@@ -261,6 +280,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         sortIndex={sortIndex}
         label="imageUpload"
         question={args[0]}
+        onRemove={args[2]}
       />
     ),
   };

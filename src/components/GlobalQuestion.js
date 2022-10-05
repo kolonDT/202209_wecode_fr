@@ -4,12 +4,8 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { formListState } from '../store/store';
 
-const GlobalQuestion = ({ register, children, sortIndex, type }) => {
+const GlobalQuestion = ({ register, children, sortIndex, type, onRemove }) => {
   const [formList, setFormList] = useRecoilState(formListState);
-
-  const onRemove = sortIndex => {
-    setFormList(formList.formData.filter(form => form.id !== sortIndex));
-  };
 
   return (
     <Container>

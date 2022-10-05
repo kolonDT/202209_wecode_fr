@@ -9,7 +9,14 @@ import {
 } from 'react-icons/md';
 import styled, { css } from 'styled-components';
 
-const MultipleMultiple = ({ sortIndex, onChange, onBlur, name, label }) => {
+const MultipleMultiple = ({
+  sortIndex,
+  onRemove,
+  onChange,
+  onBlur,
+  name,
+  label,
+}) => {
   const { register } = useFormContext(); // retrieve all hook methods
 
   return (
@@ -18,6 +25,7 @@ const MultipleMultiple = ({ sortIndex, onChange, onBlur, name, label }) => {
         sortIndex={sortIndex}
         type={QUESTION_ARRAY_TYPE.multipleMultiple}
         register={register}
+        onRemove={onRemove}
       >
         <ChoicesContainer>
           {MULTI_LISTS.map((list, idx) => (
@@ -27,12 +35,12 @@ const MultipleMultiple = ({ sortIndex, onChange, onBlur, name, label }) => {
                 placeholder="항목 입력"
                 {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
               />
-              <Button name="add">
+              {/* <Button name="add">
                 <MdOutlineAddCircleOutline />
               </Button>
               <Button name="minus">
                 <MdOutlineRemoveCircleOutline />
-              </Button>
+              </Button> */}
             </Choice>
           ))}
         </ChoicesContainer>
@@ -43,7 +51,7 @@ const MultipleMultiple = ({ sortIndex, onChange, onBlur, name, label }) => {
 
 export default MultipleMultiple;
 
-const MULTI_LISTS = ['BMW', 'ZEEP', 'HOPE'];
+const MULTI_LISTS = ['1번', '2번', '3번', '4번'];
 
 const ChoicesContainer = styled.ul`
   margin-left: 50px;

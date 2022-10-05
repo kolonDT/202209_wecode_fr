@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { formListState } from '../store/store';
 
 const OptionBox = ({ title, options, formNum, setFormNum }) => {
-  const setFormList = useSetRecoilState(formListState);
+  const [formList, setFormList] = useRecoilState(formListState);
 
   const clickOption = idx => {
     setFormNum(formNum + 1);
@@ -20,6 +20,7 @@ const OptionBox = ({ title, options, formNum, setFormNum }) => {
         },
       ],
     }));
+    console.log(setFormList);
   };
 
   return (

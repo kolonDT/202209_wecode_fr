@@ -7,7 +7,7 @@ import { API } from '../../config';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import GlobalQuestion from '../GlobalQuestion';
 
-const ImageUpload = ({ sortIndex, label }) => {
+const ImageUpload = ({ sortIndex, label, onRemove }) => {
   const { register, watch } = useFormContext(); // retrieve all hook methods
   const [fileImage, setFileImage] = useState(''); // 미리보기용 State
   const [postImage, setPostImage] = useState('');
@@ -21,9 +21,6 @@ const ImageUpload = ({ sortIndex, label }) => {
       setPostImage(file);
     }
   }, [image]);
-  // const saveFileImage = e => {
-  //   setFileImage(URL.createObjectURL(e.target.files[0]));
-  // };
 
   const deleteFileImage = () => {
     URL.revokeObjectURL(fileImage);
@@ -50,6 +47,7 @@ const ImageUpload = ({ sortIndex, label }) => {
           // },
         })
         .then(res => console.log(res))
+        .then(alert('이미지 저장 완료'))
         .catch(err => {
           throw err;
         });
@@ -61,6 +59,7 @@ const ImageUpload = ({ sortIndex, label }) => {
       sortIndex={sortIndex}
       type={QUESTION_ARRAY_TYPE.imageUpload}
       register={register}
+      onRemove={onRemove}
     >
       <ImageBox>{fileImage && <Image src={fileImage} alt="img" />}</ImageBox>
       <ButtonBox>
@@ -69,8 +68,22 @@ const ImageUpload = ({ sortIndex, label }) => {
           accept="image/*"
           {...register(`formData[${sortIndex - 1}].file`)}
         />
-        <button type="button" onClick={createBoard}>
-          저장하기
+        <button
+          type="button"
+          onClick={createBoard}
+          style={{
+            width: '60px',
+            height: '30px',
+            marginTop: '5px',
+            marginLeft: '220px',
+            fontSize: '11px',
+            backgroundColor: '#2087C9',
+            color: 'white',
+            borderRadius: '10px',
+            opacity: 0.86,
+          }}
+        >
+          이미지 저장
         </button>
         <DeleteButton onClick={deleteFileImage}>삭제</DeleteButton>
       </ButtonBox>
@@ -79,7 +92,6 @@ const ImageUpload = ({ sortIndex, label }) => {
 };
 
 export default ImageUpload;
-
 const ImageBox = styled.div`
   background-color: aliceblue;
   max-width: 600px;
@@ -114,7 +126,6 @@ const DeleteButton = styled.button`
   background-color: #efefef;
   cursor: pointer;
   &:hover {
-    background-color: #c27c8f;
     opacity: 0.4px;
   }
 `;

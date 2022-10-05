@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import GlobalQuestion from '../GlobalQuestion';
 
-const ShortDescription = ({ sortIndex }) => {
+const ShortDescription = ({ sortIndex, onRemove }) => {
   const { register } = useFormContext(); // retrieve all hook methods
 
   return (
@@ -14,6 +14,7 @@ const ShortDescription = ({ sortIndex }) => {
         type={QUESTION_ARRAY_TYPE.shortDescription}
         name="formData."
         register={register}
+        onRemove={onRemove}
       >
         <ShortInput cols="30" rows="2" disabled value="답변을 적어주세요" />
       </GlobalQuestion>
