@@ -6,6 +6,8 @@ import UserQuestion from '../UserQuestion';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 
 const ImageShow = ({ sortIndex, userId, question }) => {
+  console.log(question);
+
   const [url, setUrl] = useState('');
   useEffect(() => {
     axios({
@@ -20,11 +22,12 @@ const ImageShow = ({ sortIndex, userId, question }) => {
       setUrl(url);
     });
   }, [userId]);
+
   return (
     <div>
       <UserQuestion
         sortIndex={sortIndex}
-        type={QUESTION_ARRAY_TYPE.longDescription}
+        // type={QUESTION_ARRAY_TYPE.longDescription}
         question={question}
       >
         <Container>

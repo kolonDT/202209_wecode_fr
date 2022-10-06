@@ -7,7 +7,7 @@ import { API } from '../../config';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import GlobalQuestion from '../GlobalQuestion';
 
-const ImageUpload = ({ sortIndex, label, onRemove }) => {
+const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
   const { register, watch } = useFormContext(); // retrieve all hook methods
   const [fileImage, setFileImage] = useState(''); // 미리보기용 State
   const [postImage, setPostImage] = useState('');
@@ -59,6 +59,7 @@ const ImageUpload = ({ sortIndex, label, onRemove }) => {
       type={QUESTION_ARRAY_TYPE.imageUpload}
       register={register}
       onRemove={onRemove}
+      formId={formId}
     >
       <ImageBox>{fileImage && <Image src={fileImage} alt="img" />}</ImageBox>
       <ButtonBox>
@@ -84,7 +85,21 @@ const ImageUpload = ({ sortIndex, label, onRemove }) => {
         >
           이미지 저장
         </button>
-        <DeleteButton onClick={deleteFileImage}>삭제</DeleteButton>
+        <button
+          type="button"
+          onClick={deleteFileImage}
+          style={{
+            width: '60px',
+            height: '30px',
+            fontSize: '11px',
+            backgroundColor: '#2087C9',
+            color: 'white',
+            borderRadius: '10px',
+            opacity: 0.86,
+          }}
+        >
+          삭제
+        </button>
       </ButtonBox>
     </GlobalQuestion>
   );

@@ -6,9 +6,9 @@ import LongDescription from '../../components/ManagerQuestions/LongDescription';
 import EmptyContainer from '../../components/ManagerQuestions/EmptyContainer';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { formListState } from '../../store/store';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { formListState, formNumState } from '../../store/store';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import EditorModal from '../../components/EditorModal/EditorModal';
 import ImageUpload from '../../components/ManagerQuestions/ImageUpload';
 import PhoneInput from '../../components/ManagerQuestions/PhoneInput';
@@ -45,36 +45,36 @@ const SurveyEditor = ({
   //     .then(result => setFormList(result));
   // }, [setFormList]);
 
-  const methods = useForm();
+  const methods = useFormContext();
   const {
     register,
     formState: { errors },
   } = methods;
 
+  const setFormId = useSetRecoilState(formNumState);
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/data/${id}data.json`)
-      .then(res => setFormList(res.data));
+    axios.get(`http://localhost:3000/data/${id}data.json`).then(res => {
+      setFormList(res.data);
+      const lastNumber = res.data.formData.length;
+      const lastFormId = res?.data?.formData[lastNumber - 1].id;
+      setFormId(lastFormId);
+    });
   }, [id]);
 
   const adminToken = localStorage.getItem('token');
-  const onSubmit = data => {
-    fetch(`${API.EDITOR}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: adminToken,
-      },
-      body: JSON.stringify(data),
-    })
-      .then(res => res.json())
-      .then(result => console.log(result));
-  };
-
   // const onSubmit = data => {
-  //   console.log(data);
+  //   fetch(`${API.EDITOR}`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: adminToken,
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => console.log(result));
   // };
-  console.log('sur', errors);
 
   //삭제 함수
   const onRemove = id => {
@@ -84,82 +84,78 @@ const SurveyEditor = ({
       formData: formList.formData.filter(form => form.id !== id),
     }));
   };
-
   return (
     <SurveyContainer>
-      <FormProvider {...methods}>
-        <SurveyPage onSubmit={methods.handleSubmit(onSubmit)}>
-          <TitleInput
-            placeholder="제목을 입력하세요"
-            {...register('surveyName', {
+      <SurveyPage>
+        <TitleInput
+          placeholder="제목을 입력하세요"
+          {...register('surveyName', {
+            required: {
+              value: '복수',
+              message: `제목은 필수!`,
+            },
+          })}
+        />
+        {errors && (
+          <EssentialBox value="제목">
+            {errors?.surveyName?.message}
+          </EssentialBox>
+        )}
+        <InputContainer>
+          <DateP>시작 날짜</DateP>
+          <DateInput
+            placeholder="ex)2022-09-19"
+            pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+            {...register('startDate', {
               required: {
                 value: '복수',
-                message: `제목은 필수!`,
+                message: `날짜 형식을 맞춰주세요!`,
               },
             })}
           />
-          {errors && (
-            <EssentialBox value="제목">
-              {errors?.surveyName?.message}
-            </EssentialBox>
-          )}
-          <InputContainer>
-            <DateP>시작 날짜</DateP>
-            <DateInput
-              placeholder="ex)2022-09-19"
-              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...register('startDate', {
-                required: {
-                  value: '복수',
-                  message: `날짜 형식을 맞춰주세요!`,
-                },
-              })}
-            />
-            {errors && (
-              <EssentialBox>{errors?.startDate?.message}</EssentialBox>
-            )}
+          {errors && <EssentialBox>{errors?.startDate?.message}</EssentialBox>}
 
-            <DateP>종료 날짜</DateP>
-            <DateInput
-              placeholder="ex)2022-10-19"
-              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...register('endDate', {
-                required: {
-                  value: '복수',
-                  message: `날짜 형식을 맞춰주세요!`,
-                },
-              })}
-            />
-            {errors && <EssentialBox>{errors?.endDate?.message}</EssentialBox>}
-          </InputContainer>
+          <DateP>종료 날짜</DateP>
+          <DateInput
+            placeholder="ex)2022-10-19"
+            pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+            {...register('endDate', {
+              required: {
+                value: '복수',
+                message: `날짜 형식을 맞춰주세요!`,
+              },
+            })}
+          />
+          {errors && <EssentialBox>{errors?.endDate?.message}</EssentialBox>}
+        </InputContainer>
 
-          {formList?.formData?.length > 0 ? (
-            formList.formData.map((form, idx) => (
-              <div key={idx}>
-                {
-                  QUESTION_ARRAY(idx + 1, form.question, form.option, onRemove)[
-                    form.type
-                  ]
-                }
-              </div>
-            ))
-          ) : (
-            <EmptyContainer />
-          )}
+        {formList?.formData?.length > 0 ? (
+          formList.formData.map((form, idx) => (
+            <div key={idx}>
+              {
+                QUESTION_ARRAY(
+                  idx + 1,
+                  form.id,
+                  form.question,
+                  form.option,
+                  onRemove
+                )[form.type]
+              }
+            </div>
+          ))
+        ) : (
+          <EmptyContainer />
+        )}
 
-          <NextContainer>
-            <Button type="button">
-              <Link to="/">이전으로 가기</Link>
-            </Button>
-            <Button type="button" onClick={() => setOpenEditorModal(true)}>
-              다음으로 가기
-            </Button>
-          </NextContainer>
-          {openEditorModal === true && (
-            <EditorModal register={register} errors={errors} />
-          )}
-        </SurveyPage>
-      </FormProvider>
+        <NextContainer>
+          <Button type="button">
+            <Link to="/">홈으로 가기</Link>
+          </Button>
+          <Button type="button" onClick={() => setOpenEditorModal(true)}>
+            관리자 설정하러 가기
+          </Button>
+        </NextContainer>
+      </SurveyPage>
     </SurveyContainer>
   );
 };
@@ -208,7 +204,7 @@ const SurveyContainer = styled.div`
   padding: 5px 10px;
 `;
 
-const SurveyPage = styled.form`
+const SurveyPage = styled.div`
   position: relative;
   width: 770px;
   margin: 99px auto 95px;
@@ -251,7 +247,7 @@ export const QUESTION_ARRAY_TYPE = {
   privacyConsent: 7,
 };
 
-export const QUESTION_ARRAY = (sortIndex, ...args) => {
+export const QUESTION_ARRAY = (sortIndex, formId, ...args) => {
   return {
     1: (
       <MultipleSingle
@@ -260,6 +256,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         question={args[0]}
         option={args[1]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     2: (
@@ -269,6 +266,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         question={args[0]}
         option={args[1]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     3: (
@@ -277,6 +275,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="shortDescription"
         question={args[0]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     4: (
@@ -285,6 +284,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="longDescription"
         question={args[0]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     5: (
@@ -293,6 +293,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="imageUpload"
         question={args[0]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     6: (
@@ -301,6 +302,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="imageUpload"
         question={args[0]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     7: (
@@ -309,6 +311,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="imageUpload"
         question={args[0]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
   };

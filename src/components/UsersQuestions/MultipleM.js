@@ -27,9 +27,10 @@ const MultipleM = ({ sortIndex, question, option }) => {
   //   }
   // })}
 
-  errors?.userData?.map(data =>
-    data?.selects?.map(select => console.log(select))
-  );
+  // errors?.userData?.map(data =>
+  //   data?.selects?.map(select => console.log(select))
+  // );
+
   return (
     <div>
       <UserQuestion
@@ -38,20 +39,17 @@ const MultipleM = ({ sortIndex, question, option }) => {
         question={question}
       >
         <ChoicesContainer>
-          {option.map((list, idx) => (
-            <Choice key={idx}>
-              <CheckCircle
-                type="checkbox"
-                {...register(`userData[${sortIndex - 1}].selects.0[${idx}]`, {
-                  required: {
-                    value: '복수',
-                    message: `답변 필수 질문입니다. 아래 질문에 답하세요 `,
-                  },
-                })}
-              />
-              <MultipleContent>{list}</MultipleContent>
-            </Choice>
-          ))}
+          {option?.map(lists =>
+            lists.map((list, idx) => (
+              <Choice key={idx}>
+                <CheckCircle
+                  type="checkbox"
+                  {...register(`userData[${sortIndex - 1}].selects.0[${idx}]`)}
+                />
+                <MultipleContent>{list}</MultipleContent>
+              </Choice>
+            ))
+          )}
         </ChoicesContainer>
       </UserQuestion>
     </div>

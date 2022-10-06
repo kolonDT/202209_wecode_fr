@@ -4,20 +4,32 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { formListState } from '../store/store';
 
-const GlobalQuestion = ({ register, children, sortIndex, type, onRemove }) => {
+const GlobalQuestion = ({
+  register,
+  children,
+  sortIndex,
+  type,
+  onRemove,
+  formId,
+}) => {
   const [formList, setFormList] = useRecoilState(formListState);
 
   return (
     <Container>
       <QuesTionContainer>
         <QuestionTitleInput>
-          <QuestionNum>{type !== 7 && sortIndex}</QuestionNum>
+          <QuestionNum>{sortIndex}</QuestionNum>
+          <QuestionType
+            type="tel"
+            value={type}
+            {...register(`formData[${sortIndex - 1}].type`)}
+          />
           <QuestionContent
             placeholder={`${sortIndex}번 질문을 입력하세요`}
             {...register(`formData[${sortIndex - 1}].question`)}
           />
         </QuestionTitleInput>
-        <Icon onClick={() => onRemove(sortIndex)}>
+        <Icon onClick={() => onRemove(formId)}>
           <MdDelete className="uil uil-trash-alt" />
         </Icon>
       </QuesTionContainer>
@@ -58,15 +70,36 @@ const QuestionTitleInput = styled.div`
   padding-left: 50px;
 `;
 
-const QuestionNum = styled.span`
+const QuestionNum = styled.p`
   position: absolute;
+  top: 3px;
+  left: 30px;
+  width: 30px;
   font-weight: 400;
   font-size: 20px;
-  top: 2px;
-  left: 30px;
   color: rgba(33, 33, 33, 0.5);
+  border: none;
+  outline: none;
+
+  ${Container}:hover & {
+    background-color: rgba(33, 33, 33, 0.01);
+    cursor: pointer;
+  }
 `;
 
+const QuestionType = styled.input`
+  width: 30px;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(33, 33, 33, 0.5);
+  border: none;
+  outline: none;
+  display: none;
+  ${Container}:hover & {
+    background-color: rgba(33, 33, 33, 0.01);
+    cursor: pointer;
+  }
+`;
 const Icon = styled.div`
   position: absolute;
   right: 0;

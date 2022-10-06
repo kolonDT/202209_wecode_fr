@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { errorSelector, useSetRecoilState } from 'recoil';
+import { errorSelector, useRecoilValue, useSetRecoilState } from 'recoil';
 import LinkModal from '../../components/EditorModal/LinkModal';
 import { API } from '../../config';
 import { openState } from '../../store/store';
@@ -10,6 +10,8 @@ const EditorModal = ({ errors, register }) => {
   // console.log('edim', errors);
   // console.log('edidm', isDirty);
   // 링크 모달 State (에디터 모달 완료 후 링크 모달로 이동)
+  const { getValues } = useFormContext(register);
+  // console.log({ getValues:  });
   const [openLinkModal, setOpenLinkModal] = useState(false);
   // 랜딩페이지 URL State
   const [text, setText] = useState(' ');
@@ -28,7 +30,12 @@ const EditorModal = ({ errors, register }) => {
 
   const checkValidation = errors => {
     console.log('afterErrorNum', errors);
-    Object.keys(errors).length === 0 && setOpenLinkModal(true);
+    const { startDate, endDate, surveyName } = getValues();
+    if (startDate || endDate || surveyName) {
+      Object.keys(errors).length === 0 && setOpenLinkModal(true);
+    } else {
+      console.log('error');
+    }
   };
 
   return (

@@ -12,4 +12,6 @@ export const API = {
   TEMPLATE: `${BASE_URL}/main/form`,
   LINK: `${BASE_URL}/link`,
   STATICS: `${BASE_URL}/statics`,
+  SURVEYPAGE: `${BASE_URL}/surveypage`,
+  OPINION: `${BASE_URL}/opinion`,
 };

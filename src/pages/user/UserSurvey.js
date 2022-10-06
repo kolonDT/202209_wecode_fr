@@ -16,28 +16,44 @@ import MultipleM from '../../components/UsersQuestions/MultipleM';
 import MultipleS from '../../components/UsersQuestions/MultipleS';
 import Phone from '../../components/UsersQuestions/Phone';
 import ShortDes from '../../components/UsersQuestions/ShortDes';
+import { API } from '../../config';
 
 const UserSurvey = ({ form, userId, setSurvey, survey }) => {
   const methods = useForm();
 
+  // const onSubmit = data => {
+  //   console.log(data);
+  //   // const formMutation = useMutation();
+  // };
+  useEffect(() => {
+    axios.get();
+  }, []);
   const onSubmit = data => {
-    console.log(data);
-    // const formMutation = useMutation();
+    fetch(`${API.OPINION}/${userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(result => console.log(result));
   };
 
-  // useEffect(() => {
-  //   axios.get();
-  // }, []);
-
+  console.log('useSurvey', form);
   return (
     <FormProvider {...methods}>
       <SurveyForm onSubmit={methods.handleSubmit(onSubmit)}>
         {form?.formData?.map((el, idx) => (
           <div key={idx}>
-            {QUESTION_ARRAY(idx + 1, el.question, el.option, userId)[el.type]}
+            {
+              QUESTION_ARRAY(idx + 1, el.question, el.option, userId)[
+                Number(el.type)
+              ]
+            }
           </div>
         ))}
-        <Button type="submit}">완료</Button>
+        <Button type="submit">완료</Button>
       </SurveyForm>
     </FormProvider>
   );

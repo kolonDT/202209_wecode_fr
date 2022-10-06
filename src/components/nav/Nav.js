@@ -30,13 +30,20 @@ const Nav = () => {
         </NavRight>
       </FlexContainer>
       {openModal === true && (
-        <MainModal openModal={openModal} setOpenModal={setOpenModal} />
+        <MainContainer>
+          <MainModal openModal={openModal} setOpenModal={setOpenModal} />
+        </MainContainer>
       )}
     </Container>
   );
 };
 
 export default Nav;
+
+const MainContainer = styled.div`
+  overflow: hidden;
+  height: 100%;
+`;
 
 const LogoBox = styled.div`
   position: absolute;

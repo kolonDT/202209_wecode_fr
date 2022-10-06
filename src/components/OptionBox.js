@@ -20,7 +20,6 @@ const OptionBox = ({ title, options, formNum, setFormNum }) => {
         },
       ],
     }));
-    console.log(setFormList);
   };
 
   return (
@@ -28,6 +27,7 @@ const OptionBox = ({ title, options, formNum, setFormNum }) => {
       <OptionTitle>{title}</OptionTitle>
       {options.map((option, idx) => (
         <Option onClick={() => clickOption(idx + 1)} key={idx}>
+          <OptionEmoji>{option.emo}</OptionEmoji>
           {option.title}
         </Option>
       ))}
@@ -37,9 +37,14 @@ const OptionBox = ({ title, options, formNum, setFormNum }) => {
 
 export default OptionBox;
 
+const OptionEmoji = styled.span`
+  font-size: 20px;
+  vertical-align: center;
+`;
 const OptionTitle = styled.div`
   position: relative;
   margin-left: 30px;
+  margin-top: 10px;
   padding: 10px 10px;
   font-size: 13px;
   color: #999;

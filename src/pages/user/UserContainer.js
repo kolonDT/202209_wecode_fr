@@ -15,21 +15,20 @@ const UserContainer = () => {
   const url = location.pathname;
 
   const id = url.substring(12);
-  console.log(id);
 
   useEffect(() => {
-    fetch('http://localhost:3000/data/data.json')
+    fetch(`${API.SURVEYPAGE}/${id}`)
       .then(res => res.json())
       .then(result => setForm(result));
-  }, []);
+  }, [id]);
 
-  console.log(form);
   return (
     <S.Background>
       <S.SurveyForm>
-        <S.Title>{form.surveyName}</S.Title>
+        <S.Title>{form?.etc?.name}</S.Title>
         <S.Period>
-          참여 기간 :{form.startDate} ~ {form.endDate}
+          참여 기간 :{form?.etc?.startDate.substring(0, 10)} ~
+          {form?.etc?.endDate.substring(0, 10)}
         </S.Period>
         <UserSurvey
           form={form}

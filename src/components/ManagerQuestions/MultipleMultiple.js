@@ -16,6 +16,7 @@ const MultipleMultiple = ({
   onBlur,
   name,
   label,
+  formId,
 }) => {
   const { register } = useFormContext(); // retrieve all hook methods
 
@@ -26,6 +27,7 @@ const MultipleMultiple = ({
         type={QUESTION_ARRAY_TYPE.multipleMultiple}
         register={register}
         onRemove={onRemove}
+        formId={formId}
       >
         <ChoicesContainer>
           {MULTI_LISTS.map((list, idx) => (

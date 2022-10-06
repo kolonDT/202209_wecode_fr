@@ -11,7 +11,7 @@ import { useRecoilState } from 'recoil';
 import { formListState } from '../../store/store';
 import { MdDelete } from 'react-icons/md';
 
-const MultipleSingle = ({ sortIndex, onRemove }) => {
+const MultipleSingle = ({ sortIndex, onRemove, formId }) => {
   const { register } = useFormContext({
     defaultValues: {},
   });
@@ -24,6 +24,7 @@ const MultipleSingle = ({ sortIndex, onRemove }) => {
         type={QUESTION_ARRAY_TYPE.multipleSingle}
         register={register}
         onRemove={onRemove}
+        formId={formId}
       >
         <ChoicesContainer>
           {OPTIONS.map((list, idx) => (

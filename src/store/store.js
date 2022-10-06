@@ -14,7 +14,7 @@ export const formListState = atom({
 // });
 
 export const formNumState = atom({
-  key: 'key',
+  key: 'formNumState',
   default: 0,
 });
 

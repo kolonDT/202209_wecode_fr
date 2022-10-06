@@ -19,7 +19,6 @@ const MultipleS = ({ sortIndex, label, question, option }) => {
 
   // errors.map(error => console.log(error.select));
 
-  console.log(errors);
   // errors?.userData?.map(data => console.log(data?.select?.message));
   return (
     <div>
@@ -29,21 +28,24 @@ const MultipleS = ({ sortIndex, label, question, option }) => {
         question={question}
       >
         <ChoicesContainer>
-          {option.map((list, idx) => (
-            <Choice key={idx}>
-              <CheckCircle
-                type="radio"
-                name="myRadio"
-                {...register(`userData[${sortIndex - 1}].select`, {
-                  required: {
-                    value: '단수',
-                    message: `답변 필수 질문입니다. 아래 질문에 답하세요 `,
-                  },
-                })}
-              />
-              <MultipleContent>{list}</MultipleContent>
-            </Choice>
-          ))}
+          {option?.map((lists, idx) =>
+            lists.map((list, idx) => (
+              <Choice key={idx}>
+                <CheckCircle
+                  type="radio"
+                  name="myRadio"
+                  value={list}
+                  {...register(`userData[${sortIndex - 1}].select`, {
+                    required: {
+                      value: '단수',
+                      message: `답변 필수 질문입니다. 아래 질문에 답하세요 `,
+                    },
+                  })}
+                />
+                <MultipleContent>{list}</MultipleContent>
+              </Choice>
+            ))
+          )}
         </ChoicesContainer>
         {errors && (
           <EssentialBox>
