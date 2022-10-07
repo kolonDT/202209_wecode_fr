@@ -72,7 +72,7 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
           type="button"
           onClick={createBoard}
           style={{
-            width: '60px',
+            width: '80px',
             height: '30px',
             marginTop: '5px',
             marginLeft: '220px',
@@ -89,8 +89,9 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
           type="button"
           onClick={deleteFileImage}
           style={{
-            width: '60px',
+            width: '40px',
             height: '30px',
+            marginTop: '5px',
             fontSize: '11px',
             backgroundColor: '#2087C9',
             color: 'white',

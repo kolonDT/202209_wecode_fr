@@ -1,12 +1,12 @@
 import React from 'react';
 import * as S from './LinkStyle';
 import { useLocation } from 'react-router-dom';
+import { linkState } from '../../store/store';
 
 const Link = () => {
   const location = useLocation();
   const surveyLink = location.state.surveyLink;
   const name = location.state.name;
-  console.log(surveyLink);
 
   const handleCopyClipBoard = async surveyLink => {
     try {
@@ -16,6 +16,7 @@ const Link = () => {
       alert('복사 실패!');
     }
   };
+
   return (
     <S.Layout>
       <S.DiscriptionBox>

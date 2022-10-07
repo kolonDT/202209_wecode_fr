@@ -6,26 +6,17 @@ import LongDescription from '../../components/ManagerQuestions/LongDescription';
 import EmptyContainer from '../../components/ManagerQuestions/EmptyContainer';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { formListState, formNumState } from '../../store/store';
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
-import EditorModal from '../../components/EditorModal/EditorModal';
+import { useFormContext } from 'react-hook-form';
 import ImageUpload from '../../components/ManagerQuestions/ImageUpload';
 import PhoneInput from '../../components/ManagerQuestions/PhoneInput';
 import PrivacyConsent from '../../components/ManagerQuestions/PrivacyConsent';
-import { API } from '../../config';
 import axios from 'axios';
-import EssentialBox from '../../components/EssentialBox';
 import { ErrorMessage } from '@hookform/error-message';
+import { MdInfo } from 'react-icons/md';
 
-const SurveyEditor = ({
-  options,
-  formNum,
-  setFormNum,
-  setOpenEditorModal,
-  openEditorModal,
-  id,
-}) => {
+const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
   const [formList, setFormList] = useRecoilState(formListState);
 
   // const [formListIndex, setFormListIndex] = useState(
@@ -64,21 +55,6 @@ const SurveyEditor = ({
       setFormId(lastFormId);
     });
   }, [id]);
-
-  const adminToken = localStorage.getItem('token');
-  // const onSubmit = data => {
-  //   fetch(`${API.EDITOR}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: adminToken,
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => console.log(result));
-  // };
-
   //삭제 함수
   const onRemove = id => {
     setFormNum(formNum - 1);
@@ -87,14 +63,11 @@ const SurveyEditor = ({
       formData: formList.formData.filter(form => form.id !== id),
     }));
   };
-  console.log(errors);
+
   // 버튼 여러개 이벤트
-  const onClickHandler = () => {
-    trigger(['surveyName', 'startDate', 'endDate']);
-    const { startDate, endDate, surveyName } = getValues(errors);
-    console.log('start', startDate);
-    if (startDate || endDate || surveyName) {
-      Object.keys(errors).length === 0 && setOpenEditorModal(true);
+  const onClickHandler = props => {
+    if (Object.keys(props).length === 0) {
+      setOpenEditorModal(true);
     } else {
       console.log('error');
     }
@@ -103,59 +76,81 @@ const SurveyEditor = ({
   return (
     <SurveyContainer>
       <SurveyPage>
-        <TitleInput
-          placeholder="제목을 입력하세요"
-          {...register('surveyName', {
-            required: {
-              value: '복수',
-              message: `제목은 필수!`,
-            },
-          })}
-        />
-        <ErrorMessage
-          errors={errors}
-          name="surveyName"
-          render={({ message }) => <EssentialBox>{message}</EssentialBox>}
-        />
-        {/* {errors && (
-          <EssentialBox value="제목">
-            {errors?.surveyName?.message}
-          </EssentialBox>
-        )} */}
+        <DataBox>
+          <TitleInput
+            placeholder="제목을 입력하세요"
+            {...register('surveyName', {
+              required: {
+                value: 'title',
+                message: `제목은 필수!`,
+              },
+            })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="surveyName"
+            render={({ message }) => (
+              <ErrorM>
+                <Icon>
+                  <MdInfo />
+                </Icon>
+                {message}
+              </ErrorM>
+            )}
+          />
+        </DataBox>
         <InputContainer>
           <DateP>시작 날짜</DateP>
-          <DateInput
-            placeholder="ex)2022-09-19"
-            pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-            {...register('startDate', {
-              required: {
-                value: '복수',
-                message: `날짜 형식을 맞춰주세요!`,
-              },
-            })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="startDate"
-            render={({ message }) => <EssentialBox>{message}</EssentialBox>}
-          />
+          <DataBox>
+            <DateInput
+              placeholder="ex)2022-09-19"
+              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...register('startDate', {
+                required: {
+                  value: '복수',
+                  message: `날짜 형식을 맞춰주세요!`,
+                },
+              })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="startDate"
+              render={({ message }) => (
+                <ErrorMOne>
+                  <Icon>
+                    <MdInfo />
+                  </Icon>
+                  {message}
+                </ErrorMOne>
+              )}
+            />
+          </DataBox>
 
           <DateP>종료 날짜</DateP>
-          <DateInput
-            placeholder="ex)2022-10-19"
-            pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-            {...register('endDate', {
-              required: {
-                value: '복수',
-                message: `날짜 형식을 맞춰주세요!`,
-              },
-            })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="endDate"
-            render={({ message }) => <EssentialBox>{message}</EssentialBox>}
-          />
+          <DataBox>
+            <DateInput
+              placeholder="ex)2022-10-19"
+              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...register('endDate', {
+                required: {
+                  value: '복수',
+                  message: `날짜 형식을 맞춰주세요!`,
+                },
+              })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="endDate"
+              render={({ message }) => (
+                <ErrorMOne>
+                  <Icon>
+                    <MdInfo />
+                  </Icon>
+                  {message}
+                </ErrorMOne>
+              )}
+            />
+          </DataBox>
         </InputContainer>
 
         {formList?.formData?.length > 0 ? (
@@ -180,8 +175,20 @@ const SurveyEditor = ({
           <Button type="button">
             <Link to="/">홈으로 가기</Link>
           </Button>
-          <Button type="button" onClick={() => onClickHandler()}>
-            관리자 설정하러 가기
+          <Button
+            type="button"
+            onClick={async () => {
+              const result = await trigger([
+                'surveyName',
+                'startDate',
+                'endDate',
+              ]);
+              if (result) {
+                onClickHandler(errors);
+              }
+            }}
+          >
+            다음
           </Button>
         </NextContainer>
       </SurveyPage>
@@ -190,6 +197,33 @@ const SurveyEditor = ({
 };
 
 export default SurveyEditor;
+
+const Icon = styled.span`
+  font-size: 20px;
+  position: absolute;
+  left: -25px;
+  top: -5px;
+`;
+const DataBox = styled.div`
+  position: relative;
+`;
+
+const ErrorMOne = styled.span`
+  position: absolute;
+  left: 0;
+  top: -20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: ${props => props.theme.style.red};
+`;
+const ErrorM = styled.span`
+  position: absolute;
+  left: 300px;
+  top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: ${props => props.theme.style.red};
+`;
 
 const InputContainer = styled.div`
   display: flex;
@@ -245,6 +279,7 @@ const SurveyPage = styled.div`
 `;
 
 const TitleInput = styled.input`
+  position: relative;
   font-size: ${props => props.theme.style.middleFont};
   font-family: 600;
   width: 100%;

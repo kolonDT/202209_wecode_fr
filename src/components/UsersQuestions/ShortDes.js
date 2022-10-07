@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import EssentialBox from '../EssentialBox';
 import UserQuestion from '../UserQuestion';
+import { ErrorMessage } from '@hookform/error-message';
 
 const ShortDes = ({ sortIndex, question }) => {
   const {
@@ -29,11 +30,11 @@ const ShortDes = ({ sortIndex, question }) => {
             },
           })}
         />
-        {errors && (
-          <EssentialBox>
-            {errors?.userData?.map(data => data?.answer?.message)}
-          </EssentialBox>
-        )}
+        <ErrorMessage
+          errors={errors}
+          name={`userData[${sortIndex - 1}].answer`}
+          render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+        />
       </UserQuestion>
     </div>
   );

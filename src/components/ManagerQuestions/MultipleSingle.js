@@ -2,20 +2,12 @@ import React from 'react';
 import GlobalQuestion from '../GlobalQuestion';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
-import {
-  MdOutlineAddCircleOutline,
-  MdOutlineRemoveCircleOutline,
-} from 'react-icons/md';
 import styled, { css } from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { formListState } from '../../store/store';
-import { MdDelete } from 'react-icons/md';
 
 const MultipleSingle = ({ sortIndex, onRemove, formId }) => {
   const { register } = useFormContext({
     defaultValues: {},
   });
-  const [formList, setFormList] = useRecoilState(formListState);
 
   return (
     <div>
@@ -34,12 +26,6 @@ const MultipleSingle = ({ sortIndex, onRemove, formId }) => {
                 placeholder={list}
                 {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
               />
-              {/* <Button name="add">
-                <MdOutlineAddCircleOutline />
-              </Button>
-              <Button name="minus">
-                <MdOutlineRemoveCircleOutline />
-              </Button> */}
             </Choice>
           ))}
         </ChoicesContainer>
@@ -93,16 +79,4 @@ const Choice = styled.li`
   border: 1px solid transparent;
   margin-top: 3px;
   line-height: 28px;
-`;
-
-const Button = styled.span`
-  position: absolute;
-  top: 18px;
-  right: ${props => (props.name === 'minus' ? '70px' : '100px')};
-  font-size: 20px;
-  margin-left: 1000px;
-
-  &:hover {
-    color: ${props => (props.name === 'add' ? 'green' : 'red')};
-  }
 `;

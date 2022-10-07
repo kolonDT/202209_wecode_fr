@@ -23,8 +23,8 @@ const UserSurvey = ({ form, userId, setSurvey, survey }) => {
 
   // const onSubmit = data => {
   //   console.log(data);
-  //   // const formMutation = useMutation();
   // };
+
   useEffect(() => {
     axios.get();
   }, []);
@@ -40,7 +40,6 @@ const UserSurvey = ({ form, userId, setSurvey, survey }) => {
       .then(result => console.log(result));
   };
 
-  console.log('useSurvey', form);
   return (
     <FormProvider {...methods}>
       <SurveyForm onSubmit={methods.handleSubmit(onSubmit)}>

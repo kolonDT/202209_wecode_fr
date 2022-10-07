@@ -3,8 +3,8 @@ import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import EssentialBox from '../EssentialBox';
-import GlobalQuestion from '../GlobalQuestion';
 import UserQuestion from '../UserQuestion';
+import { ErrorMessage } from '@hookform/error-message';
 
 const PhoneInput = ({ sortIndex, question }) => {
   const {
@@ -22,6 +22,20 @@ const PhoneInput = ({ sortIndex, question }) => {
       >
         <Display>
           <Phone
+            placeholder="이름을 입력해주세요"
+            {...register(`userData[${sortIndex - 1}].name`, {
+              required: {
+                value: '이름',
+                message: `이름을 입력해주세요`,
+              },
+            })}
+          />
+          {/* <ErrorMessage
+            errors={errors}
+            name={`userData[${sortIndex - 1}].name`}
+            render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+          /> */}
+          <Phone
             placeholder="ex)01068203867"
             {...register(`userData[${sortIndex - 1}].phone`, {
               required: {
@@ -30,21 +44,20 @@ const PhoneInput = ({ sortIndex, question }) => {
               },
             })}
           />
+          <ErrorMessage
+            errors={errors}
+            name={`userData[${sortIndex - 1}].phone`}
+            render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+          />
         </Display>
-        {errors && (
-          <EssentialBox>
-            {errors?.userData?.map(data => data?.phone?.message)}
-          </EssentialBox>
-        )}
       </UserQuestion>
     </div>
   );
 };
 
 const Phone = styled.input`
-  display: flex;
   margin-left: 50px;
-  margin-top: 20px;
+  margin-top: 40px;
   //위치 동일하게 하기 위해
   font-size: 16px;
   line-height: 28px;
@@ -66,5 +79,8 @@ const Phone = styled.input`
 
 const Display = styled.div`
   ${props => props.theme.variables.flex('center', 'space-between', 'center')};
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
 `;
 export default PhoneInput;

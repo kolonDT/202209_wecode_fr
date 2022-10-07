@@ -1,6 +1,5 @@
-import React, { Children } from 'react';
+import React from 'react';
 import { MdInfo } from 'react-icons/md';
-import { constSelector } from 'recoil';
 import styled from 'styled-components';
 
 const EssentialBox = ({ children }) => {

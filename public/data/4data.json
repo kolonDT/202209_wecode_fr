@@ -3,15 +3,11 @@
   "formData": [
     {
       "id": 1,
-      "type": 1,
-      "question": "나는 1번이 아니지나",
-      "option": ["비엠", "더블", "루", "루"]
+      "type": 1
     },
     {
       "id": 2,
-      "type": 2,
-      "question": "나는 2번",
-      "option": ["비엠", "더블", "루", "루"]
+      "type": 2
     }
   ],
   "startDate": "2022-10-19",

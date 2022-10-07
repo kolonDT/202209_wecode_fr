@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom } from 'recoil';
 
 export const formListState = atom({
   key: 'form',
@@ -8,10 +8,10 @@ export const formListState = atom({
   },
 });
 
-// export const optionState = atom({
-//   key: 'option',
-//   default: [],
-// });
+export const linkState = atom({
+  key: 'link',
+  default: '',
+});
 
 export const formNumState = atom({
   key: 'formNumState',
@@ -22,49 +22,3 @@ export const openState = atom({
   key: 'modal',
   default: false,
 });
-
-// export const idState = atom({
-//   key: 'num',
-//   default: 0,
-// });
-
-// export const todoListState = atom({
-//   key: 'todo',
-//   // 유니크한 키값 줘야함
-//   default: [
-//     {
-//       id: 1,
-//       text: 'reading a bible',
-//       done: true,
-//     },
-//     {
-//       id: 2,
-//       text: '농구하기',
-//       done: false,
-//     },
-//   ],
-// });
-
-// export const TodoListFilter = atom({
-//   key: 'filter',
-//   default: 'Show all',
-// });
-
-// export const filteredTodoListState = selector({
-//   key: 'todoList',
-//   get: ({ get }) => {
-//     const List = get(todoListState);
-//     const Filter = get(TodoListFilter);
-
-//     switch (Filter) {
-//       case 'Show completed':
-//         return List.filter(todo => todo.done);
-
-//       case 'Show uncompleted':
-//         return List.filter(todo => !todo.done);
-
-//       default:
-//         return List;
-//     }
-//   },
-// });

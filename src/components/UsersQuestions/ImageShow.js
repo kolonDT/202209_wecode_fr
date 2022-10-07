@@ -6,8 +6,6 @@ import UserQuestion from '../UserQuestion';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 
 const ImageShow = ({ sortIndex, userId, question }) => {
-  console.log(question);
-
   const [url, setUrl] = useState('');
   useEffect(() => {
     axios({
@@ -27,7 +25,7 @@ const ImageShow = ({ sortIndex, userId, question }) => {
     <div>
       <UserQuestion
         sortIndex={sortIndex}
-        // type={QUESTION_ARRAY_TYPE.longDescription}
+        type={QUESTION_ARRAY_TYPE.imageUpload}
         question={question}
       >
         <Container>
@@ -46,8 +44,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 25px 29px;
-  /* background-color: ${props => props.theme.style.boxBorderColor}; */
-  //height:auto;
 `;
 
 const ImageContainer = styled.img`

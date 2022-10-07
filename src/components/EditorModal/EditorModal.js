@@ -26,10 +26,8 @@ const EditorModal = ({ errors, register }) => {
 
   const setOpenEditorModal = useSetRecoilState(openState);
   const errorNum = Object.keys(errors).length;
-  console.log('beforeClickNum', errorNum);
 
   const checkValidation = errors => {
-    console.log('afterErrorNum', errors);
     const { startDate, endDate, surveyName } = getValues();
     if (startDate || endDate || surveyName) {
       Object.keys(errors).length === 0 && setOpenLinkModal(true);

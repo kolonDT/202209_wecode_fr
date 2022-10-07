@@ -1,15 +1,10 @@
 import React from 'react';
-import GlobalQuestion from '../GlobalQuestion';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
-import {
-  MdOutlineAddCircleOutline,
-  MdOutlineRemoveCircleOutline,
-  MdInfo,
-} from 'react-icons/md';
-import styled, { css } from 'styled-components';
+import { ErrorMessage } from '@hookform/error-message';
 import UserQuestion from '../UserQuestion';
 import EssentialBox from '../EssentialBox';
+import styled, { css } from 'styled-components';
 
 const MultipleS = ({ sortIndex, label, question, option }) => {
   const {
@@ -17,9 +12,6 @@ const MultipleS = ({ sortIndex, label, question, option }) => {
     formState: { errors },
   } = useFormContext();
 
-  // errors.map(error => console.log(error.select));
-
-  // errors?.userData?.map(data => console.log(data?.select?.message));
   return (
     <div>
       <UserQuestion
@@ -28,7 +20,7 @@ const MultipleS = ({ sortIndex, label, question, option }) => {
         question={question}
       >
         <ChoicesContainer>
-          {option?.map((lists, idx) =>
+          {option?.map(lists =>
             lists.map((list, idx) => (
               <Choice key={idx}>
                 <CheckCircle
@@ -47,11 +39,11 @@ const MultipleS = ({ sortIndex, label, question, option }) => {
             ))
           )}
         </ChoicesContainer>
-        {errors && (
-          <EssentialBox>
-            {errors?.userData?.map(data => data?.select?.message)}
-          </EssentialBox>
-        )}
+        <ErrorMessage
+          errors={errors}
+          name={`userData[${sortIndex - 1}].select`}
+          render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+        />
       </UserQuestion>
     </div>
   );

@@ -1,35 +1,14 @@
 import React from 'react';
-import GlobalQuestion from '../GlobalQuestion';
 import { useFormContext } from 'react-hook-form';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
-
 import styled, { css } from 'styled-components';
 import UserQuestion from '../UserQuestion';
-import EssentialBox from '../EssentialBox';
 
 const MultipleM = ({ sortIndex, question, option }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
-  // {...register(name, {
-  //   required: {
-  //     value: required,
-  //     message: `${title}을 입력해주세요`
-  //   },
-  //   pattern: {
-  //     value: pattern,
-  //     message: patternMessage
-  //   },
-  //   minLength: {
-  //     value: minLength,
-  //     message: `최소 ${minLength}자 이상 입력해주세요`
-  //   }
-  // })}
-
-  // errors?.userData?.map(data =>
-  //   data?.selects?.map(select => console.log(select))
-  // );
 
   return (
     <div>
@@ -97,15 +76,4 @@ const Choice = styled.li`
   border: 1px solid transparent;
   margin-top: 3px;
   line-height: 28px;
-`;
-const Button = styled.span`
-  position: absolute;
-  top: 18px;
-  right: ${props => (props.name === 'minus' ? '70px' : '100px')};
-  font-size: 20px;
-  margin-left: 1000px;
-
-  &:hover {
-    color: ${props => (props.name === 'add' ? 'green' : 'red')};
-  }
 `;

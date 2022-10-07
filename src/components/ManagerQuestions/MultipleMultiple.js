@@ -2,22 +2,9 @@ import React from 'react';
 import GlobalQuestion from '../GlobalQuestion';
 import { useFormContext } from 'react-hook-form';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
-
-import {
-  MdOutlineAddCircleOutline,
-  MdOutlineRemoveCircleOutline,
-} from 'react-icons/md';
 import styled, { css } from 'styled-components';
 
-const MultipleMultiple = ({
-  sortIndex,
-  onRemove,
-  onChange,
-  onBlur,
-  name,
-  label,
-  formId,
-}) => {
+const MultipleMultiple = ({ sortIndex, onRemove, formId }) => {
   const { register } = useFormContext(); // retrieve all hook methods
 
   return (
@@ -37,12 +24,6 @@ const MultipleMultiple = ({
                 placeholder="항목 입력"
                 {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
               />
-              {/* <Button name="add">
-                <MdOutlineAddCircleOutline />
-              </Button>
-              <Button name="minus">
-                <MdOutlineRemoveCircleOutline />
-              </Button> */}
             </Choice>
           ))}
         </ChoicesContainer>
@@ -94,15 +75,4 @@ const Choice = styled.li`
   border: 1px solid transparent;
   margin-top: 3px;
   line-height: 28px;
-`;
-const Button = styled.span`
-  position: absolute;
-  top: 18px;
-  right: ${props => (props.name === 'minus' ? '70px' : '100px')};
-  font-size: 20px;
-  margin-left: 1000px;
-
-  &:hover {
-    color: ${props => (props.name === 'add' ? 'green' : 'red')};
-  }
 `;

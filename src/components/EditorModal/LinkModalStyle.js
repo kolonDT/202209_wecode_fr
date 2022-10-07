@@ -6,7 +6,6 @@ export const Background = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.5);
 `;
 
 export const Layout = styled.div`
@@ -33,13 +32,16 @@ export const LinkBoxDetail = styled.div`
 export const LinkGuide = styled.div`
   width: 100%;
   height: 50px;
-  font-size: 20px;
+  font-size: 24px;
   text-align: center;
 `;
 
-export const LinkInput = styled.input`
+export const LinkP = styled.p`
+  text-align: center;
+  padding-top: 10px;
   width: 400px;
   height: 40px;
+  border: 1px solid black;
   font-size: 20px;
   margin-top: 30px;
 `;

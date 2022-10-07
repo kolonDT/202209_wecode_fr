@@ -18,6 +18,9 @@ const PhoneInput = ({ sortIndex, question, onRemove, formId }) => {
         formId={formId}
       >
         <Display>
+          <Phone name="name" disabled value="이름을 입력하세요" />
+        </Display>
+        <Display>
           <Phone name="phone" disabled value="ex)01068202190" />
         </Display>
       </GlobalQuestion>

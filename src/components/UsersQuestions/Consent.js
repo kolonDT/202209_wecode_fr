@@ -4,6 +4,7 @@ import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
 import UserQuestion from '../UserQuestion';
 import EssentialBox from '../EssentialBox';
+import { ErrorMessage } from '@hookform/error-message';
 
 const PrivacyConsent = ({ sortIndex, question, onRemove }) => {
   const {
@@ -31,11 +32,11 @@ const PrivacyConsent = ({ sortIndex, question, onRemove }) => {
                 },
               })}
             />
-            {errors && (
-              <EssentialBox>
-                {errors?.userData?.map(data => data?.agreement?.message)}
-              </EssentialBox>
-            )}
+            <ErrorMessage
+              errors={errors}
+              name={`userData[${sortIndex - 1}].agreement`}
+              render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+            />
           </CheckboxDisplay>
         </Display>
       </UserQuestion>

@@ -1,8 +1,6 @@
 import React from 'react';
 import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { formListState } from '../store/store';
 
 const GlobalQuestion = ({
   register,
@@ -12,8 +10,6 @@ const GlobalQuestion = ({
   onRemove,
   formId,
 }) => {
-  const [formList, setFormList] = useRecoilState(formListState);
-
   return (
     <Container>
       <QuesTionContainer>
