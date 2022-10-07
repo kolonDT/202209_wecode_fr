@@ -6,24 +6,17 @@ import LongDescription from '../../components/ManagerQuestions/LongDescription';
 import EmptyContainer from '../../components/ManagerQuestions/EmptyContainer';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { formListState } from '../../store/store';
-import { FormProvider, useForm } from 'react-hook-form';
-import EditorModal from '../../components/EditorModal/EditorModal';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { formListState, formNumState } from '../../store/store';
+import { useFormContext } from 'react-hook-form';
 import ImageUpload from '../../components/ManagerQuestions/ImageUpload';
 import PhoneInput from '../../components/ManagerQuestions/PhoneInput';
 import PrivacyConsent from '../../components/ManagerQuestions/PrivacyConsent';
-import { API } from '../../config';
 import axios from 'axios';
+import { ErrorMessage } from '@hookform/error-message';
+import { MdInfo } from 'react-icons/md';
 
-const SurveyEditor = ({
-  options,
-  formNum,
-  setFormNum,
-  setOpenEditorModal,
-  openEditorModal,
-  id,
-}) => {
+const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
   const [formList, setFormList] = useRecoilState(formListState);
 
   // const [formListIndex, setFormListIndex] = useState(
@@ -44,35 +37,24 @@ const SurveyEditor = ({
   //     .then(result => setFormList(result));
   // }, [setFormList]);
 
-  const methods = useForm();
+  const methods = useFormContext();
   const {
     register,
     formState: { errors },
+    trigger,
+    getValues,
   } = methods;
 
+  const setFormId = useSetRecoilState(formNumState);
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/data/${id}data.json`)
-      .then(res => setFormList(res.data));
+    axios.get(`http://localhost:3000/data/${id}data.json`).then(res => {
+      setFormList(res.data);
+      const lastNumber = res.data.formData.length;
+      const lastFormId = res?.data?.formData[lastNumber - 1].id;
+      setFormId(lastFormId);
+    });
   }, [id]);
-
-  // const onSubmit = data => {
-  //   fetch(`${API.EDITOR}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: adminToken,
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => console.log(result));
-  // };
-
-  const onSubmit = data => {
-    console.log(data);
-  };
-
   //삭제 함수
   const onRemove = id => {
     setFormNum(formNum - 1);
@@ -82,61 +64,166 @@ const SurveyEditor = ({
     }));
   };
 
+  // 버튼 여러개 이벤트
+  const onClickHandler = props => {
+    if (Object.keys(props).length === 0) {
+      setOpenEditorModal(true);
+    } else {
+      console.log('error');
+    }
+  };
+
   return (
     <SurveyContainer>
-      <FormProvider {...methods}>
-        <SurveyPage onSubmit={methods.handleSubmit(onSubmit)}>
+      <SurveyPage>
+        <DataBox>
           <TitleInput
             placeholder="제목을 입력하세요"
-            {...register('surveyName')}
+            {...register('surveyName', {
+              required: {
+                value: 'title',
+                message: `제목은 필수!`,
+              },
+            })}
           />
-          <InputContainer>
-            <DateP>시작 날짜</DateP>
+          <ErrorMessage
+            errors={errors}
+            name="surveyName"
+            render={({ message }) => (
+              <ErrorM>
+                <Icon>
+                  <MdInfo />
+                </Icon>
+                {message}
+              </ErrorM>
+            )}
+          />
+        </DataBox>
+        <InputContainer>
+          <DateP>시작 날짜</DateP>
+          <DataBox>
             <DateInput
               placeholder="ex)2022-09-19"
-              // pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...methods.register('startDate')}
+              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...register('startDate', {
+                required: {
+                  value: '복수',
+                  message: `날짜 형식을 맞춰주세요!`,
+                },
+              })}
             />
-            {/* {errors && <span>{errors.startDate.message}</span>} */}
+            <ErrorMessage
+              errors={errors}
+              name="startDate"
+              render={({ message }) => (
+                <ErrorMOne>
+                  <Icon>
+                    <MdInfo />
+                  </Icon>
+                  {message}
+                </ErrorMOne>
+              )}
+            />
+          </DataBox>
 
-            <DateP>종료 날짜</DateP>
+          <DateP>종료 날짜</DateP>
+          <DataBox>
             <DateInput
               placeholder="ex)2022-10-19"
-              // pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...methods.register('endDate')}
+              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...register('endDate', {
+                required: {
+                  value: '복수',
+                  message: `날짜 형식을 맞춰주세요!`,
+                },
+              })}
             />
-          </InputContainer>
+            <ErrorMessage
+              errors={errors}
+              name="endDate"
+              render={({ message }) => (
+                <ErrorMOne>
+                  <Icon>
+                    <MdInfo />
+                  </Icon>
+                  {message}
+                </ErrorMOne>
+              )}
+            />
+          </DataBox>
+        </InputContainer>
 
-          {formList?.formData?.length > 0 ? (
-            formList.formData.map((form, idx) => (
-              <div key={idx}>
-                {
-                  QUESTION_ARRAY(idx + 1, form.question, form.option, onRemove)[
-                    form.type
-                  ]
-                }
-              </div>
-            ))
-          ) : (
-            <EmptyContainer />
-          )}
+        {formList?.formData?.length > 0 ? (
+          formList.formData.map((form, idx) => (
+            <div key={idx}>
+              {
+                QUESTION_ARRAY(
+                  idx + 1,
+                  form.id,
+                  form.question,
+                  form.option,
+                  onRemove
+                )[form.type]
+              }
+            </div>
+          ))
+        ) : (
+          <EmptyContainer />
+        )}
 
-          <NextContainer>
-            <Button type="button">
-              <Link to="/">이전으로 가기</Link>
-            </Button>
-            <Button type="button" onClick={() => setOpenEditorModal(true)}>
-              다음으로 가기
-            </Button>
-          </NextContainer>
-          {openEditorModal === true && <EditorModal />}
-        </SurveyPage>
-      </FormProvider>
+        <NextContainer>
+          <Button type="button">
+            <Link to="/">홈으로 가기</Link>
+          </Button>
+          <Button
+            type="button"
+            onClick={async () => {
+              const result = await trigger([
+                'surveyName',
+                'startDate',
+                'endDate',
+              ]);
+              if (result) {
+                onClickHandler(errors);
+              }
+            }}
+          >
+            다음
+          </Button>
+        </NextContainer>
+      </SurveyPage>
     </SurveyContainer>
   );
 };
 
 export default SurveyEditor;
+
+const Icon = styled.span`
+  font-size: 20px;
+  position: absolute;
+  left: -25px;
+  top: -5px;
+`;
+const DataBox = styled.div`
+  position: relative;
+`;
+
+const ErrorMOne = styled.span`
+  position: absolute;
+  left: 0;
+  top: -20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: ${props => props.theme.style.red};
+`;
+const ErrorM = styled.span`
+  position: absolute;
+  left: 300px;
+  top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: ${props => props.theme.style.red};
+`;
 
 const InputContainer = styled.div`
   display: flex;
@@ -180,7 +267,7 @@ const SurveyContainer = styled.div`
   padding: 5px 10px;
 `;
 
-const SurveyPage = styled.form`
+const SurveyPage = styled.div`
   position: relative;
   width: 770px;
   margin: 99px auto 95px;
@@ -192,6 +279,7 @@ const SurveyPage = styled.form`
 `;
 
 const TitleInput = styled.input`
+  position: relative;
   font-size: ${props => props.theme.style.middleFont};
   font-family: 600;
   width: 100%;
@@ -223,7 +311,7 @@ export const QUESTION_ARRAY_TYPE = {
   privacyConsent: 7,
 };
 
-export const QUESTION_ARRAY = (sortIndex, ...args) => {
+export const QUESTION_ARRAY = (sortIndex, formId, ...args) => {
   return {
     1: (
       <MultipleSingle
@@ -232,6 +320,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         question={args[0]}
         option={args[1]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     2: (
@@ -241,6 +330,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         question={args[0]}
         option={args[1]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     3: (
@@ -249,6 +339,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="shortDescription"
         question={args[0]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     4: (
@@ -257,6 +348,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="longDescription"
         question={args[0]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     5: (
@@ -265,6 +357,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="imageUpload"
         question={args[0]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     6: (
@@ -273,6 +366,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="imageUpload"
         question={args[0]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
     7: (
@@ -281,6 +375,7 @@ export const QUESTION_ARRAY = (sortIndex, ...args) => {
         label="imageUpload"
         question={args[0]}
         onRemove={args[2]}
+        formId={formId}
       />
     ),
   };

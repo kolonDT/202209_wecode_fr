@@ -4,7 +4,7 @@ import GlobalQuestion from '../GlobalQuestion';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
 
-const LongDescription = ({ sortIndex, question, onRemove }) => {
+const LongDescription = ({ sortIndex, question, onRemove, formId }) => {
   const { register } = useFormContext(); // retrieve all hook methods
 
   return (
@@ -16,6 +16,7 @@ const LongDescription = ({ sortIndex, question, onRemove }) => {
         question={question}
         register={register}
         onRemove={onRemove}
+        formId={formId}
       >
         <LongInput cols="60" rows="2" disabled value="답변을 적어주세요" />
       </GlobalQuestion>

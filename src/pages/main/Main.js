@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import TemplateList from './TemplateList';
 import * as S from './MainStyle';
 import { API } from '../../config';
@@ -96,33 +96,36 @@ const Main = () => {
   };
 
   return (
-    <S.Layout>
-      <S.Filter>
-        <S.StateAndPeriod>
-          <S.State> 상태 </S.State>
-          <S.Period> 참여기간 </S.Period>
-        </S.StateAndPeriod>
-        <S.SearchTemplate>
-          <S.SearchImg alt="search img" src="/images/search.png" />
-          <S.SearchInput placeholder=" 템플릿 검색" />
-          <S.SearchButton>찾기</S.SearchButton>
-        </S.SearchTemplate>
-      </S.Filter>
-      <S.TemplateListBox>
-        <TemplateList templates={template} />
-      </S.TemplateListBox>
-      <S.pagination>
-        <S.PreButton onClick={() => movePrev(pageNumber)}>◀</S.PreButton>
-        {showPagination[pageNumber].map(page => {
-          return (
-            <S.PageinationNum key={page} onClick={() => movePage(page)}>
-              {page}
-            </S.PageinationNum>
-          );
-        })}
-        <S.NextButton onClick={() => moveNext(pageNumber)}>►</S.NextButton>
-      </S.pagination>
-    </S.Layout>
+    <>
+      <Outlet />
+      <S.Layout>
+        <S.Filter>
+          <S.StateAndPeriod>
+            <S.State> 상태 </S.State>
+            <S.Period> 참여기간 </S.Period>
+          </S.StateAndPeriod>
+          <S.SearchTemplate>
+            <S.SearchImg alt="search img" src="/images/search.png" />
+            <S.SearchInput placeholder=" 템플릿 검색" />
+            <S.SearchButton>찾기</S.SearchButton>
+          </S.SearchTemplate>
+        </S.Filter>
+        <S.TemplateListBox>
+          <TemplateList templates={template} />
+        </S.TemplateListBox>
+        <S.pagination>
+          <S.PreButton onClick={() => movePrev(pageNumber)}>◀</S.PreButton>
+          {showPagination[pageNumber].map(page => {
+            return (
+              <S.PageinationNum key={page} onClick={() => movePage(page)}>
+                {page}
+              </S.PageinationNum>
+            );
+          })}
+          <S.NextButton onClick={() => moveNext(pageNumber)}>►</S.NextButton>
+        </S.pagination>
+      </S.Layout>
+    </>
   );
 };
 

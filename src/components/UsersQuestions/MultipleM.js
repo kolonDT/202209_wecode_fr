@@ -1,14 +1,15 @@
 import React from 'react';
-import GlobalQuestion from '../GlobalQuestion';
 import { useFormContext } from 'react-hook-form';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
-
 import styled, { css } from 'styled-components';
 import UserQuestion from '../UserQuestion';
 
 const MultipleM = ({ sortIndex, question, option }) => {
-  // const { register } = useFormContext();
-  console.log(option);
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
   return (
     <div>
       <UserQuestion
@@ -17,12 +18,17 @@ const MultipleM = ({ sortIndex, question, option }) => {
         question={question}
       >
         <ChoicesContainer>
-          {option.map((list, idx) => (
-            <Choice key={idx}>
-              <CheckCircle />
-              <MultipleContent value={list} />
-            </Choice>
-          ))}
+          {option?.map(lists =>
+            lists.map((list, idx) => (
+              <Choice key={idx}>
+                <CheckCircle
+                  type="checkbox"
+                  {...register(`userData[${sortIndex - 1}].selects.0[${idx}]`)}
+                />
+                <MultipleContent>{list}</MultipleContent>
+              </Choice>
+            ))
+          )}
         </ChoicesContainer>
       </UserQuestion>
     </div>
@@ -31,15 +37,13 @@ const MultipleM = ({ sortIndex, question, option }) => {
 
 export default MultipleM;
 
-const MULTI_LISTS = ['BMW', 'ZEEP', 'HOPE'];
-
 const ChoicesContainer = styled.ul`
   margin-left: 50px;
 `;
-const CheckCircle = styled.div`
+const CheckCircle = styled.input`
   position: absolute;
   top: 18px;
-  left: 20px;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,9 +61,9 @@ const CheckCircle = styled.div`
     `}
 `;
 
-const MultipleContent = styled.input`
+const MultipleContent = styled.p`
   display: flex;
-  padding-left: 15px;
+  padding-left: 10px;
   font-size: ${props => props.theme.style.smallFont};
   text-align: left;
   border: none;
@@ -72,15 +76,4 @@ const Choice = styled.li`
   border: 1px solid transparent;
   margin-top: 3px;
   line-height: 28px;
-`;
-const Button = styled.span`
-  position: absolute;
-  top: 18px;
-  right: ${props => (props.name === 'minus' ? '70px' : '100px')};
-  font-size: 20px;
-  margin-left: 1000px;
-
-  &:hover {
-    color: ${props => (props.name === 'add' ? 'green' : 'red')};
-  }
 `;

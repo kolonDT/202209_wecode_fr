@@ -1,10 +1,10 @@
 import React from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { formListState } from '../store/store';
 
 const OptionBox = ({ title, options, formNum, setFormNum }) => {
-  const [formList, setFormList] = useRecoilState(formListState);
+  const setFormList = useSetRecoilState(formListState);
 
   const clickOption = idx => {
     setFormNum(formNum + 1);
@@ -20,7 +20,6 @@ const OptionBox = ({ title, options, formNum, setFormNum }) => {
         },
       ],
     }));
-    console.log(setFormList);
   };
 
   return (
@@ -28,6 +27,7 @@ const OptionBox = ({ title, options, formNum, setFormNum }) => {
       <OptionTitle>{title}</OptionTitle>
       {options.map((option, idx) => (
         <Option onClick={() => clickOption(idx + 1)} key={idx}>
+          <OptionEmoji>{option.emo}</OptionEmoji>
           {option.title}
         </Option>
       ))}
@@ -37,9 +37,15 @@ const OptionBox = ({ title, options, formNum, setFormNum }) => {
 
 export default OptionBox;
 
+const OptionEmoji = styled.span`
+  font-size: 20px;
+  text-align: center;
+  margin-right: 5px;
+`;
 const OptionTitle = styled.div`
   position: relative;
   margin-left: 30px;
+  margin-top: 10px;
   padding: 10px 10px;
   font-size: 13px;
   color: #999;
@@ -47,6 +53,7 @@ const OptionTitle = styled.div`
 `;
 
 const Options = styled.div`
+  text-align: center;
   padding-top: 20px;
   font-size: ${props => props.theme.style.middleFont};
   font-weight: 500;
@@ -55,6 +62,9 @@ const Options = styled.div`
 
 const Option = styled.button`
   display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 15px 20px;
   font-size: 13px;
   margin-left: 30px;

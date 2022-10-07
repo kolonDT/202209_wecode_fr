@@ -4,7 +4,7 @@ import GlobalQuestion from '../GlobalQuestion';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
 
-const PrivacyConsent = ({ sortIndex, question, onRemove }) => {
+const PrivacyConsent = ({ sortIndex, question, onRemove, formId }) => {
   const { register } = useFormContext(); // retrieve all hook methods
 
   return (
@@ -15,6 +15,7 @@ const PrivacyConsent = ({ sortIndex, question, onRemove }) => {
         question={question}
         register={register}
         onRemove={onRemove}
+        formId={formId}
       >
         <Display>
           <LongInput

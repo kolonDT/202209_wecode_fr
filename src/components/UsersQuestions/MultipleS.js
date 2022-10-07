@@ -1,18 +1,17 @@
 import React from 'react';
-import GlobalQuestion from '../GlobalQuestion';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
-import {
-  MdOutlineAddCircleOutline,
-  MdOutlineRemoveCircleOutline,
-} from 'react-icons/md';
-import styled, { css } from 'styled-components';
+import { ErrorMessage } from '@hookform/error-message';
 import UserQuestion from '../UserQuestion';
+import EssentialBox from '../EssentialBox';
+import styled, { css } from 'styled-components';
 
 const MultipleS = ({ sortIndex, label, question, option }) => {
-  // const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
-  console.log(option);
   return (
     <div>
       <UserQuestion
@@ -21,13 +20,30 @@ const MultipleS = ({ sortIndex, label, question, option }) => {
         question={question}
       >
         <ChoicesContainer>
-          {option.map((list, idx) => (
-            <Choice key={idx}>
-              <CheckCircle />
-              <MultipleContent value={list} />
-            </Choice>
-          ))}
+          {option?.map(lists =>
+            lists.map((list, idx) => (
+              <Choice key={idx}>
+                <CheckCircle
+                  type="radio"
+                  name="myRadio"
+                  value={list}
+                  {...register(`userData[${sortIndex - 1}].select`, {
+                    required: {
+                      value: '단수',
+                      message: `답변 필수 질문입니다. 아래 질문에 답하세요 `,
+                    },
+                  })}
+                />
+                <MultipleContent>{list}</MultipleContent>
+              </Choice>
+            ))
+          )}
         </ChoicesContainer>
+        <ErrorMessage
+          errors={errors}
+          name={`userData[${sortIndex - 1}].select`}
+          render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+        />
       </UserQuestion>
     </div>
   );
@@ -39,10 +55,10 @@ const ChoicesContainer = styled.ul`
   margin-left: 50px;
 `;
 
-const CheckCircle = styled.div`
+const CheckCircle = styled.input`
   position: absolute;
   top: 18px;
-  left: 20px;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,9 +76,9 @@ const CheckCircle = styled.div`
     `}
 `;
 
-const MultipleContent = styled.input`
+const MultipleContent = styled.p`
   display: flex;
-  padding-left: 15px;
+  padding-left: 10px;
   font-size: ${props => props.theme.style.smallFont};
   text-align: left;
   border: none;

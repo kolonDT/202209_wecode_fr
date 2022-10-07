@@ -1,12 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { useRecoilValue } from 'recoil';
+import { linkState } from '../../store/store';
 import * as S from './LinkModalStyle';
 
-const LinkModal = ({ form }) => {
-  const { surveyLink } = form;
+const LinkModal = () => {
+  const linkData = useRecoilValue(linkState);
+  const { surveyLink } = linkData;
   const navigate = useNavigate();
   const goToMain = () => {
-    navigate('/main');
+    navigate('/');
   };
   const handleCopyClipBoard = async surveyLink => {
     try {
@@ -22,7 +25,7 @@ const LinkModal = ({ form }) => {
         <S.LinkBox>
           <S.LinkBoxDetail>
             <S.LinkGuide>설문지가 만들어졌습니다</S.LinkGuide>
-            <S.LinkInput value={surveyLink} readOnly />
+            <S.LinkP>{surveyLink}</S.LinkP>
             <S.ButtonDetail>
               <S.CopyButton onClick={() => handleCopyClipBoard(surveyLink)}>
                 복사하기

@@ -1,26 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
-import GlobalQuestion from '../GlobalQuestion';
+
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
 import UserQuestion from '../UserQuestion';
+import EssentialBox from '../EssentialBox';
 
 const LongDes = ({ sortIndex, question }) => {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <div>
       <UserQuestion
         sortIndex={sortIndex}
         type={QUESTION_ARRAY_TYPE.longDescription}
-        name="formData.0.question"
         question={question}
       >
         <LongInput
           cols="60"
           rows="2"
-          {...register(`formData[${sortIndex - 1}].questions`)}
+          {...register(`userData[${sortIndex - 1}].answers`, {
+            required: {
+              value: '긴 답변',
+              message: `긴 답변 무시하뉘!`,
+            },
+          })}
         />
+        {errors && (
+          <EssentialBox>
+            {errors?.userData?.map(data => data?.answers?.message)}
+          </EssentialBox>
+        )}
       </UserQuestion>
     </div>
   );
@@ -30,7 +43,9 @@ export default LongDes;
 
 const LongInput = styled.input`
   display: flex;
-  justify-content: center;
+  margin-left: 50px;
+  margin-top: 20px;
+  padding: 4px 9px;
   font-size: 16px;
   line-height: 28px;
   border: 1px solid;
@@ -38,9 +53,7 @@ const LongInput = styled.input`
   height: 94px;
   width: 70%;
   resize: none;
-  padding: 4px 9px;
-  outline: none;
-  color: rgba(0, 41, 130, 0.7);
-  border-color: rgba(0, 41, 130, 0.5);
-  background-color: rgba(0, 41, 130, 0.05);
+  color: black;
+  border-color: ${props => props.theme.style.boxBorderColor};
+  background-color: ${props => props.theme.style.boxColor};
 `;
