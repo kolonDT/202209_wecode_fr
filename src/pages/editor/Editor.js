@@ -52,20 +52,17 @@ const Editor = () => {
   ];
 
   const onSubmit = data => {
-    console.log(data);
+    fetch(`${API.EDITOR}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: adminToken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(result => setLinkData(result));
   };
-  // const onSubmit = data => {
-  //   fetch(`${API.EDITOR}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: adminToken,
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => setLinkData(result));
-  // };
 
   return (
     <Container>

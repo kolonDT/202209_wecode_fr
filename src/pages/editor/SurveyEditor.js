@@ -19,24 +19,6 @@ import { MdInfo } from 'react-icons/md';
 const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
   const [formList, setFormList] = useRecoilState(formListState);
 
-  // const [formListIndex, setFormListIndex] = useState(
-  //   Object.keys(values.flights)
-  // );
-  //삭제 기능을 위해 고유의 id 값을 가지고 있는 배열이 있어야함을 알게 됐다.
-
-  //이걸 하려면 목데이터로 정확하게 만들어놔야가능하다
-  // console.log(formList.formData);
-
-  // const [key, setKey] = useState(1);
-
-  // const [formListNum, setFormListNum] = useState(Object.keys(formList));
-
-  // useEffect(() => {
-  //   fetch('http://localhost:3000/data/data.json')
-  //     .then(res => res.json())
-  //     .then(result => setFormList(result));
-  // }, [setFormList]);
-
   const methods = useFormContext();
   const {
     register,
