@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './components/nav/Nav';
 import Editor from './pages/editor/Editor';
@@ -10,15 +11,18 @@ import Statistics from './pages/statistics/StatisticsPage';
 const Router = () => {
   return (
     <BrowserRouter>
-      <Nav />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/option" element={<Main />} />
+        <Route path="/" element={<Main />}>
+          <Route path="" element={<Nav />} />
+        </Route>
         <Route path="/admin/login" element={<Login />} />
-        <Route path="/link/:id" element={<Link />} />
+
+        <Route path="/link/:id" element={<Link />}>
+          <Route path="" element={<Nav />} />
+        </Route>
+
         <Route path="/editor/:id" element={<Editor />} />
-        <Route path="/surveypage/1" element={<UserSurvey />} />
+        <Route path="/surveypage/:id" element={<UserSurvey />} />
         <Route path="/statistic/:id" element={<Statistics />} />
       </Routes>
     </BrowserRouter>

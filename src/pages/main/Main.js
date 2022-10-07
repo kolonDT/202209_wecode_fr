@@ -1,11 +1,12 @@
 import { React, useState, useEffect } from 'react';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import TemplateList from './TemplateList';
-import * as S from './MainStyle';
-import { API } from '../../config';
-import axios from 'axios';
 import DropBox from '../../components/DropBox';
+import axios from 'axios';
+import { API } from '../../config';
+import * as S from './MainStyle';
 
 const Main = () => {
   const navigate = useNavigate();
@@ -127,6 +128,7 @@ const Main = () => {
 
   return (
     <S.Background ref={modalRef} onClick={e => modalClose(e)}>
+      <Outlet />
       <S.Layout>
         <S.Filter>
           <S.StateAndPeriod>

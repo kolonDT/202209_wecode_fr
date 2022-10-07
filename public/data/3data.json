@@ -1,0 +1,16 @@
+{
+  "surveyName": "3번 템플릿",
+  "formData": [
+    {
+      "id": 1,
+      "type": 5,
+      "question": "행사 안내 사진 등록"
+    },
+    {
+      "id": 2,
+      "type": 6
+    }
+  ],
+  "startDate": "2022-10-19",
+  "endDate": "2022-10-29"
+}

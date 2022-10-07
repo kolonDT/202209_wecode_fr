@@ -13,9 +13,6 @@ const StatisticsPage = () => {
   const location = useLocation();
   const url = location.pathname;
   const id = url.substring(11);
-
-  console.log(id);
-
   const adminToken = localStorage.getItem('token');
   const navigate = useNavigate();
   const [info, setInfo] = useState({});
