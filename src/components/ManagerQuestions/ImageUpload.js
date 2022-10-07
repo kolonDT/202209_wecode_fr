@@ -128,18 +128,3 @@ const ButtonBox = styled.div`
 const UploadButton = styled.input`
   margin-top: 10px;
 `;
-
-const DeleteButton = styled.button`
-  width: 40px;
-  height: 20px;
-  font-size: 13px;
-  padding: 1px 6px;
-  margin: 10px 4px 4px 0;
-  border: 1px solid black;
-  border-radius: 3px;
-  background-color: #efefef;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.4px;
-  }
-`;

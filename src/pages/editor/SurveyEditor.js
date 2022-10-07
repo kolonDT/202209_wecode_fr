@@ -16,6 +16,7 @@ import PrivacyConsent from '../../components/ManagerQuestions/PrivacyConsent';
 import { API } from '../../config';
 import axios from 'axios';
 import EssentialBox from '../../components/EssentialBox';
+import { ErrorMessage } from '@hookform/error-message';
 
 const SurveyEditor = ({
   options,
@@ -49,6 +50,8 @@ const SurveyEditor = ({
   const {
     register,
     formState: { errors },
+    trigger,
+    getValues,
   } = methods;
 
   const setFormId = useSetRecoilState(formNumState);
@@ -84,6 +87,19 @@ const SurveyEditor = ({
       formData: formList.formData.filter(form => form.id !== id),
     }));
   };
+  console.log(errors);
+  // 버튼 여러개 이벤트
+  const onClickHandler = () => {
+    trigger(['surveyName', 'startDate', 'endDate']);
+    const { startDate, endDate, surveyName } = getValues(errors);
+    console.log('start', startDate);
+    if (startDate || endDate || surveyName) {
+      Object.keys(errors).length === 0 && setOpenEditorModal(true);
+    } else {
+      console.log('error');
+    }
+  };
+
   return (
     <SurveyContainer>
       <SurveyPage>
@@ -96,11 +112,16 @@ const SurveyEditor = ({
             },
           })}
         />
-        {errors && (
+        <ErrorMessage
+          errors={errors}
+          name="surveyName"
+          render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+        />
+        {/* {errors && (
           <EssentialBox value="제목">
             {errors?.surveyName?.message}
           </EssentialBox>
-        )}
+        )} */}
         <InputContainer>
           <DateP>시작 날짜</DateP>
           <DateInput
@@ -113,7 +134,11 @@ const SurveyEditor = ({
               },
             })}
           />
-          {errors && <EssentialBox>{errors?.startDate?.message}</EssentialBox>}
+          <ErrorMessage
+            errors={errors}
+            name="startDate"
+            render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+          />
 
           <DateP>종료 날짜</DateP>
           <DateInput
@@ -126,7 +151,11 @@ const SurveyEditor = ({
               },
             })}
           />
-          {errors && <EssentialBox>{errors?.endDate?.message}</EssentialBox>}
+          <ErrorMessage
+            errors={errors}
+            name="endDate"
+            render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+          />
         </InputContainer>
 
         {formList?.formData?.length > 0 ? (
@@ -151,7 +180,7 @@ const SurveyEditor = ({
           <Button type="button">
             <Link to="/">홈으로 가기</Link>
           </Button>
-          <Button type="button" onClick={() => setOpenEditorModal(true)}>
+          <Button type="button" onClick={() => onClickHandler()}>
             관리자 설정하러 가기
           </Button>
         </NextContainer>

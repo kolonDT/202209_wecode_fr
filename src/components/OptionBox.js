@@ -1,10 +1,10 @@
 import React from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { formListState } from '../store/store';
 
 const OptionBox = ({ title, options, formNum, setFormNum }) => {
-  const [formList, setFormList] = useRecoilState(formListState);
+  const setFormList = useSetRecoilState(formListState);
 
   const clickOption = idx => {
     setFormNum(formNum + 1);
@@ -39,7 +39,8 @@ export default OptionBox;
 
 const OptionEmoji = styled.span`
   font-size: 20px;
-  vertical-align: center;
+  text-align: center;
+  margin-right: 5px;
 `;
 const OptionTitle = styled.div`
   position: relative;
@@ -52,6 +53,7 @@ const OptionTitle = styled.div`
 `;
 
 const Options = styled.div`
+  text-align: center;
   padding-top: 20px;
   font-size: ${props => props.theme.style.middleFont};
   font-weight: 500;
@@ -60,6 +62,9 @@ const Options = styled.div`
 
 const Option = styled.button`
   display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 15px 20px;
   font-size: 13px;
   margin-left: 30px;
