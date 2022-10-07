@@ -7,22 +7,10 @@ import { openState } from '../../store/store';
 import * as S from './EditorModalStyle';
 
 const EditorModal = ({ errors, register }) => {
-  // console.log('edim', errors);
-  // console.log('edidm', isDirty);
-  // 링크 모달 State (에디터 모달 완료 후 링크 모달로 이동)
   const { getValues } = useFormContext(register);
-  // console.log({ getValues:  });
+
   const [openLinkModal, setOpenLinkModal] = useState(false);
-  // 랜딩페이지 URL State
-  const [text, setText] = useState(' ');
-  // formData State
   const [form, setForm] = useState({});
-  // checkBox State
-  const [check, setCheck] = useState({
-    duplicate: false,
-    anonymous: false,
-  });
-  const adminToken = localStorage.getItem('token');
 
   const setOpenEditorModal = useSetRecoilState(openState);
   const errorNum = Object.keys(errors).length;
@@ -44,7 +32,6 @@ const EditorModal = ({ errors, register }) => {
             <S.Title>관리자 설정 항목</S.Title>
           </S.Titlebox>
           <S.CheckBox>
-            {/* 중복 체크 여부 */}
             <S.DuplicateAndAnonymous>
               <S.ModalText>중복 여부 체크</S.ModalText>
               <S.Check
@@ -53,17 +40,14 @@ const EditorModal = ({ errors, register }) => {
                 {...register(`anonymousAllow`)}
               />
             </S.DuplicateAndAnonymous>
-            {/* 익명 체크 여부 */}
             <S.DuplicateAndAnonymous>
               <S.ModalText>익명 여부 체크</S.ModalText>
               <S.Check
                 type="checkbox"
                 name="duplicationAllow"
                 {...register(`duplicationAllow`)}
-                // value={check.anonymous}
               />
             </S.DuplicateAndAnonymous>
-            {/* 랜딩 페이지 설정 */}
             <S.LandingPage>
               <S.LandingText>참여 완료 후 랜딩 설정</S.LandingText>
               <S.LandingInput
@@ -73,7 +57,6 @@ const EditorModal = ({ errors, register }) => {
               />
             </S.LandingPage>
           </S.CheckBox>
-          {/* 완료 버튼 */}
           <S.ButtonBox>
             <S.Button type="submit" onClick={() => checkValidation(errorNum)}>
               완료
