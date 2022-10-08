@@ -52,17 +52,21 @@ const Editor = () => {
   ];
 
   const onSubmit = data => {
-    fetch(`${API.EDITOR}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: adminToken,
-      },
-      body: JSON.stringify(data),
-    })
-      .then(res => res.json())
-      .then(result => setLinkData(result));
+    console.log('만들어진 data', data);
   };
+
+  // const onSubmit = data => {
+  //   fetch(`${API.EDITOR}`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: adminToken,
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => setLinkData(result));
+  // };
 
   return (
     <Container>

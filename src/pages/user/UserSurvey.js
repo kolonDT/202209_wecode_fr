@@ -1,14 +1,7 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
-import { useMutation } from 'react-query';
-import { Navigate } from 'react-router';
 import styled from 'styled-components';
-import { Survey } from 'survey-react-ui';
-import LongDescription from '../../components/ManagerQuestions/LongDescription';
-import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
-import MultipleSingle from '../../components/ManagerQuestions/MultipleSingle';
-import ShortDescription from '../../components/ManagerQuestions/ShortDescription';
 import Consent from '../../components/UsersQuestions/Consent';
 import ImageShow from '../../components/UsersQuestions/ImageShow';
 import LongDes from '../../components/UsersQuestions/LongDes';

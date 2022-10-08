@@ -63,11 +63,7 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
     >
       <ImageBox>{fileImage && <Image src={fileImage} alt="img" />}</ImageBox>
       <ButtonBox>
-        <UploadButton
-          type="file"
-          accept="image/*"
-          {...register(`formData[${sortIndex - 1}].file`)}
-        />
+        <UploadButton type="file" accept="image/*" />
         <button
           type="button"
           onClick={createBoard}
