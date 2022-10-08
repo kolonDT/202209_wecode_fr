@@ -1,15 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import MainModal from '../MainModal/MainModal';
+import MainModal from '../MainModal/MainModal.js';
 import { MdOutlineAddCircleOutline } from 'react-icons/md';
 
 const Nav = () => {
   const [openModal, setOpenModal] = useState(false);
-  const navigate = useNavigate();
   const goToMain = () => {
-    navigate('/');
+    window.location.replace('/');
   };
   return (
     <Container>

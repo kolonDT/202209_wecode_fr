@@ -2,7 +2,7 @@ import React from 'react';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './MainModalStyle';
-import { MainModalTemplates } from './MainModalTemplates';
+import { MainModalTemplates } from './MainModalTemplates.js';
 
 const MainModal = ({ openModal, setOpenModal }) => {
   const modalRef = useRef();

@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const Background = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
+
 export const Layout = styled.div`
   width: 1190px;
   height: 100%;
@@ -24,16 +29,21 @@ export const StateAndPeriod = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 100px;
+  margin-left: 16px;
 `;
 
 export const State = styled.div`
+  ${props => props.theme.variables.flex('center', 'center', 'center')};
   width: 100px;
-  height: auto;
-  font-size: 20px;
+  height: 50px;
+  font-size: 18px;
+  box-shadow: 0 0 10px rgb(50 50 50 / 10%);
+  border-radius: 15px;
   cursor: pointer;
   :hover {
     opacity: 0.5;
+    box-shadow: 0 0 10px rgb(50 50 50 / 30%);
+    font-weight: 600;
   }
 `;
 
@@ -121,7 +131,7 @@ export const PreButton = styled.button`
 export const NextButton = styled.button`
   width: 50px;
   height: 50px;
-  margin-left: 10px;
+  margin-left: 23px;
   border: none;
   color: #2087c9;
   background-color: #ffff;
@@ -130,6 +140,10 @@ export const NextButton = styled.button`
   :hover {
     opacity: 0.7;
   }
+`;
+
+export const Page = styled.div`
+  font-size: 30px;
 `;
 
 export const PageinationNum = styled.div`
@@ -141,4 +155,10 @@ export const PageinationNum = styled.div`
   :hover {
     opacity: 0.3;
   }
+`;
+
+export const Btn = styled.button`
+  width: 100px;
+  border: 1px solid black;
+  background-color: aliceblue;
 `;
