@@ -29,16 +29,21 @@ export const StateAndPeriod = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 100px;
+  margin-left: 16px;
 `;
 
 export const State = styled.div`
+  ${props => props.theme.variables.flex('center', 'center', 'center')};
   width: 100px;
-  height: auto;
-  font-size: 20px;
+  height: 50px;
+  font-size: 18px;
+  box-shadow: 0 0 10px rgb(50 50 50 / 10%);
+  border-radius: 15px;
   cursor: pointer;
   :hover {
     opacity: 0.5;
+    box-shadow: 0 0 10px rgb(50 50 50 / 30%);
+    font-weight: 600;
   }
 `;
 

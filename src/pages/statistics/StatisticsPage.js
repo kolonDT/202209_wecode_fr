@@ -5,8 +5,10 @@ import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router';
 import MulitpleList from './MultipleList';
 import SubjectiveList from './SubjectiveList';
+import PhoneList from './PhoneList';
 import axios from 'axios';
 import { API } from '../../config';
+
 import * as S from './StatisticsStyle';
 
 const StatisticsPage = () => {
@@ -16,13 +18,15 @@ const StatisticsPage = () => {
   const adminToken = localStorage.getItem('token');
   const navigate = useNavigate();
   const [info, setInfo] = useState({});
-  const [mulitple, setMulitple] = useState();
+  const [multiple, setMultiple] = useState();
   const [subjectives, setSubjectives] = useState([]);
+  const [phones, setPhones] = useState([]);
 
   useEffect(() => {
     getInfo();
     getchart();
     getSubjective();
+    phoneNum();
   }, []);
   const goToMain = () => {
     navigate('/');
@@ -61,7 +65,7 @@ const StatisticsPage = () => {
             Authorization: adminToken,
           },
         });
-        setMulitple(res.data);
+        setMultiple(res.data);
       } catch (err) {
         throw new Error(err);
       }
@@ -70,6 +74,7 @@ const StatisticsPage = () => {
       navigate('/admin/login');
     }
   };
+
   const getSubjective = async () => {
     if (adminToken) {
       try {
@@ -87,7 +92,25 @@ const StatisticsPage = () => {
       navigate('/admin/login');
     }
   };
+  const phoneNum = async () => {
+    if (adminToken) {
+      try {
+        const res = await axios.get(`${API.MAIN}/statistic/phone/${id}`, {
+          headers: {
+            Authorization: adminToken,
+          },
+        });
+        setPhones(res.data);
+      } catch (err) {
+        throw new Error(err);
+      }
+    } else {
+      alert('로그인이 필요합니다');
+      navigate('/admin/login');
+    }
+  };
 
+  console.log('adfadf', multiple);
   return (
     <S.Layout>
       <S.SurveyDescription>
@@ -102,8 +125,9 @@ const StatisticsPage = () => {
           <S.Participant> 응답자 수 : {count}명 </S.Participant>
         </S.SurveyInfo>
         <S.StatisticsBox>
-          <MulitpleList mulitples={mulitple} />
+          <MulitpleList multiples={multiple} />
           <SubjectiveList subjectives={subjectives} />
+          <PhoneList phone={phones} />
           <S.ButtonBox>
             <S.GotoMainButton onClick={goToMain}>돌아가기</S.GotoMainButton>
           </S.ButtonBox>

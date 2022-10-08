@@ -15,9 +15,8 @@ const Main = () => {
   const [pageNumber, setPageNumber] = useState(0); // 페이지에서 보여지는 페이지네이션 넘버링 인덱스값 [[1,2,3,4,5],[6,7]] -> 1
 
   const [isvisible, setIsvisible] = useState(false); // 필터 모달 보여주는 state
-  const [filter, setFilter] = useState(''); // 필터 완료/대기중 state
+  const [filter, setFilter] = useState('진행중'); // 필터 완료/대기중 state
   const [search, setSearch] = useState(''); // 검색 state
-
   const [page, setPage] = useState(1); // 현재 보여지는 페이지
   const limit = 10; // 페이지네이션 limit 값
 
@@ -65,11 +64,14 @@ const Main = () => {
   const togo = async e => {
     try {
       setFilter(e.target.value);
-      const res = await getData(filter, search, 1);
+      const res = await getData(e.target.value, search, 1);
       const { mainPageCount, mainPageList } = res.data;
-      setTotalTemplate(mainPageCount);
-      setTemplate(mainPageList);
-      setPage(1);
+      const tryDO = () => {
+        setTotalTemplate(mainPageCount);
+        setTemplate(mainPageList);
+        setPage(1);
+      };
+      tryDO();
     } catch (err) {
       throw new Error(err);
     }
@@ -120,7 +122,6 @@ const Main = () => {
       getPaginationData(pageNumber);
     }
   };
-
   const movePage = page => {
     setPage(page);
     getPaginationData(page);
@@ -133,8 +134,7 @@ const Main = () => {
         <S.Filter>
           <S.StateAndPeriod>
             {isvisible === true && <DropBox togo={togo} />}
-            <S.State onClick={() => setIsvisible(true)}> 상태 </S.State>
-            <S.Period> 참여기간 </S.Period>
+            <S.State onClick={() => setIsvisible(true)}> {filter} </S.State>
           </S.StateAndPeriod>
           <S.SearchTemplate>
             <S.SearchImg alt="search img" src="/images/search.png" />

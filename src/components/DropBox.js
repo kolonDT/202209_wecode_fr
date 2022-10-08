@@ -7,7 +7,7 @@ const DropBox = ({ togo }) => {
     <Layout>
       {DROPBOXMENU.map(dropBox => {
         return (
-          <Dropbox key={dropBox.id} value={dropBox.name} onClick={togo}>
+          <Dropbox key={dropBox.id} value={dropBox.name} onClick={e => togo(e)}>
             {dropBox.name}
           </Dropbox>
         );

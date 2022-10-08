@@ -70,11 +70,13 @@ export const ButtonBox = styled.div`
   height: 200px;
 `;
 
+export const Phone = styled.div``;
+
 //----------------
 // 객관식 style
 //----------------
 
-export const MulitpleLists = styled.div`
+export const MultipleLists = styled.div`
   width: 100%;
   margin-bottom: 50px;
   height: auto;
