@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Consent from '../../components/UsersQuestions/Consent';
 import ImageShow from '../../components/UsersQuestions/ImageShow';
@@ -12,7 +13,9 @@ import ShortDes from '../../components/UsersQuestions/ShortDes';
 import { API } from '../../config';
 
 const UserSurvey = ({ form, userId, setSurvey, survey }) => {
+  const [data, setData] = useState('');
   const methods = useForm();
+  const location = useLocation();
 
   // const onSubmit = data => {
   //   console.log(data);
@@ -30,9 +33,15 @@ const UserSurvey = ({ form, userId, setSurvey, survey }) => {
       body: JSON.stringify(data),
     })
       .then(res => res.json())
-      .then(result => console.log(result));
+      .then(result => {
+        if (result.message === 'success') {
+          window.location.href = form.etc.url;
+        } else if (result.message === 'already_exist_phone_number') {
+          alert('이미 제출한 설문지입니다. 감사합니다');
+        } else {
+        }
+      });
   };
-
   return (
     <FormProvider {...methods}>
       <SurveyForm onSubmit={methods.handleSubmit(onSubmit)}>

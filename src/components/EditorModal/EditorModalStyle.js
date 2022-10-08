@@ -103,3 +103,12 @@ export const LandingInput = styled.input`
   margin-top: 18px;
   font-size: 15px;
 `;
+
+export const ErrorMOne = styled.span`
+  position: absolute;
+  left: 120px;
+  top: 68%;
+  font-size: 13px;
+  font-weight: 600;
+  color: ${props => props.theme.style.red};
+`;

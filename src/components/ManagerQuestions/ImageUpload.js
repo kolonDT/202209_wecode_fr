@@ -35,7 +35,7 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
       formData.append('image', postImage);
       const config = {
         headers: {
-          // Authorization: adminToken,
+          Authorization: adminToken,
           'Content-Type': 'multipart/form-data',
         },
       };
@@ -63,7 +63,11 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
     >
       <ImageBox>{fileImage && <Image src={fileImage} alt="img" />}</ImageBox>
       <ButtonBox>
-        <UploadButton type="file" accept="image/*" />
+        <UploadButton
+          type="file"
+          accept="image/*"
+          {...register(`formData[${sortIndex - 1}].file`)}
+        />
         <button
           type="button"
           onClick={createBoard}

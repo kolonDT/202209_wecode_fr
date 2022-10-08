@@ -40,14 +40,21 @@ const PhoneInput = ({ sortIndex, question }) => {
             {...register(`userData[${sortIndex - 1}].phone`, {
               required: {
                 value: '폰',
-                message: `폰 입력해주세요`,
+                message: `핸드폰 번호를 입력해주세요`,
               },
             })}
           />
           <ErrorMessage
             errors={errors}
             name={`userData[${sortIndex - 1}].phone`}
-            render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+            render={({ message }) => <Essential>{message}</Essential>}
+          />
+          <ErrorMessage
+            errors={errors}
+            name={`userData[${sortIndex - 1}].name`}
+            render={({ message }) => (
+              <EssentialContainer>{message}</EssentialContainer>
+            )}
           />
         </Display>
       </UserQuestion>
@@ -55,26 +62,46 @@ const PhoneInput = ({ sortIndex, question }) => {
   );
 };
 
+const EssentialContainer = styled.div`
+  position: absolute;
+  left: 290px;
+  padding: 5px 30px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 24px;
+  margin-left: 27px;
+  color: ${props => props.theme.style.red};
+`;
+const Essential = styled.div`
+  position: absolute;
+  left: 280px;
+  bottom: 60px;
+  padding: 5px 30px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 24px;
+  margin-left: 27px;
+  color: ${props => props.theme.style.red};
+`;
 const Phone = styled.input`
   margin-left: 50px;
   margin-top: 40px;
   //위치 동일하게 하기 위해
   font-size: 16px;
+  text-align: center;
   line-height: 28px;
   border: 1px solid;
   border-radius: 3px;
   height: 38px;
-  width: 170px;
+  width: 300px;
   resize: none;
   padding: 4px 9px;
   outline: none;
   color: rgba(0, 41, 130, 0.33);
   border-color: rgba(0, 41, 130, 0.5);
   background-color: rgba(0, 41, 130, 0.05);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 `;
 
 const Display = styled.div`

@@ -36,7 +36,6 @@ const StatisticsPage = () => {
             Authorization: adminToken,
           },
         });
-        console.log(111111111111111);
         setInfo(res.data);
         const { count } = res.data;
         if (count === '0') {
@@ -57,7 +56,7 @@ const StatisticsPage = () => {
   const getchart = async () => {
     if (adminToken) {
       try {
-        const res = await axios.get(`http://localhost:3000/data/1mock.json`, {
+        const res = await axios.get(`${API.MAIN}/statistic/multiple/${id}`, {
           headers: {
             Authorization: adminToken,
           },

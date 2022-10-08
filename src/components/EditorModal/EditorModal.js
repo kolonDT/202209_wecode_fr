@@ -5,6 +5,7 @@ import LinkModal from '../../components/EditorModal/LinkModal';
 import { API } from '../../config';
 import { clickedIdState, openState } from '../../store/store';
 import * as S from './EditorModalStyle';
+import { ErrorMessage } from '@hookform/error-message';
 
 const EditorModal = ({ errors, register }) => {
   const { getValues, unregister } = useFormContext(register);
@@ -16,13 +17,10 @@ const EditorModal = ({ errors, register }) => {
   const errorNum = Object.keys(errors).length;
 
   const clickedId = useRecoilValue(clickedIdState);
-  console.log(clickedId);
+  console.log(errorNum);
 
   const onClickHandler = () => {
-    clickedId.map(el => {
-      return unregister(`formData[${el - 1}]`);
-    });
-    // setOpenLinkModal(true);
+    errorNum === 0 && setOpenLinkModal(true);
   };
 
   return (
@@ -53,8 +51,19 @@ const EditorModal = ({ errors, register }) => {
               <S.LandingText>참여 완료 후 랜딩 설정</S.LandingText>
               <S.LandingInput
                 name="landingUrl"
-                placeholder=" 랜딩 페이지를 입력하세요."
-                {...register(`landingUrl`)}
+                placeholder="ex)http://www.kolonglobal.com"
+                pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)"
+                {...register(`landingUrl`, {
+                  required: {
+                    value: '복수',
+                    message: `https:// 형식을 맞춰주세요`,
+                  },
+                })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="landingUrl"
+                render={({ message }) => <S.ErrorMOne>{message}</S.ErrorMOne>}
               />
             </S.LandingPage>
           </S.CheckBox>

@@ -29,6 +29,8 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
   } = methods;
 
   const setFormId = useSetRecoilState(formNumState);
+  const sortIndexNum = Object.keys(formList.formData);
+  console.log('srot', sortIndexNum);
 
   useEffect(() => {
     axios.get(`http://localhost:3000/data/${id}data.json`).then(res => {
@@ -71,12 +73,12 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
         <DataBox>
           <TitleInput
             placeholder="제목을 입력하세요"
-            // {...register('surveyName', {
-            //   required: {
-            //     value: 'title',
-            //     message: `제목은 필수!`,
-            //   },
-            // })}
+            {...register('surveyName', {
+              required: {
+                value: 'title',
+                message: `제목은 필수!`,
+              },
+            })}
           />
           <ErrorMessage
             errors={errors}
@@ -97,12 +99,12 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
             <DateInput
               placeholder="ex)2022-09-19"
               pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              // {...register('startDate', {
-              //   required: {
-              //     value: '복수',
-              //     message: `날짜 형식을 맞춰주세요!`,
-              //   },
-              // })}
+              {...register('startDate', {
+                required: {
+                  value: '복수',
+                  message: `날짜 형식을 맞춰주세요!`,
+                },
+              })}
             />
             <ErrorMessage
               errors={errors}
@@ -123,12 +125,12 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
             <DateInput
               placeholder="ex)2022-10-19"
               pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              // {...register('endDate', {
-              //   required: {
-              //     value: '복수',
-              //     message: `날짜 형식을 맞춰주세요!`,
-              //   },
-              // })}
+              {...register('endDate', {
+                required: {
+                  value: '복수',
+                  message: `날짜 형식을 맞춰주세요!`,
+                },
+              })}
             />
             <ErrorMessage
               errors={errors}
@@ -233,7 +235,18 @@ const DateP = styled.p`
 `;
 
 const DateInput = styled.input`
+  font-size: ${props => props.theme.style.smallFont};
+  text-align: left;
+  border: 0.3px solid grey;
+  outline: none;
+  font-size: 13px;
+  line-height: 23px;
+  margin-left: 10px;
   margin-right: 30px;
+  margin-bottom: 6px;
+  word-break: break-all;
+  word-break: break-word;
+  word-wrap: break-word;
 `;
 
 const Button = styled.button`
