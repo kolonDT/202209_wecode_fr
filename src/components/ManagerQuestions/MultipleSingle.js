@@ -5,10 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 
 const MultipleSingle = ({ sortIndex, onRemove, formId }) => {
-  const { register } = useFormContext({
-    defaultValues: {},
-  });
-
+  const { register, unregister } = useFormContext();
   return (
     <div>
       <GlobalQuestion
@@ -24,7 +21,12 @@ const MultipleSingle = ({ sortIndex, onRemove, formId }) => {
               <CheckCircle />
               <MultipleContent
                 placeholder={list}
-                {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
+                {...register(`formData[${sortIndex - 1}].option.0[${idx}]`, {
+                  required: {
+                    value: '객관식단수',
+                    message: '모든 내용을 입력해주세요',
+                  },
+                })}
               />
             </Choice>
           ))}
@@ -36,7 +38,12 @@ const MultipleSingle = ({ sortIndex, onRemove, formId }) => {
 
 export default MultipleSingle;
 
-const OPTIONS = ['1번', '2번', '3번', '농구'];
+const OPTIONS = [
+  '이곳에 내용을 입력하세요',
+  '이곳에 내용을 입력하세요',
+  '이곳에 내용을 입력하세요',
+  '이곳에 내용을 입력하세요',
+];
 
 const ChoicesContainer = styled.ul`
   position: relative;
@@ -66,11 +73,19 @@ const CheckCircle = styled.div`
 `;
 
 const MultipleContent = styled.input`
-  padding-left: 15px;
+  position: relative;
+  padding-left: 5px;
   font-size: ${props => props.theme.style.smallFont};
   text-align: left;
-  border: none;
+  border: 0.3px solid grey;
   outline: none;
+  font-size: 13px;
+  line-height: 23px;
+  margin-left: 20px;
+  margin-bottom: 6px;
+  word-break: break-all;
+  word-break: break-word;
+  word-wrap: break-word;
 `;
 
 const Choice = styled.li`

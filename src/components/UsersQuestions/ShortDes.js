@@ -26,7 +26,7 @@ const ShortDes = ({ sortIndex, question }) => {
           {...register(`userData[${sortIndex - 1}].answer`, {
             required: {
               value: '짧은 답변',
-              message: `짧은 답변 무시하뉘!`,
+              message: `필수 항목 입니다.`,
             },
           })}
         />

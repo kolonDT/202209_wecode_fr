@@ -3,11 +3,7 @@
   "formData": [
     {
       "id": 1,
-      "type": 5
-    },
-    {
-      "id": 2,
-      "type": 6
+      "type": 3
     }
   ],
   "startDate": "",

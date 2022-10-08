@@ -51,7 +51,7 @@ const Login = () => {
             <S.LoginForm>
               <S.LoginId
                 type="text"
-                placeholder=" 관리자 아이디를 입력해주세요."
+                placeholder=" 4자 이상 아이디를 입력해주세요"
                 name="userId"
                 value={info.userId}
                 onChange={onChangeinfo}

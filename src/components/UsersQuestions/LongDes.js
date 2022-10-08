@@ -5,6 +5,7 @@ import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
 import UserQuestion from '../UserQuestion';
 import EssentialBox from '../EssentialBox';
+import { ErrorMessage } from '@hookform/error-message';
 
 const LongDes = ({ sortIndex, question }) => {
   const {
@@ -25,15 +26,15 @@ const LongDes = ({ sortIndex, question }) => {
           {...register(`userData[${sortIndex - 1}].answers`, {
             required: {
               value: '긴 답변',
-              message: `긴 답변 무시하뉘!`,
+              message: `필수 항목입니다`,
             },
           })}
         />
-        {errors && (
-          <EssentialBox>
-            {errors?.userData?.map(data => data?.answers?.message)}
-          </EssentialBox>
-        )}
+        <ErrorMessage
+          errors={errors}
+          name={`userData[${sortIndex - 1}].answers`}
+          render={({ message }) => <EssentialBox>{message}</EssentialBox>}
+        />
       </UserQuestion>
     </div>
   );

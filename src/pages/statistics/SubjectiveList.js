@@ -2,9 +2,10 @@ import React from 'react';
 import Subjective from './Subjective';
 import * as S from './StatisticsStyle';
 const SubjectiveList = ({ subjectives }) => {
+  console.log(subjectives);
   return (
     <S.SubjectiveListLayout>
-      {subjectives?.map(subjective => {
+      {subjectives.map(subjective => {
         return <Subjective key={subjective.id} subjective={subjective} />;
       })}
     </S.SubjectiveListLayout>

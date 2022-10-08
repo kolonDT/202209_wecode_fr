@@ -1,5 +1,5 @@
 {
-  "surveyName": " 4번 템플릿",
+  "surveyName": "",
   "formData": [
     {
       "id": 1,
@@ -10,6 +10,6 @@
       "type": 2
     }
   ],
-  "startDate": "2022-10-19",
-  "endDate": "2022-10-29"
+  "startDate": "",
+  "endDate": ""
 }

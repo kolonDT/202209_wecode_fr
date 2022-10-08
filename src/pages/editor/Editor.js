@@ -51,6 +51,10 @@ const Editor = () => {
     { id: 7, title: '개인 정보 동의 여부 선택', emo: <MdPersonPin /> },
   ];
 
+  // const onSubmit = data => {
+  //   console.log('만들어진 data', data);
+  // };
+
   const onSubmit = data => {
     fetch(`${API.EDITOR}`, {
       method: 'POST',

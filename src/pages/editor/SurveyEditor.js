@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MultipleSingle from '../../components/ManagerQuestions/MultipleSingle';
 import ShortDescription from '../../components/ManagerQuestions/ShortDescription';
@@ -7,7 +7,7 @@ import EmptyContainer from '../../components/ManagerQuestions/EmptyContainer';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { formListState, formNumState } from '../../store/store';
+import { clickedIdState, formListState, formNumState } from '../../store/store';
 import { useFormContext } from 'react-hook-form';
 import ImageUpload from '../../components/ManagerQuestions/ImageUpload';
 import PhoneInput from '../../components/ManagerQuestions/PhoneInput';
@@ -18,16 +18,19 @@ import { MdInfo } from 'react-icons/md';
 
 const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
   const [formList, setFormList] = useRecoilState(formListState);
-
+  const [clickedId, setClickedId] = useRecoilState(clickedIdState);
   const methods = useFormContext();
   const {
     register,
+    unregister,
     formState: { errors },
     trigger,
     getValues,
   } = methods;
 
   const setFormId = useSetRecoilState(formNumState);
+  const sortIndexNum = Object.keys(formList.formData);
+  console.log('srot', sortIndexNum);
 
   useEffect(() => {
     axios.get(`http://localhost:3000/data/${id}data.json`).then(res => {
@@ -37,13 +40,22 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
       setFormId(lastFormId);
     });
   }, [id]);
+
+  console.log('fomrLIst', formList);
+  console.log('clicked', clickedId);
   //삭제 함수
-  const onRemove = id => {
+  const onRemove = (id, idx, totalLength) => {
     setFormNum(formNum - 1);
+    setClickedId(prev => [...prev, id]);
     setFormList(prev => ({
       ...prev,
       formData: formList.formData.filter(form => form.id !== id),
     }));
+
+    //클릭시 해당하는 FormData 삭제 하지만 결과적으로 겹치는 문제.
+
+    // unregister(`formData[${totalLength}]`);
+    //맨뒤에 formData 삭제
   };
 
   // 버튼 여러개 이벤트
@@ -223,7 +235,18 @@ const DateP = styled.p`
 `;
 
 const DateInput = styled.input`
+  font-size: ${props => props.theme.style.smallFont};
+  text-align: left;
+  border: 0.3px solid grey;
+  outline: none;
+  font-size: 13px;
+  line-height: 23px;
+  margin-left: 10px;
   margin-right: 30px;
+  margin-bottom: 6px;
+  word-break: break-all;
+  word-break: break-word;
+  word-wrap: break-word;
 `;
 
 const Button = styled.button`
