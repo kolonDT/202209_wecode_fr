@@ -1,6 +1,8 @@
 import React from 'react';
 import { MdDelete } from 'react-icons/md';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { formListState } from '../store/store';
 
 const GlobalQuestion = ({
   register,
@@ -10,6 +12,9 @@ const GlobalQuestion = ({
   onRemove,
   formId,
 }) => {
+  const [formList, setFormList] = useRecoilState(formListState);
+
+  const totalLength = formList?.formData?.length - 1;
   return (
     <Container>
       <QuesTionContainer>
@@ -25,7 +30,7 @@ const GlobalQuestion = ({
             {...register(`formData[${sortIndex - 1}].question`)}
           />
         </QuestionTitleInput>
-        <Icon onClick={() => onRemove(formId)}>
+        <Icon onClick={() => onRemove(formId, sortIndex, totalLength)}>
           <MdDelete className="uil uil-trash-alt" />
         </Icon>
       </QuesTionContainer>

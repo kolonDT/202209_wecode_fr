@@ -35,7 +35,7 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
       formData.append('image', postImage);
       const config = {
         headers: {
-          // Authorization: adminToken,
+          Authorization: adminToken,
           'Content-Type': 'multipart/form-data',
         },
       };

@@ -3,6 +3,8 @@ import GlobalQuestion from '../GlobalQuestion';
 import { useFormContext } from 'react-hook-form';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import styled, { css } from 'styled-components';
+import { ErrorMessage } from '@hookform/error-message';
+import { MdInfo } from 'react-icons/md';
 
 const MultipleMultiple = ({ sortIndex, onRemove, formId }) => {
   const { register } = useFormContext(); // retrieve all hook methods
@@ -21,7 +23,7 @@ const MultipleMultiple = ({ sortIndex, onRemove, formId }) => {
             <Choice key={idx}>
               <CheckSquare />
               <MultipleContent
-                placeholder="항목 입력"
+                placeholder={list}
                 {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
               />
             </Choice>
@@ -33,8 +35,12 @@ const MultipleMultiple = ({ sortIndex, onRemove, formId }) => {
 };
 
 export default MultipleMultiple;
-
-const MULTI_LISTS = ['1번', '2번', '3번', '4번'];
+const MULTI_LISTS = [
+  '이곳에 내용을 입력하세요',
+  '이곳에 내용을 입력하세요',
+  '이곳에 내용을 입력하세요',
+  '이곳에 내용을 입력하세요',
+];
 
 const ChoicesContainer = styled.ul`
   margin-left: 50px;
@@ -62,11 +68,18 @@ const CheckSquare = styled.div`
 `;
 
 const MultipleContent = styled.input`
-  padding-left: 15px;
+  padding-left: 5px;
   font-size: ${props => props.theme.style.smallFont};
   text-align: left;
-  border: none;
+  border: 0.3px solid grey;
   outline: none;
+  font-size: 13px;
+  line-height: 23px;
+  margin-left: 20px;
+  margin-bottom: 6px;
+  word-break: break-all;
+  word-break: break-word;
+  word-wrap: break-word;
 `;
 
 const Choice = styled.li`
