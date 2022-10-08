@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Layout = styled.button`
+export const Layout = styled.div`
   width: 1190px;
   height: 100px;
   border: 1px solid black;

@@ -18,6 +18,7 @@ const Login = () => {
   const passed = info.userId.length > 3 && info.userPassword.length > 3;
 
   const toLogin = e => {
+    console.log(process.env.REACT_APP_HOST);
     e.preventDefault();
     fetch(`${API.LOGIN}`, {
       method: 'POST',
