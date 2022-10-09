@@ -30,11 +30,13 @@ const Layout = styled.div`
   box-shadow: 1px 1px 3px #ddd;
   background-color: #fafafa;
   opacity: 0.9;
-  z-index: 10;
+  z-index: 20;
 `;
 const Dropbox = styled.button`
   width: 100%;
   height: 60px;
+  /* position: relative; */
+  z-index: 100;
   font-size: ${props => props.theme.style.smallFont};
   ${props => props.theme.variables.flex('center', 'center', 'center')};
   &:hover {

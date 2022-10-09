@@ -29,8 +29,10 @@ const Main = () => {
   const modalRef = useRef();
 
   // 진행중 / 완료 / 대기중 선택시 모달 바깥 영역 눌렀을 때 닫히게 하는 함수
+  // modalRef를 모달 자체에 걸어 모달이 자체가 아닌 곳을 눌렀을 때 모달이 닫히게 했습니다
+  // 이럴 때 항상 모달 전체를 계속 바라봐야하므로 모달이 실행될때 onClick 이벤트가 발생하도록 했습니다
   const modalClose = e => {
-    if (isvisible && modalRef.current === e.target) {
+    if (isvisible && modalRef.current !== e.target) {
       setIsvisible(false);
     }
   };
@@ -154,13 +156,13 @@ const Main = () => {
     setPage(page);
     getPaginationData(page);
   };
-
+  const outside = isvisible && { onClick: e => modalClose(e) };
   return (
-    <S.Background ref={modalRef} onClick={e => modalClose(e)}>
+    <S.Background {...outside}>
       <Outlet />
       <S.Layout>
         <S.Filter>
-          <S.StateAndPeriod>
+          <S.StateAndPeriod ref={modalRef}>
             {/* 필터 모달 true/false*/}
             {isvisible === true && <FilterBox toFilter={toFilter} />}
             <S.State onClick={() => setIsvisible(true)}>{filter}</S.State>

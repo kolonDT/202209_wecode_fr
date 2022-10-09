@@ -2,6 +2,13 @@ import styled from 'styled-components';
 
 // NoneTemplate과 Template Style은 TemplateStyle.js 에 적어두었습니다
 
+export const modalBody = styled.div`
+  position: absolute;
+  /* z-index: 15; */
+  width: 100%;
+  height: 100%;
+`;
+
 export const Background = styled.div`
   width: 100vw;
   height: 100vh;
