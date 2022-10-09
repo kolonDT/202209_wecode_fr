@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MultipleSingle from '../../components/ManagerQuestions/MultipleSingle';
 import ShortDescription from '../../components/ManagerQuestions/ShortDescription';
@@ -7,7 +7,7 @@ import EmptyContainer from '../../components/ManagerQuestions/EmptyContainer';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { clickedIdState, formListState, formNumState } from '../../store/store';
+import { formListState, formNumState } from '../../store/store';
 import { useFormContext } from 'react-hook-form';
 import ImageUpload from '../../components/ManagerQuestions/ImageUpload';
 import PhoneInput from '../../components/ManagerQuestions/PhoneInput';
@@ -18,19 +18,14 @@ import { MdInfo } from 'react-icons/md';
 
 const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
   const [formList, setFormList] = useRecoilState(formListState);
-  const [clickedId, setClickedId] = useRecoilState(clickedIdState);
   const methods = useFormContext();
   const {
     register,
-    unregister,
     formState: { errors },
     trigger,
-    getValues,
   } = methods;
 
   const setFormId = useSetRecoilState(formNumState);
-  const sortIndexNum = Object.keys(formList.formData);
-  console.log('srot', sortIndexNum);
 
   useEffect(() => {
     axios.get(`http://localhost:3000/data/${id}data.json`).then(res => {
@@ -41,21 +36,13 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
     });
   }, [id]);
 
-  console.log('fomrLIst', formList);
-  console.log('clicked', clickedId);
   //삭제 함수
-  const onRemove = (id, idx, totalLength) => {
+  const onRemove = id => {
     setFormNum(formNum - 1);
-    setClickedId(prev => [...prev, id]);
     setFormList(prev => ({
       ...prev,
       formData: formList.formData.filter(form => form.id !== id),
     }));
-
-    //클릭시 해당하는 FormData 삭제 하지만 결과적으로 겹치는 문제.
-
-    // unregister(`formData[${totalLength}]`);
-    //맨뒤에 formData 삭제
   };
 
   // 버튼 여러개 이벤트
@@ -73,12 +60,12 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
         <DataBox>
           <TitleInput
             placeholder="제목을 입력하세요"
-            {...register('surveyName', {
-              required: {
-                value: 'title',
-                message: `제목은 필수!`,
-              },
-            })}
+            // {...register('surveyName', {
+            //   required: {
+            //     value: 'title',
+            //     message: `제목은 필수!`,
+            //   },
+            // })}
           />
           <ErrorMessage
             errors={errors}
@@ -99,12 +86,12 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
             <DateInput
               placeholder="ex)2022-09-19"
               pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...register('startDate', {
-                required: {
-                  value: '복수',
-                  message: `날짜 형식을 맞춰주세요!`,
-                },
-              })}
+              // {...register('startDate', {
+              //   required: {
+              //     value: '복수',
+              //     message: `날짜 형식을 맞춰주세요!`,
+              //   },
+              // })}
             />
             <ErrorMessage
               errors={errors}
@@ -124,15 +111,10 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
           <DataBox>
             <DateInput
               placeholder="ex)2022-10-19"
-              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...register('endDate', {
-                required: {
-                  value: '복수',
-                  message: `날짜 형식을 맞춰주세요!`,
-                },
-              })}
+              // pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
+              {...register('endDate')}
             />
-            <ErrorMessage
+            {/* <ErrorMessage
               errors={errors}
               name="endDate"
               render={({ message }) => (
@@ -143,7 +125,7 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
                   {message}
                 </ErrorMOne>
               )}
-            />
+            /> */}
           </DataBox>
         </InputContainer>
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { DROPBOXMENU } from '../pages/main/Main';
+import styled from 'styled-components';
 
 const DropBox = ({ togo }) => {
   return (

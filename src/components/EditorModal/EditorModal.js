@@ -1,23 +1,20 @@
 import { React, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { errorSelector, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import LinkModal from '../../components/EditorModal/LinkModal';
 import { API } from '../../config';
-import { clickedIdState, openState } from '../../store/store';
-import * as S from './EditorModalStyle';
+import { openState } from '../../store/store';
 import { ErrorMessage } from '@hookform/error-message';
+import * as S from './EditorModalStyle';
 
 const EditorModal = ({ errors, register }) => {
-  const { getValues, unregister } = useFormContext(register);
+  const { getValues } = useFormContext(register);
 
   const [openLinkModal, setOpenLinkModal] = useState(false);
   const [form, setForm] = useState({});
 
   const setOpenEditorModal = useSetRecoilState(openState);
   const errorNum = Object.keys(errors).length;
-
-  const clickedId = useRecoilValue(clickedIdState);
-  console.log(errorNum);
 
   const onClickHandler = () => {
     errorNum === 0 && setOpenLinkModal(true);
@@ -53,12 +50,12 @@ const EditorModal = ({ errors, register }) => {
                 name="landingUrl"
                 placeholder="ex)http://www.kolonglobal.com"
                 pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)"
-                {...register(`landingUrl`, {
-                  required: {
-                    value: '복수',
-                    message: `https:// 형식을 맞춰주세요`,
-                  },
-                })}
+                // {...register(`landingUrl`, {
+                //   required: {
+                //     value: '복수',
+                //     message: `https:// 형식을 맞춰주세요`,
+                //   },
+                // })}
               />
               <ErrorMessage
                 errors={errors}

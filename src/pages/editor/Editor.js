@@ -5,7 +5,7 @@ import OptionBox from '../../components/OptionBox';
 import SurveyEditor from './SurveyEditor';
 import { API } from '../../config';
 import styled from 'styled-components';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import {
   formListState,
   formNumState,
@@ -15,11 +15,9 @@ import {
 import { FormProvider, useForm } from 'react-hook-form';
 import EditorModal from '../../components/EditorModal/EditorModal';
 import {
-  MdDelete,
   MdAddCircleOutline,
   MdCheckCircleOutline,
   MdSort,
-  MdWaves,
   MdSelectAll,
   MdSecurityUpdateGood,
   MdEditNote,
@@ -27,7 +25,9 @@ import {
 } from 'react-icons/md';
 
 const Editor = () => {
-  const methods = useForm();
+  const methods = useForm({
+    shouldUnregister: true,
+  });
   const {
     register,
     formState: { errors },
@@ -51,22 +51,22 @@ const Editor = () => {
     { id: 7, title: '개인 정보 동의 여부 선택', emo: <MdPersonPin /> },
   ];
 
-  // const onSubmit = data => {
-  //   console.log('만들어진 data', data);
-  // };
-
   const onSubmit = data => {
-    fetch(`${API.EDITOR}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: adminToken,
-      },
-      body: JSON.stringify(data),
-    })
-      .then(res => res.json())
-      .then(result => setLinkData(result));
+    console.log('만들어진 data', data);
   };
+
+  // const onSubmit = data => {
+  //   fetch(`${API.EDITOR}`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: adminToken,
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => setLinkData(result));
+  // };
 
   return (
     <Container>
@@ -110,11 +110,13 @@ const Container = styled.div`
 `;
 
 const SelectOption = styled.div`
+  position: relative;
   flex: 1;
   background-color: #fff;
   box-shadow: rgb(0 0 0 / 50%) 0px 0px 5px;
   backdrop-filter: blur(30px);
   min-height: 100vh;
+  position: relative;
 `;
 
 const MakeSurvey = styled.form`
@@ -122,5 +124,7 @@ const MakeSurvey = styled.form`
 `;
 
 const OptionContainer = styled.div`
+  position: sticky;
+  top: 0;
   padding: 10px;
 `;

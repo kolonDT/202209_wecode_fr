@@ -8,10 +8,6 @@ export const formListState = atom({
   },
 });
 
-export const clickedIdState = atom({
-  key: 'clickedId',
-  default: [],
-});
 export const linkState = atom({
   key: 'link',
   default: '',

@@ -75,6 +75,7 @@ const StatisticsPage = () => {
     }
   };
 
+  console.log('asdfaf', multiple);
   const getSubjective = async () => {
     if (adminToken) {
       try {

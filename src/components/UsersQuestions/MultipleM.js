@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
-import styled, { css } from 'styled-components';
 import UserQuestion from '../UserQuestion';
+import styled, { css } from 'styled-components';
 
 const MultipleM = ({ sortIndex, question, option }) => {
   const {
