@@ -133,7 +133,7 @@ const Main = () => {
         <S.Filter>
           <S.StateAndPeriod>
             {isvisible === true && <DropBox togo={togo} />}
-            <S.State onClick={() => setIsvisible(true)}> 상태 </S.State>
+            <S.State onClick={() => setIsvisible(true)}> {filter} </S.State>
             <S.Period> 참여기간 </S.Period>
           </S.StateAndPeriod>
           <S.SearchTemplate>
