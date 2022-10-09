@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 
-export const Layout = styled.button`
+export const Layout = styled.div`
   width: 1190px;
   height: 100px;
-  border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0 0 20px 0;
   border: 2px solid #cccccc;
   border-radius: 5.5px;
+  background-color: ${({ theEndTemplate }) =>
+    theEndTemplate ? 'rgba(0,0,0,0.10)' : 'none'};
   :hover {
     box-shadow: 2px 2px 5px 2px #dadce0;
   }
 `;
-
 export const TitleAndStateAndPeriod = styled.div`
   display: flex;
   flex-direction: column;
@@ -118,4 +118,15 @@ export const DeleteButton = styled.button`
       opacity: 1;
     }
   }
+`;
+
+// NoneTemplete Style
+
+export const LayoutNoneTemplete = styled(Layout)`
+  justify-content: center;
+`;
+
+export const NoneTempleteGuide = styled.div`
+  ${props => props.theme.variables.flex()};
+  background-color: '#ffe4e1';
 `;

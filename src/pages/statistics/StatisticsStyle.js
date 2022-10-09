@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-// 전체 Style
+// StatisticsPage Style
 
 export const Layout = styled.div`
   width: 1190px;
@@ -70,11 +70,11 @@ export const ButtonBox = styled.div`
   height: 200px;
 `;
 
-//----------------
-// 객관식 style
-//----------------
+export const Phone = styled.div``;
 
-export const MulitpleLists = styled.div`
+//MultipleLists Style
+
+export const MultipleLists = styled.div`
   width: 100%;
   margin-bottom: 50px;
   height: auto;

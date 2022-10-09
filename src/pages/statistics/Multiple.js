@@ -12,12 +12,12 @@ import {
   Bar,
 } from 'recharts';
 
-const Multiple = ({ mulitple }) => {
-  const { id, question, data } = mulitple;
+const Multiple = ({ multiple }) => {
+  const { question, data } = multiple;
   return (
     <S.MultipleLayout>
       <S.Num>
-        <S.Id>{id}</S.Id>
+        {/* <S.Id>{id}</S.Id> */}
         {question}
       </S.Num>
       <S.Answer>

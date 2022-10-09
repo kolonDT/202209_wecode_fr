@@ -1,14 +1,13 @@
-import Mulitple from './Multiple';
+import Multiple from './Multiple';
 import * as S from './StatisticsStyle';
 
-const MulitpleList = ({ mulitples }) => {
-  console.log(mulitples);
+const MulitpleList = ({ multiples }) => {
   return (
-    <S.MulitpleLists>
-      {mulitples?.map((mulitple, idx) => {
-        return <Mulitple key={idx} mulitple={mulitple} />;
+    <S.MultipleLists>
+      {multiples?.map((multiple, idx) => {
+        return <Multiple key={idx} multiple={multiple} />;
       })}
-    </S.MulitpleLists>
+    </S.MultipleLists>
   );
 };
 

@@ -2,7 +2,6 @@ import React from 'react';
 import Subjective from './Subjective';
 import * as S from './StatisticsStyle';
 const SubjectiveList = ({ subjectives }) => {
-  console.log(subjectives);
   return (
     <S.SubjectiveListLayout>
       {subjectives.map(subjective => {

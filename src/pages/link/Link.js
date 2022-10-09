@@ -1,13 +1,14 @@
 import React from 'react';
 import * as S from './LinkStyle';
 import { Outlet, useLocation } from 'react-router-dom';
-import { linkState } from '../../store/store';
 
 const Link = () => {
+  // 메인에서 Link to 로 넘긴 surveyLink, name 사용
   const location = useLocation();
   const surveyLink = location.state.surveyLink;
   const name = location.state.name;
 
+  // 서베이 주소 복사 기능
   const handleCopyClipBoard = async surveyLink => {
     try {
       await navigator.clipboard.writeText(surveyLink);

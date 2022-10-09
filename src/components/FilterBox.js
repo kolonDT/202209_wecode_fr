@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DROPBOXMENU } from '../pages/main/Main';
+import { FILTERMENU } from '../pages/main/Main';
 
-const DropBox = ({ togo }) => {
+const FilterBox = ({ toFilter }) => {
   return (
     <Layout>
-      {DROPBOXMENU.map(dropBox => {
+      {FILTERMENU.map(filterBox => {
         return (
-          <Dropbox key={dropBox.id} value={dropBox.name} onClick={togo}>
-            {dropBox.name}
+          <Dropbox
+            key={filterBox.id}
+            value={filterBox.name}
+            onClick={e => toFilter(e)}
+          >
+            {filterBox.name}
           </Dropbox>
         );
       })}
@@ -40,4 +44,4 @@ const Dropbox = styled.button`
   }
 `;
 
-export default DropBox;
+export default FilterBox;
