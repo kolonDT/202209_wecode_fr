@@ -15,7 +15,7 @@ const Main = () => {
   const [pageNumber, setPageNumber] = useState(0); // 페이지에서 보여지는 페이지네이션 넘버링 인덱스값 [[1,2,3,4,5],[6,7]] -> 1
 
   const [isvisible, setIsvisible] = useState(false); // 필터 모달 보여주는 state
-  const [filter, setFilter] = useState(''); // 필터 완료/대기중 state
+  const [filter, setFilter] = useState(' '); // 필터 완료/대기중 state
   const [search, setSearch] = useState(''); // 검색 state
 
   const [page, setPage] = useState(1); // 현재 보여지는 페이지
@@ -181,5 +181,9 @@ export const DROPBOXMENU = [
   {
     id: 3,
     name: '완료',
+  },
+  {
+    id: 4,
+    name: ' ',
   },
 ];
