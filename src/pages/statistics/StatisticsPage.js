@@ -32,6 +32,7 @@ const StatisticsPage = () => {
     navigate('/');
   };
 
+  // 서베이 info 받는 함수
   const getInfo = async () => {
     if (adminToken) {
       try {
@@ -43,7 +44,7 @@ const StatisticsPage = () => {
         setInfo(res.data);
         const { count } = res.data;
         if (count === '0') {
-          alert('불가넝');
+          alert('응답자가 없습니다');
           navigate('/');
         }
       } catch (err) {
