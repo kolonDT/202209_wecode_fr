@@ -1,14 +1,17 @@
 import { React, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { errorSelector, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import LinkModal from '../../components/EditorModal/LinkModal';
-import { API } from '../../config';
-import { clickedIdState, openState } from '../../store/store';
-import * as S from './EditorModalStyle';
+import { openState } from '../../store/store';
 import { ErrorMessage } from '@hookform/error-message';
+import * as S from './EditorModalStyle';
 
-const EditorModal = ({ errors, register }) => {
-  const { getValues, unregister } = useFormContext(register);
+const EditorModal = () => {
+  const {
+    register,
+    formState: { errors },
+    trigger,
+  } = useFormContext();
 
   const [openLinkModal, setOpenLinkModal] = useState(false);
   const [form, setForm] = useState({});
@@ -16,10 +19,7 @@ const EditorModal = ({ errors, register }) => {
   const setOpenEditorModal = useSetRecoilState(openState);
   const errorNum = Object.keys(errors).length;
 
-  const clickedId = useRecoilValue(clickedIdState);
-  console.log(errorNum);
-
-  const onClickHandler = () => {
+  const onClickHandler = errorNum => {
     errorNum === 0 && setOpenLinkModal(true);
   };
 
@@ -68,7 +68,15 @@ const EditorModal = ({ errors, register }) => {
             </S.LandingPage>
           </S.CheckBox>
           <S.ButtonBox>
-            <S.Button type="submit" onClick={() => onClickHandler()}>
+            <S.Button
+              type="submit"
+              onClick={async () => {
+                const result = await trigger(['landingUrl']);
+                if (result) {
+                  onClickHandler(errorNum);
+                }
+              }}
+            >
               완료
             </S.Button>
             <S.Button

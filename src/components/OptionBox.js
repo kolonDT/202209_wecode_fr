@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
 import { formListState } from '../store/store';
+import styled from 'styled-components';
 
 const OptionBox = ({ title, options, formNum, setFormNum }) => {
   const setFormList = useSetRecoilState(formListState);
@@ -42,8 +42,8 @@ const OptionEmoji = styled.span`
   text-align: center;
   margin-right: 5px;
 `;
+
 const OptionTitle = styled.div`
-  position: relative;
   margin-left: 30px;
   margin-top: 10px;
   padding: 10px 10px;

@@ -1,7 +1,6 @@
 import React from 'react';
-import * as S from './LinkStyle';
 import { Outlet, useLocation } from 'react-router-dom';
-import { linkState } from '../../store/store';
+import * as S from './LinkStyle';
 
 const Link = () => {
   const location = useLocation();
