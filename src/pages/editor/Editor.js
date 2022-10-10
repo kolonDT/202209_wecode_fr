@@ -5,7 +5,7 @@ import OptionBox from '../../components/OptionBox';
 import SurveyEditor from './SurveyEditor';
 import { API } from '../../config';
 import styled from 'styled-components';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import {
   formListState,
   formNumState,
@@ -15,11 +15,9 @@ import {
 import { FormProvider, useForm } from 'react-hook-form';
 import EditorModal from '../../components/EditorModal/EditorModal';
 import {
-  MdDelete,
   MdAddCircleOutline,
   MdCheckCircleOutline,
   MdSort,
-  MdWaves,
   MdSelectAll,
   MdSecurityUpdateGood,
   MdEditNote,
@@ -27,7 +25,10 @@ import {
 } from 'react-icons/md';
 
 const Editor = () => {
-  const methods = useForm();
+  const methods = useForm({
+    shouldUnregister: true,
+    // mode: 'onChange',
+  });
   const {
     register,
     formState: { errors },
@@ -110,11 +111,13 @@ const Container = styled.div`
 `;
 
 const SelectOption = styled.div`
+  position: relative;
   flex: 1;
   background-color: #fff;
   box-shadow: rgb(0 0 0 / 50%) 0px 0px 5px;
   backdrop-filter: blur(30px);
   min-height: 100vh;
+  position: relative;
 `;
 
 const MakeSurvey = styled.form`
@@ -122,5 +125,7 @@ const MakeSurvey = styled.form`
 `;
 
 const OptionContainer = styled.div`
+  position: sticky;
+  top: 0;
   padding: 10px;
 `;

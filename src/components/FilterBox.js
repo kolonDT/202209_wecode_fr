@@ -1,6 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
 import { FILTERMENU } from '../pages/main/Main';
+import styled from 'styled-components';
 
 const FilterBox = ({ toFilter }) => {
   return (

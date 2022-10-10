@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
 import UserQuestion from '../UserQuestion';

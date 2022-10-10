@@ -178,5 +178,16 @@ export const PhoneText = styled(Num)`
 `;
 
 export const PhoneNums = styled.div``;
-
 export const PhoneNum = styled(Answer)``;
+
+// NonePhoneList style
+
+export const LayoutNonePhoneList = styled.div`
+  ${props => props.theme.variables.flex()};
+  background-color: red;
+  width: 930px;
+  height: 100px;
+  margin: 250px 0 60px 130px;
+`;
+
+export const NonePhoneListGuide = styled.div``;

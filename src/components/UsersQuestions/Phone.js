@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import styled from 'styled-components';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import EssentialBox from '../EssentialBox';
 import UserQuestion from '../UserQuestion';
 import { ErrorMessage } from '@hookform/error-message';
+import styled from 'styled-components';
 
 const PhoneInput = ({ sortIndex, question }) => {
   const {

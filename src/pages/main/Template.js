@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 import { API } from '../../config';
-import * as S from './TemplateStyle';
 import { Link } from 'react-router-dom';
+import { AiFillDelete } from 'react-icons/ai';
+import * as S from './TemplateStyle';
 
 const Template = ({ template }) => {
   const adminToken = localStorage.getItem('token');
@@ -12,6 +14,27 @@ const Template = ({ template }) => {
 
   // status 완료시 강제 종료 버튼 비활성화, templateStyle - Layout 색상 변경 (theEndTemplate로 넘겨줌)
   const passed = status === '완료';
+
+  const toDelete = async () => {
+    if (adminToken) {
+      try {
+        const res = await axios.delete(`${API.MAIN}/editor/survey/${id}`, {
+          headers: {
+            Authorization: adminToken,
+          },
+        });
+        const { message } = res.data;
+        if (message === 'success') {
+          alert('삭제 되었습니다');
+          window.location.replace('/');
+        } else {
+          alert('삭제가 실패되었습니다');
+        }
+      } catch (err) {
+        throw new Error(err);
+      }
+    }
+  };
 
   // 템플릿 강제 종료 버튼 함수
   const theEnd = () => {
@@ -58,8 +81,11 @@ const Template = ({ template }) => {
         <Link key={id} to={`/statistic/${id}`}>
           <S.ResultButton> 결과 </S.ResultButton>
         </Link>
-        <S.DeleteButton disabled={passed} onClick={theEnd}>
+        <S.EndButton disabled={passed} onClick={theEnd}>
           강제 종료
+        </S.EndButton>
+        <S.DeleteButton>
+          <AiFillDelete onClick={toDelete} />
         </S.DeleteButton>
       </S.Buttons>
     </S.Layout>

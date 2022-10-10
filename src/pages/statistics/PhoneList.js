@@ -15,3 +15,7 @@ const PhoneList = ({ phone }) => {
 };
 
 export default PhoneList;
+
+// ?&filter=%EC%A7%84%ED%96%89%EC%A4%91&search=&pageNo=1&limit=10
+// ?&filter=%EC%A7%84%ED%96%89%EC%A4%91&search=test&pageNo=1&limit=10
+// ?&filter=%EC%A7%84%ED%96%89%EC%A4%91&search=test&pageNo=1&limit=10

@@ -15,6 +15,15 @@ export const Layout = styled.div`
     box-shadow: 2px 2px 5px 2px #dadce0;
   }
 `;
+
+export const DeleteButton = styled.button`
+  font-size: 50px;
+  color: #2087c9;
+  :hover {
+    opacity: 0.7;
+  }
+`;
+
 export const TitleAndStateAndPeriod = styled.div`
   display: flex;
   flex-direction: column;
@@ -98,7 +107,7 @@ export const ResultButton = styled.div`
   }
 `;
 
-export const DeleteButton = styled.button`
+export const EndButton = styled.button`
   width: 80px;
   height: 50px;
   display: flex;

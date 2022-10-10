@@ -14,9 +14,9 @@ const Main = () => {
   const [nothing, setNothing] = useState(false); // 템플릿이 하나도 없을 때 나오는 컴포넌트
   const [template, setTemplate] = useState([]); // 템플릿 데이터
 
+  // const [tohidePagination, setTohidePagination] = useState();
   const [totalTemplate, setTotalTemplate] = useState(''); // 템플릿 전체 갯수(only count)
   const [pageNumber, setPageNumber] = useState(0); // 페이지에서 보여지는 페이지네이션 넘버링 인덱스값 ex) [[1,2,3,4,5],[6,7]] -> 0 or 1
-
   const [isvisible, setIsvisible] = useState(false); // 필터 : 진행중 / 완료 / 대기중 / 전체 모달을 보여주는 state
   const [filter, setFilter] = useState('진행중'); // 필터 : 진행중 / 완료 / 대기중 / 전체 눌렀을 때 state
   const [search, setSearch] = useState(''); // 검색값 state
@@ -80,13 +80,20 @@ const Main = () => {
   // 진행중 / 완료 / 대기중 / 전체 눌렀을 때 데이터 보여주는 함수
   const toFilter = async e => {
     try {
-      setIsvisible(false);
       setFilter(e.target.value);
+      setIsvisible(false);
       const res = await getData(e.target.value, search, 1);
       const { mainPageCount, mainPageList } = res.data;
-      setTotalTemplate(mainPageCount);
-      setTemplate(mainPageList);
-      setPage(1);
+      if (mainPageCount === '0') {
+        setNothing(true);
+        setTotalTemplate(mainPageCount);
+        setTemplate(mainPageList);
+      } else {
+        setNothing(false);
+        setTotalTemplate(mainPageCount);
+        setTemplate(mainPageList);
+        setPage(1);
+      }
     } catch (err) {
       throw new Error(err);
     }
@@ -98,9 +105,17 @@ const Main = () => {
     try {
       const res = await getData(filter, search, 1);
       const { mainPageCount, mainPageList } = res.data;
-      setTotalTemplate(mainPageCount);
-      setTemplate(mainPageList);
-      setPage(1);
+      if (mainPageCount === '0') {
+        setNothing(true);
+        setTotalTemplate(mainPageCount);
+        setTemplate(mainPageList);
+        setPage(1);
+      } else {
+        setTotalTemplate(mainPageCount);
+        setTemplate(mainPageList);
+        setPage(1);
+        // setSearch('');
+      }
     } catch (err) {
       throw new Error(err);
     }
@@ -184,18 +199,22 @@ const Main = () => {
           {nothing === true && <NoneTemplete />}
           <TemplateList templates={template} />
         </S.TemplateListBox>
-        <S.Pagination>
-          <S.PreButton onClick={() => movePrev(pageNumber)}>◀</S.PreButton>
-          {/* showPagination 을 보여주기 위한 map */}
-          {showPagination[pageNumber].map(pages => {
-            return (
-              <S.PageinationNum key={pages} onClick={() => movePage(pages)}>
-                {pages}
-              </S.PageinationNum>
-            );
-          })}
-          <S.NextButton onClick={() => moveNext(pageNumber)}>►</S.NextButton>
-        </S.Pagination>
+        {template.length !== 0 ? (
+          <S.Pagination>
+            <S.PreButton onClick={() => movePrev(pageNumber)}>◀</S.PreButton>
+            {/* showPagination 을 보여주기 위한 map */}
+            {showPagination[pageNumber].map(pages => {
+              return (
+                <S.PageinationNum key={pages} onClick={() => movePage(pages)}>
+                  {pages}
+                </S.PageinationNum>
+              );
+            })}
+            <S.NextButton onClick={() => moveNext(pageNumber)}>►</S.NextButton>
+          </S.Pagination>
+        ) : (
+          ' '
+        )}
       </S.Layout>
     </S.Background>
   );

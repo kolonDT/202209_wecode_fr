@@ -7,7 +7,6 @@ import Login from './pages/Login/Login';
 import Link from './pages/link/Link';
 import UserSurvey from './pages/user/UserContainer';
 import Statistics from './pages/statistics/StatisticsPage';
-import NoneTemplete from './pages/main/NoneTemplete';
 
 const Router = () => {
   return (
@@ -25,7 +24,6 @@ const Router = () => {
         <Route path="/editor/:id" element={<Editor />} />
         <Route path="/surveypage/:id" element={<UserSurvey />} />
         <Route path="/statistic/:id" element={<Statistics />} />
-        <Route path="/none" element={<NoneTemplete />} />
       </Routes>
     </BrowserRouter>
   );

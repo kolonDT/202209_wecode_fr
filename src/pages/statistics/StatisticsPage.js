@@ -21,6 +21,7 @@ const StatisticsPage = () => {
   const [multiple, setMultiple] = useState(); // 해당 서베이 객관식 데이터 (차트)
   const [subjectives, setSubjectives] = useState([]); // 해당 서베이 서술형 데이터
   const [phones, setPhones] = useState([]); // 해당 서베이 응답자의 번호
+  const [nonePhones, setNonePhones] = useState(true);
 
   useEffect(() => {
     getInfo();
@@ -75,8 +76,7 @@ const StatisticsPage = () => {
       navigate('/admin/login');
     }
   };
-
-  // 서술형 데이터 받는 함수
+  // 주관식 불러오는 함수
   const getSubjective = async () => {
     if (adminToken) {
       try {
@@ -104,7 +104,13 @@ const StatisticsPage = () => {
             Authorization: adminToken,
           },
         });
-        setPhones(res.data);
+        const { data } = res;
+        setPhones(data);
+
+        const phone = data[0];
+        if (phone.phone === null) {
+          setNonePhones(false);
+        }
       } catch (err) {
         throw new Error(err);
       }
@@ -130,7 +136,7 @@ const StatisticsPage = () => {
         <S.StatisticsBox>
           <MulitpleList multiples={multiple} />
           <SubjectiveList subjectives={subjectives} />
-          <PhoneList phone={phones} />
+          {nonePhones === true && <PhoneList phone={phones} />}
           <S.ButtonBox>
             <S.GotoMainButton onClick={goToMain}>돌아가기</S.GotoMainButton>
           </S.ButtonBox>

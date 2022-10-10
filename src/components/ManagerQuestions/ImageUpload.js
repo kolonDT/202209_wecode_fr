@@ -22,6 +22,7 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
     }
   }, [image]);
 
+  console.log(fileImage);
   const deleteFileImage = () => {
     URL.revokeObjectURL(fileImage);
     setFileImage('');
@@ -46,7 +47,7 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
           // 'Content-Type': 'multipart/form-data',
           // },
         })
-        .then(res => alert(res.data.message))
+        .then(res => alert(res.status === 201 && '이미지 저장 완료!'))
         .catch(err => {
           throw err;
         });
@@ -63,9 +64,11 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
     >
       <ImageBox>{fileImage && <Image src={fileImage} alt="img" />}</ImageBox>
       <ButtonBox>
+        <UploadLabel for="input-file">업로드</UploadLabel>
         <UploadButton
           type="file"
           accept="image/*"
+          id="input-file"
           {...register(`formData[${sortIndex - 1}].file`)}
         />
         <button
@@ -107,6 +110,18 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
 };
 
 export default ImageUpload;
+
+const UploadLabel = styled.label`
+  width: 80px;
+  height: 30px;
+  margin-top: 5px;
+  font-size: 11px;
+  background-color: rgb(32, 135, 201);
+  color: white;
+  border-radius: 10px;
+  opacity: 0.86;
+`;
+
 const ImageBox = styled.div`
   background-color: aliceblue;
   max-width: 600px;
@@ -128,4 +143,5 @@ const ButtonBox = styled.div`
 
 const UploadButton = styled.input`
   margin-top: 10px;
+  display: none;
 `;

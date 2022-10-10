@@ -21,12 +21,7 @@ const MultipleSingle = ({ sortIndex, onRemove, formId }) => {
               <CheckCircle />
               <MultipleContent
                 placeholder={list}
-                {...register(`formData[${sortIndex - 1}].option.0[${idx}]`, {
-                  required: {
-                    value: '객관식단수',
-                    message: '모든 내용을 입력해주세요',
-                  },
-                })}
+                {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
               />
             </Choice>
           ))}
