@@ -18,12 +18,14 @@ import { MdInfo } from 'react-icons/md';
 
 const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
   const [formList, setFormList] = useRecoilState(formListState);
-  const methods = useFormContext();
+
   const {
     register,
     formState: { errors },
     trigger,
-  } = methods;
+  } = useFormContext();
+
+  console.log(errors);
 
   const setFormId = useSetRecoilState(formNumState);
 
@@ -60,12 +62,12 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
         <DataBox>
           <TitleInput
             placeholder="제목을 입력하세요"
-            // {...register('surveyName', {
-            //   required: {
-            //     value: 'title',
-            //     message: `제목은 필수!`,
-            //   },
-            // })}
+            {...register('surveyName', {
+              required: {
+                value: 'title',
+                message: `제목은 필수!`,
+              },
+            })}
           />
           <ErrorMessage
             errors={errors}
@@ -85,13 +87,16 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
           <DataBox>
             <DateInput
               placeholder="ex)2022-09-19"
-              pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              // {...register('startDate', {
-              //   required: {
-              //     value: '복수',
-              //     message: `날짜 형식을 맞춰주세요!`,
-              //   },
-              // })}
+              {...register('startDate', {
+                pattern: {
+                  value: /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/,
+                  message: '날짜 형식을 일치시켜주세요!',
+                },
+                required: {
+                  value: '복수',
+                  message: `필수 항목입니다!`,
+                },
+              })}
             />
             <ErrorMessage
               errors={errors}
@@ -111,10 +116,18 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
           <DataBox>
             <DateInput
               placeholder="ex)2022-10-19"
-              // pattern="\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])"
-              {...register('endDate')}
+              {...register('endDate', {
+                pattern: {
+                  value: /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/,
+                  message: '날짜 형식을 일치시켜주세요!',
+                },
+                required: {
+                  value: '복수',
+                  message: `필수 항목입니다!`,
+                },
+              })}
             />
-            {/* <ErrorMessage
+            <ErrorMessage
               errors={errors}
               name="endDate"
               render={({ message }) => (
@@ -125,7 +138,7 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
                   {message}
                 </ErrorMOne>
               )}
-            /> */}
+            />
           </DataBox>
         </InputContainer>
 

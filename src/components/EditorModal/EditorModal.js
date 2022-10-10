@@ -2,13 +2,16 @@ import { React, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 import LinkModal from '../../components/EditorModal/LinkModal';
-import { API } from '../../config';
 import { openState } from '../../store/store';
 import { ErrorMessage } from '@hookform/error-message';
 import * as S from './EditorModalStyle';
 
-const EditorModal = ({ errors, register }) => {
-  const { getValues } = useFormContext(register);
+const EditorModal = () => {
+  const {
+    register,
+    formState: { errors },
+    trigger,
+  } = useFormContext();
 
   const [openLinkModal, setOpenLinkModal] = useState(false);
   const [form, setForm] = useState({});
@@ -16,7 +19,7 @@ const EditorModal = ({ errors, register }) => {
   const setOpenEditorModal = useSetRecoilState(openState);
   const errorNum = Object.keys(errors).length;
 
-  const onClickHandler = () => {
+  const onClickHandler = errorNum => {
     errorNum === 0 && setOpenLinkModal(true);
   };
 
@@ -50,12 +53,12 @@ const EditorModal = ({ errors, register }) => {
                 name="landingUrl"
                 placeholder="ex)http://www.kolonglobal.com"
                 pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)"
-                // {...register(`landingUrl`, {
-                //   required: {
-                //     value: '복수',
-                //     message: `https:// 형식을 맞춰주세요`,
-                //   },
-                // })}
+                {...register(`landingUrl`, {
+                  required: {
+                    value: '복수',
+                    message: `https:// 형식을 맞춰주세요`,
+                  },
+                })}
               />
               <ErrorMessage
                 errors={errors}
@@ -65,7 +68,15 @@ const EditorModal = ({ errors, register }) => {
             </S.LandingPage>
           </S.CheckBox>
           <S.ButtonBox>
-            <S.Button type="submit" onClick={() => onClickHandler()}>
+            <S.Button
+              type="submit"
+              onClick={async () => {
+                const result = await trigger(['landingUrl']);
+                if (result) {
+                  onClickHandler(errorNum);
+                }
+              }}
+            >
               완료
             </S.Button>
             <S.Button
