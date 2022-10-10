@@ -117,7 +117,7 @@ export const TemplateList = styled.div`
   margin-top: 50px;
 `;
 
-export const pagination = styled.div`
+export const Pagination = styled.div`
   width: 100%;
   height: 80px;
   display: flex;

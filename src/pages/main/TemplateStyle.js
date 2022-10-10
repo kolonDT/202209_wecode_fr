@@ -123,6 +123,7 @@ export const DeleteButton = styled.button`
 // NoneTemplete Style
 
 export const LayoutNoneTemplete = styled(Layout)`
+  margin-top: 70px;
   justify-content: center;
 `;
 

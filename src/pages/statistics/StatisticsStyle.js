@@ -166,3 +166,17 @@ export const Answers = styled.div`
   font-size: 17px;
   margin-top: 3px;
 `;
+
+// 핸드폰 번호
+
+export const PhoneList = styled(MultipleLayout)`
+  margin-top: 150px;
+`;
+export const PhoneText = styled(Num)`
+  justify-content: center;
+  font-weight: 500;
+`;
+
+export const PhoneNums = styled.div``;
+
+export const PhoneNum = styled(Answer)``;

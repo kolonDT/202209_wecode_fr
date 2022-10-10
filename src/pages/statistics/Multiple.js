@@ -13,11 +13,12 @@ import {
 } from 'recharts';
 
 const Multiple = ({ multiple }) => {
-  const { question, data } = multiple;
+  console.log(multiple);
+  const { id, question, data } = multiple;
   return (
     <S.MultipleLayout>
       <S.Num>
-        {/* <S.Id>{id}</S.Id> */}
+        <S.Id>{id}</S.Id>
         {question}
       </S.Num>
       <S.Answer>

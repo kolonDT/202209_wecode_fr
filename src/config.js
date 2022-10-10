@@ -1,4 +1,4 @@
-const BASE_URL = `http://10.133.56.238:8000`;
+const BASE_URL = `http://10.133.57.77:8000`;
 
 //10.133.28.181:8000
 // 도커 IP
@@ -7,6 +7,7 @@ const BASE_URL = `http://10.133.56.238:8000`;
 //10.133.57.57:8000
 // 10.133.63.155
 // 10.133.56.249:8000
+
 export const API = {
   MAIN: `${BASE_URL}`,
   LOGIN: `${BASE_URL}/admin/login`,

@@ -14,6 +14,7 @@ const Nav = () => {
 
   const toLogout = () => {
     localStorage.removeItem('token');
+    alert('로그아웃 되었습니다');
     navigate('/admin/login');
   };
   return (

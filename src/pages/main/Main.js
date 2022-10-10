@@ -18,7 +18,7 @@ const Main = () => {
   const [pageNumber, setPageNumber] = useState(0); // 페이지에서 보여지는 페이지네이션 넘버링 인덱스값 ex) [[1,2,3,4,5],[6,7]] -> 0 or 1
 
   const [isvisible, setIsvisible] = useState(false); // 필터 : 진행중 / 완료 / 대기중 / 전체 모달을 보여주는 state
-  const [filter, setFilter] = useState('전체'); // 필터 : 진행중 / 완료 / 대기중 / 전체 눌렀을 때 state
+  const [filter, setFilter] = useState('진행중'); // 필터 : 진행중 / 완료 / 대기중 / 전체 눌렀을 때 state
   const [search, setSearch] = useState(''); // 검색값 state
 
   const [page, setPage] = useState(1); // 현재 보여지는 페이지
@@ -39,9 +39,6 @@ const Main = () => {
 
   // URL 재사용을 위한 함수
   const getData = (filter, search, page) => {
-    if (filter === '전체') {
-      return filter === ' ';
-    }
     return axios.get(
       `${API.MAIN}/main/option/list?&filter=${filter}&search=${search}&pageNo=${page}&limit=${limit}`,
       {
@@ -62,7 +59,7 @@ const Main = () => {
       try {
         const res = await getData(filter, search, pageNum);
         const { mainPageCount, mainPageList } = res.data;
-        if (mainPageCount === 0) {
+        if (mainPageCount === '0') {
           setNothing(true);
           setPage(1);
         } else {
@@ -165,7 +162,10 @@ const Main = () => {
           <S.StateAndPeriod ref={modalRef}>
             {/* 필터 모달 true/false*/}
             {isvisible === true && <FilterBox toFilter={toFilter} />}
-            <S.State onClick={() => setIsvisible(true)}>{filter}</S.State>
+            <S.State onClick={() => setIsvisible(true)}>
+              {/* {total !== true &&  */}
+              {filter}
+            </S.State>
           </S.StateAndPeriod>
           <S.SearchTemplate>
             <S.SearchImg alt="search img" src="/images/search.png" />
@@ -181,10 +181,10 @@ const Main = () => {
         </S.Filter>
         <S.TemplateListBox>
           {/* 템플릿이 하나도 없을 때 불러오는 NoneTemplete 컴포넌트 */}
-          {nothing === true && <NoneTemplete /> && setPage(1)}
+          {nothing === true && <NoneTemplete />}
           <TemplateList templates={template} />
         </S.TemplateListBox>
-        <S.pagination>
+        <S.Pagination>
           <S.PreButton onClick={() => movePrev(pageNumber)}>◀</S.PreButton>
           {/* showPagination 을 보여주기 위한 map */}
           {showPagination[pageNumber].map(pages => {
@@ -195,7 +195,7 @@ const Main = () => {
             );
           })}
           <S.NextButton onClick={() => moveNext(pageNumber)}>►</S.NextButton>
-        </S.pagination>
+        </S.Pagination>
       </S.Layout>
     </S.Background>
   );

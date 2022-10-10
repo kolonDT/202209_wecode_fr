@@ -75,6 +75,7 @@ const StatisticsPage = () => {
       navigate('/admin/login');
     }
   };
+
   // 서술형 데이터 받는 함수
   const getSubjective = async () => {
     if (adminToken) {
