@@ -1,8 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
-import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import Consent from '../../components/UsersQuestions/Consent';
 import ImageShow from '../../components/UsersQuestions/ImageShow';
 import LongDes from '../../components/UsersQuestions/LongDes';
@@ -11,19 +8,11 @@ import MultipleS from '../../components/UsersQuestions/MultipleS';
 import Phone from '../../components/UsersQuestions/Phone';
 import ShortDes from '../../components/UsersQuestions/ShortDes';
 import { API } from '../../config';
+import styled from 'styled-components';
 
-const UserSurvey = ({ form, userId, setSurvey, survey }) => {
-  const [data, setData] = useState('');
+const UserSurvey = ({ form, userId }) => {
   const methods = useForm();
-  const location = useLocation();
 
-  // const onSubmit = data => {
-  //   console.log(data);
-  // };
-
-  useEffect(() => {
-    axios.get();
-  }, []);
   const onSubmit = data => {
     fetch(`${API.OPINION}/${userId}`, {
       method: 'POST',
@@ -42,6 +31,7 @@ const UserSurvey = ({ form, userId, setSurvey, survey }) => {
         }
       });
   };
+
   return (
     <FormProvider {...methods}>
       <SurveyForm onSubmit={methods.handleSubmit(onSubmit)}>
@@ -129,28 +119,3 @@ const QUESTION_ARRAY = (sortIndex, ...args) => {
     ),
   };
 };
-
-// {formList.formData.length > 0 ? (
-//             formList.formData.map((form, idx) => (
-//               <div key={idx}>
-//                 {QUESTION_ARRAY(idx + 1, form.question, form.option)[form.type]}
-//               </div>
-//             ))
-//           ) : (
-//             <EmptyContainer />
-//           )}
-
-//           <NextContainer>
-//             <Button>
-//               <Link to="/">이전으로 가기</Link>
-//             </Button>
-//             <Button onClick={() => setOpenEditorModal(true)}>
-//               다음으로 가기
-//             </Button>
-//           </NextContainer>
-//           {openEditorModal === true && <EditorModal />}
-//         </SurveyPage>
-//       </FormProvider>
-//     </SurveyContainer>
-//   );
-// };

@@ -24,11 +24,7 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
     formState: { errors },
     trigger,
   } = useFormContext();
-
-  console.log(errors);
-
-  const setFormId = useSetRecoilState(formNumState);
-
+  const [formId, setFormId] = useRecoilState(formNumState);
   useEffect(() => {
     axios.get(`http://localhost:3000/data/${id}data.json`).then(res => {
       setFormList(res.data);
@@ -40,12 +36,14 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
 
   //삭제 함수
   const onRemove = id => {
-    setFormNum(formNum - 1);
     setFormList(prev => ({
       ...prev,
       formData: formList.formData.filter(form => form.id !== id),
     }));
   };
+
+  console.log('formList', formList);
+  console.log('formId', formId);
 
   // 버튼 여러개 이벤트
   const onClickHandler = props => {
@@ -63,6 +61,7 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
           <TitleInput
             placeholder="제목을 입력하세요"
             {...register('surveyName', {
+              shouldSelect: true,
               required: {
                 value: 'title',
                 message: `제목은 필수!`,

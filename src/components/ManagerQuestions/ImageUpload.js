@@ -2,15 +2,21 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+import { MdInfo } from 'react-icons/md';
 import styled from 'styled-components';
 import { API } from '../../config';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import GlobalQuestion from '../GlobalQuestion';
 
 const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
-  const { register, watch } = useFormContext(); // retrieve all hook methods
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useFormContext(); // retrieve all hook methods
   const [fileImage, setFileImage] = useState(''); // 미리보기용 State
   const [postImage, setPostImage] = useState('');
+  const [data, setData] = useState('');
 
   const image = watch(`formData[${sortIndex - 1}].file`);
 
@@ -22,7 +28,6 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
     }
   }, [image]);
 
-  console.log(fileImage);
   const deleteFileImage = () => {
     URL.revokeObjectURL(fileImage);
     setFileImage('');
@@ -47,7 +52,7 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
           // 'Content-Type': 'multipart/form-data',
           // },
         })
-        .then(res => alert(res.status === 201 && '이미지 저장 완료!'))
+        .then(res => setData(res.status))
         .catch(err => {
           throw err;
         });
@@ -64,37 +69,47 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
     >
       <ImageBox>{fileImage && <Image src={fileImage} alt="img" />}</ImageBox>
       <ButtonBox>
-        <UploadLabel for="input-file">업로드</UploadLabel>
+        <UploadLabel htmlFor="input-file">업로드</UploadLabel>
         <UploadButton
           type="file"
           accept="image/*"
           id="input-file"
           {...register(`formData[${sortIndex - 1}].file`)}
         />
-        <button
-          type="button"
-          onClick={createBoard}
-          style={{
-            width: '80px',
-            height: '30px',
-            marginTop: '5px',
-            marginLeft: '220px',
-            fontSize: '11px',
-            backgroundColor: '#2087C9',
-            color: 'white',
-            borderRadius: '10px',
-            opacity: 0.86,
-          }}
-        >
-          이미지 저장
-        </button>
+        <>
+          <button
+            type="button"
+            onClick={createBoard}
+            style={{
+              position: 'relative',
+              width: '80px',
+              height: '30px',
+              marginTop: '15px',
+              marginLeft: '380px',
+              fontSize: '11px',
+              backgroundColor: '#2087C9',
+              color: 'white',
+              borderRadius: '10px',
+              opacity: 0.86,
+            }}
+          >
+            이미지 저장
+          </button>
+          <ErrorM>
+            {data === 201 && fileImage ? (
+              <CheckImage>이미지 저장 완료!</CheckImage>
+            ) : (
+              '이미지 저장을 눌러주세요'
+            )}
+          </ErrorM>
+        </>
         <button
           type="button"
           onClick={deleteFileImage}
           style={{
             width: '40px',
             height: '30px',
-            marginTop: '5px',
+            marginTop: '15px',
             fontSize: '11px',
             backgroundColor: '#2087C9',
             color: 'white',
@@ -110,16 +125,28 @@ const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
 };
 
 export default ImageUpload;
+const CheckImage = styled.span`
+  margin-left: 40px;
+  color: green;
+`;
 
 const UploadLabel = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 80px;
   height: 30px;
-  margin-top: 5px;
+  margin-top: 15px;
   font-size: 11px;
   background-color: rgb(32, 135, 201);
   color: white;
   border-radius: 10px;
   opacity: 0.86;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const ImageBox = styled.div`
@@ -144,4 +171,11 @@ const ButtonBox = styled.div`
 const UploadButton = styled.input`
   margin-top: 10px;
   display: none;
+`;
+const ErrorM = styled.span`
+  position: absolute;
+  left: 530px;
+  font-size: 13px;
+  font-weight: 600;
+  color: ${props => props.theme.style.red};
 `;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
 
@@ -22,10 +23,12 @@ const GlobalQuestion = ({
           />
           <QuestionContent
             placeholder={`${sortIndex}번 질문을 입력하세요`}
-            {...register(`formData[${sortIndex - 1}].question`)}
+            {...register(`formData[${sortIndex - 1}].question`, {
+              setValue: 'bill',
+            })}
           />
         </QuestionTitleInput>
-        <Icon onClick={() => onRemove(formId)}>
+        <Icon onClick={() => onRemove(formId, sortIndex)}>
           <MdDelete className="uil uil-trash-alt" />
         </Icon>
       </QuesTionContainer>
