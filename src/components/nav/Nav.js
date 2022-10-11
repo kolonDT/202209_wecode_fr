@@ -1,13 +1,21 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import MainModal from '../MainModal/MainModal.js';
 import { MdOutlineAddCircleOutline } from 'react-icons/md';
 
 const Nav = () => {
+  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const goToMain = () => {
     window.location.replace('/');
+  };
+
+  const toLogout = () => {
+    localStorage.removeItem('token');
+    alert('로그아웃 되었습니다');
+    navigate('/admin/login');
   };
   return (
     <Container>
@@ -24,7 +32,7 @@ const Nav = () => {
             </LogoBox>
             새설문 작성
           </Li>
-          <Li>로그아웃</Li>
+          <Li onClick={() => toLogout()}>로그아웃</Li>
         </NavRight>
       </FlexContainer>
       {openModal === true && (

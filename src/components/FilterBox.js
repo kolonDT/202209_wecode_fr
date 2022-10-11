@@ -1,14 +1,17 @@
-import React from 'react';
-import { DROPBOXMENU } from '../pages/main/Main';
+import { FILTERMENU } from '../pages/main/Main';
 import styled from 'styled-components';
 
-const DropBox = ({ togo }) => {
+const FilterBox = ({ toFilter }) => {
   return (
     <Layout>
-      {DROPBOXMENU.map(dropBox => {
+      {FILTERMENU.map(filterBox => {
         return (
-          <Dropbox key={dropBox.id} value={dropBox.name} onClick={e => togo(e)}>
-            {dropBox.name}
+          <Dropbox
+            key={filterBox.id}
+            value={filterBox.name}
+            onClick={e => toFilter(e)}
+          >
+            {filterBox.name}
           </Dropbox>
         );
       })}
@@ -26,11 +29,13 @@ const Layout = styled.div`
   box-shadow: 1px 1px 3px #ddd;
   background-color: #fafafa;
   opacity: 0.9;
-  z-index: 10;
+  z-index: 20;
 `;
 const Dropbox = styled.button`
   width: 100%;
   height: 60px;
+  /* position: relative; */
+  z-index: 100;
   font-size: ${props => props.theme.style.smallFont};
   ${props => props.theme.variables.flex('center', 'center', 'center')};
   &:hover {
@@ -40,4 +45,4 @@ const Dropbox = styled.button`
   }
 `;
 
-export default DropBox;
+export default FilterBox;

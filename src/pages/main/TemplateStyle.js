@@ -9,12 +9,21 @@ export const Layout = styled.div`
   margin: 0 0 20px 0;
   border: 2px solid #cccccc;
   border-radius: 5.5px;
-  background-color: ${({ disabled }) =>
-    disabled ? 'rgba(0,0,0,0.10)' : 'none'};
+  background-color: ${({ theEndTemplate }) =>
+    theEndTemplate ? 'rgba(0,0,0,0.10)' : 'none'};
   :hover {
     box-shadow: 2px 2px 5px 2px #dadce0;
   }
 `;
+
+export const DeleteButton = styled.button`
+  font-size: 50px;
+  color: #2087c9;
+  :hover {
+    opacity: 0.7;
+  }
+`;
+
 export const TitleAndStateAndPeriod = styled.div`
   display: flex;
   flex-direction: column;
@@ -98,7 +107,7 @@ export const ResultButton = styled.div`
   }
 `;
 
-export const DeleteButton = styled.button`
+export const EndButton = styled.button`
   width: 80px;
   height: 50px;
   display: flex;
@@ -118,4 +127,16 @@ export const DeleteButton = styled.button`
       opacity: 1;
     }
   }
+`;
+
+// NoneTemplete Style
+
+export const LayoutNoneTemplete = styled(Layout)`
+  margin-top: 70px;
+  justify-content: center;
+`;
+
+export const NoneTempleteGuide = styled.div`
+  ${props => props.theme.variables.flex()};
+  background-color: '#ffe4e1';
 `;

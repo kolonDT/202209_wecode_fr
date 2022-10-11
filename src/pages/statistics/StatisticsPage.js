@@ -8,19 +8,20 @@ import SubjectiveList from './SubjectiveList';
 import PhoneList from './PhoneList';
 import axios from 'axios';
 import { API } from '../../config';
-
 import * as S from './StatisticsStyle';
 
 const StatisticsPage = () => {
+  //메인에서 받은 id URL에서 잘라서 썼습니다
   const location = useLocation();
   const url = location.pathname;
   const id = url.substring(11);
   const adminToken = localStorage.getItem('token');
   const navigate = useNavigate();
-  const [info, setInfo] = useState({});
-  const [multiple, setMultiple] = useState();
-  const [subjectives, setSubjectives] = useState([]);
-  const [phones, setPhones] = useState([]);
+  const [info, setInfo] = useState({}); // 해당 서베이 info
+  const [multiple, setMultiple] = useState(); // 해당 서베이 객관식 데이터 (차트)
+  const [subjectives, setSubjectives] = useState([]); // 해당 서베이 서술형 데이터
+  const [phones, setPhones] = useState([]); // 해당 서베이 응답자의 번호
+  const [nonePhones, setNonePhones] = useState(true);
 
   useEffect(() => {
     getInfo();
@@ -32,6 +33,7 @@ const StatisticsPage = () => {
     navigate('/');
   };
 
+  // 서베이 info 받는 함수
   const getInfo = async () => {
     if (adminToken) {
       try {
@@ -43,7 +45,7 @@ const StatisticsPage = () => {
         setInfo(res.data);
         const { count } = res.data;
         if (count === '0') {
-          alert('불가넝');
+          alert('응답자가 없습니다');
           navigate('/');
         }
       } catch (err) {
@@ -56,7 +58,7 @@ const StatisticsPage = () => {
   };
   const { count, start_date, end_date, status, name } = info;
 
-  // chart 불러오는 함수
+  // 객관식 데이터(chart) 불러오는 함수
   const getchart = async () => {
     if (adminToken) {
       try {
@@ -74,8 +76,7 @@ const StatisticsPage = () => {
       navigate('/admin/login');
     }
   };
-
-  console.log('asdfaf', multiple);
+  // 주관식 불러오는 함수
   const getSubjective = async () => {
     if (adminToken) {
       try {
@@ -93,6 +94,8 @@ const StatisticsPage = () => {
       navigate('/admin/login');
     }
   };
+
+  // 핸드폰 번호 받는 함수
   const phoneNum = async () => {
     if (adminToken) {
       try {
@@ -101,7 +104,13 @@ const StatisticsPage = () => {
             Authorization: adminToken,
           },
         });
-        setPhones(res.data);
+        const { data } = res;
+        setPhones(data);
+
+        const phone = data[0];
+        if (phone.phone === null) {
+          setNonePhones(false);
+        }
       } catch (err) {
         throw new Error(err);
       }
@@ -111,7 +120,6 @@ const StatisticsPage = () => {
     }
   };
 
-  console.log('adfadf', multiple);
   return (
     <S.Layout>
       <S.SurveyDescription>
@@ -128,7 +136,7 @@ const StatisticsPage = () => {
         <S.StatisticsBox>
           <MulitpleList multiples={multiple} />
           <SubjectiveList subjectives={subjectives} />
-          <PhoneList phone={phones} />
+          {nonePhones === true && <PhoneList phone={phones} />}
           <S.ButtonBox>
             <S.GotoMainButton onClick={goToMain}>돌아가기</S.GotoMainButton>
           </S.ButtonBox>

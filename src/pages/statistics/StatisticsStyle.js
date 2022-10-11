@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-// 전체 Style
+// StatisticsPage Style
 
 export const Layout = styled.div`
   width: 1190px;
@@ -72,9 +72,7 @@ export const ButtonBox = styled.div`
 
 export const Phone = styled.div``;
 
-//----------------
-// 객관식 style
-//----------------
+//MultipleLists Style
 
 export const MultipleLists = styled.div`
   width: 100%;
@@ -168,3 +166,28 @@ export const Answers = styled.div`
   font-size: 17px;
   margin-top: 3px;
 `;
+
+// 핸드폰 번호
+
+export const PhoneList = styled(MultipleLayout)`
+  margin-top: 150px;
+`;
+export const PhoneText = styled(Num)`
+  justify-content: center;
+  font-weight: 500;
+`;
+
+export const PhoneNums = styled.div``;
+export const PhoneNum = styled(Answer)``;
+
+// NonePhoneList style
+
+export const LayoutNonePhoneList = styled.div`
+  ${props => props.theme.variables.flex()};
+  background-color: red;
+  width: 930px;
+  height: 100px;
+  margin: 250px 0 60px 130px;
+`;
+
+export const NonePhoneListGuide = styled.div``;
