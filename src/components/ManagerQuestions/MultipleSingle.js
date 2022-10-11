@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 
 const MultipleSingle = ({ sortIndex, onRemove, formId }) => {
-  const { register, unregister } = useFormContext();
+  const { register } = useFormContext();
   return (
     <div>
       <GlobalQuestion

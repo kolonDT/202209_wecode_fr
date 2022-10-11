@@ -2,18 +2,14 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { MdInfo } from 'react-icons/md';
+
 import styled from 'styled-components';
 import { API } from '../../config';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import GlobalQuestion from '../GlobalQuestion';
 
-const ImageUpload = ({ sortIndex, label, onRemove, formId }) => {
-  const {
-    register,
-    watch,
-    formState: { errors },
-  } = useFormContext(); // retrieve all hook methods
+const ImageUpload = ({ sortIndex, onRemove, formId }) => {
+  const { register, watch } = useFormContext(); // retrieve all hook methods
   const [fileImage, setFileImage] = useState(''); // 미리보기용 State
   const [postImage, setPostImage] = useState('');
   const [data, setData] = useState('');

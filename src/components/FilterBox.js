@@ -34,7 +34,6 @@ const Layout = styled.div`
 const Dropbox = styled.button`
   width: 100%;
   height: 60px;
-  /* position: relative; */
   z-index: 100;
   font-size: ${props => props.theme.style.smallFont};
   ${props => props.theme.variables.flex('center', 'center', 'center')};

@@ -1,8 +1,6 @@
 import React from 'react';
 import * as S from './TemplateStyle';
 
-// 템플릿 없을 때 나오는 컴포넌트
-
 const NoneTemplete = () => {
   return (
     <S.LayoutNoneTemplete>

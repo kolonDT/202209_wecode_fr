@@ -3,8 +3,6 @@ import GlobalQuestion from '../GlobalQuestion';
 import { useFormContext } from 'react-hook-form';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import styled, { css } from 'styled-components';
-import { ErrorMessage } from '@hookform/error-message';
-import { MdInfo } from 'react-icons/md';
 
 const MultipleMultiple = ({ sortIndex, onRemove, formId }) => {
   const { register } = useFormContext(); // retrieve all hook methods

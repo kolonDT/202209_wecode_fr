@@ -6,7 +6,7 @@ import LongDescription from '../../components/ManagerQuestions/LongDescription';
 import EmptyContainer from '../../components/ManagerQuestions/EmptyContainer';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import styled from 'styled-components';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { formListState, formNumState } from '../../store/store';
 import { useFormContext } from 'react-hook-form';
 import ImageUpload from '../../components/ManagerQuestions/ImageUpload';
@@ -16,7 +16,7 @@ import axios from 'axios';
 import { ErrorMessage } from '@hookform/error-message';
 import { MdInfo } from 'react-icons/md';
 
-const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
+const SurveyEditor = ({ setOpenEditorModal, id }) => {
   const [formList, setFormList] = useRecoilState(formListState);
 
   const {
@@ -34,7 +34,6 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
     });
   }, [id]);
 
-  //삭제 함수
   const onRemove = id => {
     setFormList(prev => ({
       ...prev,
@@ -42,10 +41,6 @@ const SurveyEditor = ({ formNum, setFormNum, setOpenEditorModal, id }) => {
     }));
   };
 
-  console.log('formList', formList);
-  console.log('formId', formId);
-
-  // 버튼 여러개 이벤트
   const onClickHandler = props => {
     if (Object.keys(props).length === 0) {
       setOpenEditorModal(true);

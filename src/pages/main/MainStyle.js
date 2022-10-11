@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 export const modalBody = styled.div`
   position: absolute;
-  /* z-index: 15; */
   width: 100%;
   height: 100%;
 `;

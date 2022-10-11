@@ -25,10 +25,11 @@ const StatisticsPage = () => {
 
   useEffect(() => {
     getInfo();
-    getchart();
+    getChart();
     getSubjective();
     phoneNum();
   }, []);
+
   const goToMain = () => {
     navigate('/');
   };
@@ -58,8 +59,7 @@ const StatisticsPage = () => {
   };
   const { count, start_date, end_date, status, name } = info;
 
-  // 객관식 데이터(chart) 불러오는 함수
-  const getchart = async () => {
+  const getChart = async () => {
     if (adminToken) {
       try {
         const res = await axios.get(`${API.MAIN}/statistic/multiple/${id}`, {
@@ -76,7 +76,6 @@ const StatisticsPage = () => {
       navigate('/admin/login');
     }
   };
-  // 주관식 불러오는 함수
   const getSubjective = async () => {
     if (adminToken) {
       try {

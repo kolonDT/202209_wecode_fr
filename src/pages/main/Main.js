@@ -13,8 +13,6 @@ const Main = () => {
   const navigate = useNavigate();
   const [nothing, setNothing] = useState(false); // 템플릿이 하나도 없을 때 나오는 컴포넌트
   const [template, setTemplate] = useState([]); // 템플릿 데이터
-
-  // const [tohidePagination, setTohidePagination] = useState();
   const [totalTemplate, setTotalTemplate] = useState(''); // 템플릿 전체 갯수(only count)
   const [pageNumber, setPageNumber] = useState(0); // 페이지에서 보여지는 페이지네이션 넘버링 인덱스값 ex) [[1,2,3,4,5],[6,7]] -> 0 or 1
   const [isvisible, setIsvisible] = useState(false); // 필터 : 진행중 / 완료 / 대기중 / 전체 모달을 보여주는 state
@@ -28,9 +26,6 @@ const Main = () => {
 
   const modalRef = useRef();
 
-  // 진행중 / 완료 / 대기중 선택시 모달 바깥 영역 눌렀을 때 닫히게 하는 함수
-  // modalRef를 모달 자체에 걸어 모달이 자체가 아닌 곳을 눌렀을 때 모달이 닫히게 했습니다
-  // 이럴 때 항상 모달 전체를 계속 바라봐야하므로 모달이 실행될때 onClick 이벤트가 발생하도록 했습니다
   const modalClose = e => {
     if (isvisible && modalRef.current !== e.target) {
       setIsvisible(false);
@@ -121,16 +116,12 @@ const Main = () => {
     }
   };
 
-  // 한 페이지당 10개씩 받기 때문에 전체 갯수/10 한 후 반올림
-  // paginationNumbers 라는 배열을 만들어 안에 넣었습니다
   const paginationNumber = Math.ceil(totalTemplate / limit);
   const paginationNumbers = [];
   for (let i = 0; i < paginationNumber; i++) {
     paginationNumbers.push(i + 1);
   }
 
-  // showPagination 새 배열을 만들어
-  // paginationNumbers 에 있는 숫자들을 5개씩 나누어 배열 안 배열의 형태로 만들었습니다
   const divide =
     Math.floor(paginationNumbers.length / 5) +
     (Math.floor(paginationNumbers.length % 5) > 0 ? 1 : 0);
@@ -139,8 +130,6 @@ const Main = () => {
     showPagination.push(paginationNumbers.splice(0, 5));
   }
 
-  // 페이지 네이션 오른쪽 버튼을 눌렀을 때 1-5 안에 있다면 바로 6-10 으로 넘어갈 수 있고
-  // 마지막 showPagination 안에 있다면 마지막 페이지라는 alert를 띄워 막았습니다
   const moveNext = pageNumber => {
     if (pageNumber === showPagination.length - 2) {
       alert('마지막 페이지입니다');
@@ -151,8 +140,6 @@ const Main = () => {
     }
   };
 
-  // 페이지 네이션 왼쪽 버튼을 눌렀을 때 6-10에 있다면 1-5로 넘어갈 수 잇고
-  // 1-5 showPagination 안에 있에 있다면 처음 페이지라는 alert를 띄워 막았습니다
   const movePrev = pageNumber => {
     if (pageNumber === 0) {
       alert('처음 페이지입니다');
@@ -163,7 +150,6 @@ const Main = () => {
     }
   };
 
-  // showPagination 안에 있는 숫자를 눌렀을 때 (page, setPage) 각 페이지로 갈 수 있게 하는 함수
   const movePage = page => {
     setPage(page);
     getPaginationData(page);
@@ -175,12 +161,8 @@ const Main = () => {
       <S.Layout>
         <S.Filter>
           <S.StateAndPeriod ref={modalRef}>
-            {/* 필터 모달 true/false*/}
             {isvisible === true && <FilterBox toFilter={toFilter} />}
-            <S.State onClick={() => setIsvisible(true)}>
-              {/* {total !== true &&  */}
-              {filter}
-            </S.State>
+            <S.State onClick={() => setIsvisible(true)}>{filter}</S.State>
           </S.StateAndPeriod>
           <S.SearchTemplate>
             <S.SearchImg alt="search img" src="/images/search.png" />
@@ -195,14 +177,12 @@ const Main = () => {
           </S.SearchTemplate>
         </S.Filter>
         <S.TemplateListBox>
-          {/* 템플릿이 하나도 없을 때 불러오는 NoneTemplete 컴포넌트 */}
           {nothing === true && <NoneTemplete />}
           <TemplateList templates={template} />
         </S.TemplateListBox>
         {template.length !== 0 ? (
           <S.Pagination>
             <S.PreButton onClick={() => movePrev(pageNumber)}>◀</S.PreButton>
-            {/* showPagination 을 보여주기 위한 map */}
             {showPagination[pageNumber].map(pages => {
               return (
                 <S.PageinationNum key={pages} onClick={() => movePage(pages)}>
@@ -221,7 +201,6 @@ const Main = () => {
 };
 export default Main;
 
-// 필터 : 진행중 / 대기중 / 완료 / 전체 상수 데이터
 export const FILTERMENU = [
   {
     id: 1,

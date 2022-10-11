@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import GlobalQuestion from '../GlobalQuestion';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
+import styled from 'styled-components';
 
 const LongDescription = ({ sortIndex, question, onRemove, formId }) => {
   const { register } = useFormContext(); // retrieve all hook methods

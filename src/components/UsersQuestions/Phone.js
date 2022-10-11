@@ -30,11 +30,11 @@ const PhoneInput = ({ sortIndex, question }) => {
               },
             })}
           />
-          {/* <ErrorMessage
+          <ErrorMessage
             errors={errors}
             name={`userData[${sortIndex - 1}].name`}
             render={({ message }) => <EssentialBox>{message}</EssentialBox>}
-          /> */}
+          />
           <Phone
             placeholder="ex)01068203867"
             {...register(`userData[${sortIndex - 1}].phone`, {

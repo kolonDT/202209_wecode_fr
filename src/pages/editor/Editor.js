@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router';
-import axios from 'axios';
 import OptionBox from '../../components/OptionBox';
 import SurveyEditor from './SurveyEditor';
 import { API } from '../../config';
-import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import {
   formListState,
@@ -23,6 +21,7 @@ import {
   MdEditNote,
   MdPersonPin,
 } from 'react-icons/md';
+import styled from 'styled-components';
 
 const Editor = () => {
   const methods = useForm({
@@ -52,21 +51,17 @@ const Editor = () => {
   ];
 
   const onSubmit = data => {
-    console.log('만들어진 data', data);
+    fetch(`${API.EDITOR}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: adminToken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(result => setLinkData(result));
   };
-
-  // const onSubmit = data => {
-  //   fetch(`${API.EDITOR}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: adminToken,
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => setLinkData(result));
-  // };
 
   return (
     <Container>
