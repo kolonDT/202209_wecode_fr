@@ -10,7 +10,7 @@ import ShortDes from '../../components/UsersQuestions/ShortDes';
 import { API } from '../../config';
 import styled from 'styled-components';
 
-const UserSurvey = ({ form, userId }) => {
+const UserSurvey = ({ form, userId, setForm }) => {
   const methods = useForm();
 
   const onSubmit = data => {
@@ -24,7 +24,12 @@ const UserSurvey = ({ form, userId }) => {
       .then(res => res.json())
       .then(result => {
         if (result.message === 'success') {
-          window.location.href = form.etc.url;
+          setForm(() => ({
+            formData: [],
+          }));
+          setTimeout(() => {
+            window.location.href = form.etc.url;
+          }, [4000]);
         } else if (result.message === 'already_exist_phone_number') {
           alert('이미 제출한 설문지입니다. 감사합니다');
         } else {
@@ -35,16 +40,20 @@ const UserSurvey = ({ form, userId }) => {
   return (
     <FormProvider {...methods}>
       <SurveyForm onSubmit={methods.handleSubmit(onSubmit)}>
-        {form?.formData?.map((el, idx) => (
-          <div key={idx}>
-            {
-              QUESTION_ARRAY(idx + 1, el.question, el.option, userId)[
-                Number(el.type)
-              ]
-            }
-          </div>
-        ))}
-        <Button type="submit">완료</Button>
+        <SurveyBox>
+          {form?.formData?.map((el, idx) => (
+            <div key={idx}>
+              {
+                QUESTION_ARRAY(idx + 1, el.question, el.option, userId)[
+                  Number(el.type)
+                ]
+              }
+            </div>
+          ))}
+          <Button type="submit">
+            {form?.formData === 0 ? '나가기' : '완료'}
+          </Button>
+        </SurveyBox>
       </SurveyForm>
     </FormProvider>
   );
@@ -52,10 +61,16 @@ const UserSurvey = ({ form, userId }) => {
 
 export default UserSurvey;
 
+const SurveyBox = styled.div`
+  position: relative;
+`;
+
 const SurveyForm = styled.form``;
 
 const Button = styled.button`
-  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
   margin-left: 85%;
   margin-bottom: 30px;
   padding: ${children =>
@@ -65,7 +80,6 @@ const Button = styled.button`
   background-color: ${props => props.theme.style.mainBlue};
   border-radius: 5.5px;
   height: 50px;
-  position: ${children => children.children === '...' && 'absolute'};
   opacity: 0.86;
 
   cursor: pointer;
