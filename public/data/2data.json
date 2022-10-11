@@ -1,0 +1,15 @@
+{
+  "surveyName": "",
+  "formData": [
+    {
+      "id": 1,
+      "type": 4
+    },
+    {
+      "id": 2,
+      "type": 3
+    }
+  ],
+  "startDate": "",
+  "endDate": ""
+}

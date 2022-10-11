@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "question": "어떤 차가 제일 좋은지",
+    "data": [
+      { "name": "벤츠", "value": 200 },
+      { "name": "빵", "value": 300 },
+      { "name": "밥", "value": 300 },
+      { "name": "봉봉", "value": 200 }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "어떤 차가 제일 좋은지",
+    "data": [
+      { "name": "벤츠", "value": 200 },
+      { "name": "빵", "value": 300 },
+      { "name": "밥", "value": 300 },
+      { "name": "봉봉", "value": 200 }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "어떤 차가 제일 좋은지",
+    "data": [
+      { "name": "벤츠", "value": 200 },
+      { "name": "빵", "value": 300 },
+      { "name": "밥", "value": 300 },
+      { "name": "봉봉", "value": 200 }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "어떤 차가 제일 좋은지",
+    "data": [
+      { "name": "벤츠", "value": 200 },
+      { "name": "빵", "value": 300 },
+      { "name": "밥", "value": 300 },
+      { "name": "봉봉", "value": 200 }
+    ]
+  }
+]
