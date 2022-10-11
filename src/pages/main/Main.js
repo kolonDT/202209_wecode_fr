@@ -31,7 +31,6 @@ const Main = () => {
       setIsvisible(false);
     }
   };
-
   // URL 재사용을 위한 함수
   const getData = (filter, search, page) => {
     return axios.get(
