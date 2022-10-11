@@ -12,12 +12,14 @@ const LinkModal = () => {
     navigate('/');
   };
   const handleCopyClipBoard = async surveyLink => {
-    try {
-      await navigator.clipboard.writeText(surveyLink);
-      alert('복사 성공!');
-    } catch (error) {
-      alert('복사 실패!');
-    }
+    await window.navigator.clipboard
+      .writeText(surveyLink)
+      .then(() => {
+        alert('복사 성공');
+      })
+      .catch(() => {
+        alert('복사 실패!');
+      });
   };
   return (
     <S.Background>
