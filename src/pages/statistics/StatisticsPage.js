@@ -8,6 +8,7 @@ import SubjectiveList from './SubjectiveList';
 import PhoneList from './PhoneList';
 import axios from 'axios';
 import { API } from '../../config';
+import { Outlet } from 'react-router-dom';
 import * as S from './StatisticsStyle';
 
 const StatisticsPage = () => {
@@ -120,28 +121,31 @@ const StatisticsPage = () => {
   };
 
   return (
-    <S.Layout>
-      <S.SurveyDescription>
-        <S.Title>통계</S.Title>
-        <S.Name>{name}</S.Name>
-        <S.SurveyInfo>
-          <S.Period>
-            {' '}
-            설문 기간 : {start_date} - {end_date}
-          </S.Period>
-          <S.Participant> 설문 상태 : {status} </S.Participant>
-          <S.Participant> 응답자 수 : {count}명 </S.Participant>
-        </S.SurveyInfo>
-        <S.StatisticsBox>
-          <MulitpleList multiples={multiple} />
-          <SubjectiveList subjectives={subjectives} />
-          {nonePhones === true && <PhoneList phone={phones} />}
-          <S.ButtonBox>
-            <S.GotoMainButton onClick={goToMain}>돌아가기</S.GotoMainButton>
-          </S.ButtonBox>
-        </S.StatisticsBox>
-      </S.SurveyDescription>
-    </S.Layout>
+    <>
+      <Outlet />
+      <S.Layout>
+        <S.SurveyDescription>
+          <S.Title>통계</S.Title>
+          <S.Name>{name}</S.Name>
+          <S.SurveyInfo>
+            <S.Period>
+              {' '}
+              설문 기간 : {start_date} - {end_date}
+            </S.Period>
+            <S.Participant> 설문 상태 : {status} </S.Participant>
+            <S.Participant> 응답자 수 : {count}명 </S.Participant>
+          </S.SurveyInfo>
+          <S.StatisticsBox>
+            <MulitpleList multiples={multiple} />
+            <SubjectiveList subjectives={subjectives} />
+            {nonePhones === true && <PhoneList phone={phones} />}
+            <S.ButtonBox>
+              <S.GotoMainButton onClick={goToMain}>돌아가기</S.GotoMainButton>
+            </S.ButtonBox>
+          </S.StatisticsBox>
+        </S.SurveyDescription>
+      </S.Layout>
+    </>
   );
 };
 export default StatisticsPage;
