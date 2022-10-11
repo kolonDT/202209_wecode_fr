@@ -18,7 +18,7 @@ const Main = () => {
   const [totalTemplate, setTotalTemplate] = useState(''); // 템플릿 전체 갯수(only count)
   const [pageNumber, setPageNumber] = useState(0); // 페이지에서 보여지는 페이지네이션 넘버링 인덱스값 ex) [[1,2,3,4,5],[6,7]] -> 0 or 1
   const [isvisible, setIsvisible] = useState(false); // 필터 : 진행중 / 완료 / 대기중 / 전체 모달을 보여주는 state
-  const [filter, setFilter] = useState('진행중'); // 필터 : 진행중 / 완료 / 대기중 / 전체 눌렀을 때 state
+  const [filter, setFilter] = useState('전체'); // 필터 : 진행중 / 완료 / 대기중 / 전체 눌렀을 때 state
   const [search, setSearch] = useState(''); // 검색값 state
 
   const [page, setPage] = useState(1); // 현재 보여지는 페이지
@@ -61,6 +61,7 @@ const Main = () => {
         const { mainPageCount, mainPageList } = res.data;
         if (mainPageCount === '0') {
           setNothing(true);
+          setTotalTemplate(mainPageCount);
           setPage(1);
         } else {
           setTotalTemplate(mainPageCount);
@@ -114,7 +115,6 @@ const Main = () => {
         setTotalTemplate(mainPageCount);
         setTemplate(mainPageList);
         setPage(1);
-        // setSearch('');
       }
     } catch (err) {
       throw new Error(err);
