@@ -135,7 +135,7 @@ const StatisticsPage = () => {
           <S.StatisticsBox>
             <MulitpleList multiples={multiple} />
             <SubjectiveList subjectives={subjectives} />
-            {nonePhones === true && <PhoneList personal={personal} />}
+            {nonePhones === true && <PhoneList phoneNum={personal} />}
             <S.ButtonBox>
               <S.GotoMainButton onClick={goToMain}>돌아가기</S.GotoMainButton>
             </S.ButtonBox>
