@@ -44,9 +44,13 @@ const UserSurvey = ({ form, userId, setForm }) => {
           {form?.formData?.map((el, idx) => (
             <div key={idx}>
               {
-                QUESTION_ARRAY(idx + 1, el.question, el.option, userId)[
-                  Number(el.type)
-                ]
+                QUESTION_ARRAY(
+                  idx + 1,
+                  el.question,
+                  el.option,
+                  el.consent,
+                  userId
+                )[Number(el.type)]
               }
             </div>
           ))}
@@ -69,10 +73,8 @@ const SurveyForm = styled.form``;
 
 const Button = styled.button`
   position: absolute;
-  left: 0;
-  bottom: 0;
-  margin-left: 85%;
-  margin-bottom: 30px;
+  left: 45%;
+  bottom: -80px;
   padding: ${children =>
     children.children === '이전으로 가기' || '다음으로 가기' ? '5Px 20px' : 0};
   color: #ffffff;
@@ -120,15 +122,14 @@ const QUESTION_ARRAY = (sortIndex, ...args) => {
         question={args[0]}
       />
     ),
-    5: <ImageShow sortIndex={sortIndex} userId={args[2]} question={args[0]} />,
-    6: (
-      <Phone sortIndex={sortIndex} label="multipleSingle" question={args[0]} />
-    ),
+    5: <ImageShow sortIndex={sortIndex} userId={args[3]} question={args[0]} />,
+    6: <Phone sortIndex={sortIndex} question={args[0]} />,
     7: (
       <Consent
         sortIndex={sortIndex}
         label="multipleSingle"
         question={args[0]}
+        consent={args[2]}
       />
     ),
   };

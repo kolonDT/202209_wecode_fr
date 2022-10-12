@@ -69,7 +69,7 @@ const PhoneInput = ({ sortIndex, question }) => {
 
 const EssentialContainer = styled.div`
   position: absolute;
-  left: 290px;
+  left: 120px;
   padding: 5px 30px;
   text-align: left;
   font-size: 13px;
@@ -80,7 +80,7 @@ const EssentialContainer = styled.div`
 `;
 const Essential = styled.div`
   position: absolute;
-  left: 280px;
+  left: 100px;
   bottom: 60px;
   padding: 5px 30px;
   text-align: left;
@@ -104,15 +104,13 @@ const Phone = styled.input`
   resize: none;
   padding: 4px 9px;
   outline: none;
-  color: rgba(0, 41, 130, 0.33);
+  color: rgba(0, 41, 130, 0.8);
   border-color: rgba(0, 41, 130, 0.5);
   background-color: rgba(0, 41, 130, 0.05);
 `;
 
 const Display = styled.div`
-  ${props => props.theme.variables.flex('center', 'space-between', 'center')};
   display: flex;
   flex-direction: column;
-  justify-content: start;
 `;
 export default PhoneInput;

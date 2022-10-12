@@ -20,7 +20,6 @@ const UserContainer = () => {
       .then(res => res.json())
       .then(result => setForm(result));
   }, [id]);
-  console.log(form);
 
   return (
     <S.Background>
