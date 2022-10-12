@@ -58,6 +58,7 @@ const Main = () => {
           setTemplate(mainPageList);
           setPage(1);
         } else {
+          setNothing(false);
           setTotalTemplate(mainPageCount);
           setTemplate(mainPageList);
           setPage(page);
@@ -106,6 +107,7 @@ const Main = () => {
         setTemplate(mainPageList);
         setPage(1);
       } else {
+        setNothing(false);
         setTotalTemplate(mainPageCount);
         setTemplate(mainPageList);
         setPage(1);
