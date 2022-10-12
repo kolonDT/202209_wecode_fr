@@ -18,7 +18,6 @@ const Main = () => {
   const [isvisible, setIsvisible] = useState(false); // 필터 : 진행중 / 완료 / 대기중 / 전체 모달을 보여주는 state
   const [filter, setFilter] = useState('전체'); // 필터 : 진행중 / 완료 / 대기중 / 전체 눌렀을 때 state
   const [search, setSearch] = useState(''); // 검색값 state
-
   const [page, setPage] = useState(1); // 현재 보여지는 페이지
   const limit = 10; // 페이지네이션 limit 값
 
@@ -57,6 +56,7 @@ const Main = () => {
         if (mainPageCount === '0') {
           setNothing(true);
           setTotalTemplate(mainPageCount);
+          setTemplate(mainPageList);
           setPage(1);
         } else {
           setTotalTemplate(mainPageCount);
@@ -198,7 +198,7 @@ const Main = () => {
       </S.Layout>
     </S.Background>
   );
-};
+};;
 export default Main;
 
 export const FILTERMENU = [
