@@ -106,6 +106,7 @@ const CheckCircle = styled.div`
 `;
 
 const MultipleContent = styled.input`
+  width: 300px;
   position: relative;
   padding-left: 5px;
   font-size: ${props => props.theme.style.smallFont};

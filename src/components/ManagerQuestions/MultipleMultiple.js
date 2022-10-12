@@ -105,6 +105,7 @@ const CheckSquare = styled.div`
 `;
 
 const MultipleContent = styled.input`
+  width: 300px;
   padding-left: 5px;
   font-size: ${props => props.theme.style.smallFont};
   text-align: left;
