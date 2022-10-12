@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GlobalQuestion from '../GlobalQuestion';
 import { useFormContext } from 'react-hook-form';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import styled, { css } from 'styled-components';
+import { BsFillArrowDownCircleFill, BsFillXCircleFill } from 'react-icons/bs';
+import { MdArrowCircleDown } from 'react-icons/md';
 
-const MultipleMultiple = ({ sortIndex, onRemove, formId }) => {
+const MultipleMultiple = ({ sortIndex, onRemove, formId, option }) => {
   const { register } = useFormContext(); // retrieve all hook methods
+
+  const [optionIndexes, setOptionIndexes] = useState(Object.keys(option));
+
+  const addNewFlight = () => {
+    setOptionIndexes([...optionIndexes, optionIndexes.length.toString()]);
+  };
+
+  const onDelete = index => {
+    const arr = optionIndexes.filter(i => i !== index);
+    setOptionIndexes(arr);
+  };
 
   return (
     <div>
@@ -17,15 +30,29 @@ const MultipleMultiple = ({ sortIndex, onRemove, formId }) => {
         formId={formId}
       >
         <ChoicesContainer>
-          {MULTI_LISTS.map((list, idx) => (
+          {optionIndexes.map(idx => (
             <Choice key={idx}>
               <CheckSquare />
               <MultipleContent
-                placeholder={list}
                 {...register(`formData[${sortIndex - 1}].option.0[${idx}]`)}
               />
+              <IconContainer>
+                <Icon>
+                  <BsFillArrowDownCircleFill onClick={() => addNewFlight()} />
+                </Icon>
+                <Icon>
+                  <BsFillXCircleFill onClick={() => onDelete(idx)} />
+                </Icon>
+              </IconContainer>
             </Choice>
           ))}
+          {optionIndexes.length === 0 && (
+            <IconContainerTwo>
+              <Icon>
+                <MdArrowCircleDown onClick={() => addNewFlight()} />
+              </Icon>
+            </IconContainerTwo>
+          )}
         </ChoicesContainer>
       </GlobalQuestion>
     </div>
@@ -33,12 +60,24 @@ const MultipleMultiple = ({ sortIndex, onRemove, formId }) => {
 };
 
 export default MultipleMultiple;
-const MULTI_LISTS = [
-  '이곳에 내용을 입력하세요',
-  '이곳에 내용을 입력하세요',
-  '이곳에 내용을 입력하세요',
-  '이곳에 내용을 입력하세요',
-];
+const IconContainerTwo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const IconContainer = styled.span`
+  margin-left: 100px;
+`;
+const Icon = styled.span`
+  margin-left: 20px;
+  font-size: 18px;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
 
 const ChoicesContainer = styled.ul`
   margin-left: 50px;

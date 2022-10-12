@@ -6,7 +6,7 @@ import LongDescription from '../../components/ManagerQuestions/LongDescription';
 import EmptyContainer from '../../components/ManagerQuestions/EmptyContainer';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { constSelector, useRecoilState, useSetRecoilState } from 'recoil';
 import { formListState, formNumState } from '../../store/store';
 import { useFormContext } from 'react-hook-form';
 import ImageUpload from '../../components/ManagerQuestions/ImageUpload';
@@ -18,17 +18,17 @@ import { MdInfo } from 'react-icons/md';
 
 const SurveyEditor = ({ setOpenEditorModal, id }) => {
   const [formList, setFormList] = useRecoilState(formListState);
-
+  const setFormId = useSetRecoilState(formNumState);
   const {
     register,
     formState: { errors },
     trigger,
   } = useFormContext();
-  const [formId, setFormId] = useRecoilState(formNumState);
+
   useEffect(() => {
-    axios.get(`http://localhost:3000/data/${id}data.json`).then(res => {
+    axios.get(`/data/${id}data.json`).then(res => {
       setFormList(res.data);
-      const lastNumber = res.data.formData.length;
+      const lastNumber = res?.data?.formData.length;
       const lastFormId = res?.data?.formData[lastNumber - 1].id;
       setFormId(lastFormId);
     });
@@ -144,7 +144,7 @@ const SurveyEditor = ({ setOpenEditorModal, id }) => {
                   idx + 1,
                   form.id,
                   form.question,
-                  form.option,
+                  form.options,
                   onRemove
                 )[form.type]
               }
@@ -156,7 +156,7 @@ const SurveyEditor = ({ setOpenEditorModal, id }) => {
 
         <NextContainer>
           <Button type="button">
-            <Link to="/">홈으로 가기</Link>
+            <Link to="/">이전</Link>
           </Button>
           <Button
             type="button"
@@ -180,6 +180,24 @@ const SurveyEditor = ({ setOpenEditorModal, id }) => {
 };
 
 export default SurveyEditor;
+
+const Button = styled.button`
+  margin-left: ${children => children.children === '...' || '30px'};
+  padding: ${children =>
+    children.children === '이전으로 가기' || '다음으로 가기' ? '5Px 10px' : 0};
+  color: #ffffff;
+  border-color: ${props => props.theme.style.mainBlue};
+  background-color: ${props => props.theme.style.mainBlue};
+  border-radius: 5.5px;
+  height: 50px;
+  position: ${children => children.children === '...' && 'absolute'};
+  opacity: 0.86;
+
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+`;
 
 const Icon = styled.span`
   font-size: 20px;
@@ -237,25 +255,6 @@ const DateInput = styled.input`
   word-break: break-word;
   word-wrap: break-word;
 `;
-
-const Button = styled.button`
-  margin-left: ${children => children.children === '...' || '30px'};
-  padding: ${children =>
-    children.children === '이전으로 가기' || '다음으로 가기' ? '5Px 10px' : 0};
-  color: #ffffff;
-  border-color: ${props => props.theme.style.mainBlue};
-  background-color: ${props => props.theme.style.mainBlue};
-  border-radius: 5.5px;
-  height: 50px;
-  position: ${children => children.children === '...' && 'absolute'};
-  opacity: 0.86;
-
-  cursor: pointer;
-  &:hover {
-    opacity: 1;
-  }
-`;
-
 const SurveyContainer = styled.div`
   z-index: 1;
   padding: 5px 10px;
@@ -287,13 +286,8 @@ const TitleInput = styled.input`
 
 const NextContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
-  position: relative;
+  justify-content: space-between;
   padding: 30px 49px 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
 `;
 export const QUESTION_ARRAY_TYPE = {
   multipleSingle: 1,

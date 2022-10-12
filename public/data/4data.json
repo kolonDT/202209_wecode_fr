@@ -3,11 +3,13 @@
   "formData": [
     {
       "id": 1,
-      "type": 1
+      "type": 1,
+      "options": ["1번"]
     },
     {
       "id": 2,
-      "type": 2
+      "type": 2,
+      "options": ["2번"]
     }
   ],
   "startDate": "",

@@ -31,7 +31,7 @@ const Editor = () => {
     register,
     formState: { errors },
   } = methods;
-  const [totalForm, setTotalForm] = useState({});
+
   const [formNum, setFormNum] = useRecoilState(formNumState);
   const [formList, setFormList] = useRecoilState(formListState);
   const [linkData, setLinkData] = useRecoilState(linkState);
@@ -51,17 +51,20 @@ const Editor = () => {
   ];
 
   const onSubmit = data => {
-    fetch(`${API.EDITOR}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: adminToken,
-      },
-      body: JSON.stringify(data),
-    })
-      .then(res => res.json())
-      .then(result => setLinkData(result));
+    console.log(data);
   };
+  // const onSubmit = data => {
+  //   fetch(`${API.EDITOR}`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: adminToken,
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => setLinkData(result));
+  // };
 
   return (
     <Container>
@@ -77,14 +80,7 @@ const Editor = () => {
           </OptionContainer>
         </SelectOption>
         <MakeSurvey onSubmit={methods.handleSubmit(onSubmit)}>
-          <SurveyEditor
-            formNum={formNum}
-            setFormNum={setFormNum}
-            options={menuArr}
-            setOpenEditorModal={setOpenEditorModal}
-            openEditorModal={openEditorModal}
-            id={id}
-          />
+          <SurveyEditor setOpenEditorModal={setOpenEditorModal} id={id} />
           {openEditorModal === true && (
             <EditorModal register={register} errors={errors} />
           )}
