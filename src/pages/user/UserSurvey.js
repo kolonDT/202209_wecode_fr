@@ -51,7 +51,7 @@ const UserSurvey = ({ form, userId, setForm }) => {
             </div>
           ))}
           <Button type="submit">
-            {form?.formData === 0 ? '나가기' : '완료'}
+            {form?.formData === 0 ? '나가기' : '제출하기'}
           </Button>
         </SurveyBox>
       </SurveyForm>

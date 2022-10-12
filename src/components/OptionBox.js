@@ -16,7 +16,7 @@ const OptionBox = ({ title, options, formNum, setFormNum }) => {
           id: formNum + 1,
           type: idx,
           question: '',
-          options: [],
+          options: [''],
         },
       ],
     }));

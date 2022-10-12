@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-
 import styled from 'styled-components';
 import { API } from '../../config';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
