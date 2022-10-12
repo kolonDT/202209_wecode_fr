@@ -53,7 +53,7 @@ const LongInput = styled.input`
   height: 94px;
   width: 70%;
   resize: none;
-  color: black;
-  border-color: ${props => props.theme.style.boxBorderColor};
-  background-color: ${props => props.theme.style.boxColor};
+  color: rgba(0, 41, 130, 0.8);
+  border-color: rgba(0, 41, 130, 0.5);
+  background-color: rgba(0, 41, 130, 0.05);
 `;

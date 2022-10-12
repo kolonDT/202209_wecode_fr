@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import { QUESTION_ARRAY_TYPE } from '../../pages/editor/SurveyEditor';
 import { useFormContext } from 'react-hook-form';
@@ -6,12 +6,20 @@ import UserQuestion from '../UserQuestion';
 import EssentialBox from '../EssentialBox';
 import { ErrorMessage } from '@hookform/error-message';
 
-const PrivacyConsent = ({ sortIndex, question, onRemove }) => {
+const PrivacyConsent = ({ sortIndex, question, consent, onRemove }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
+  const commentRef = useRef(null);
+  const { ref, ...rest } = register(`userData[${sortIndex - 1}].agreement`);
+
+  const handleResizeHeight = useCallback(() => {
+    if (!commentRef.current) return;
+    commentRef.current.style.height = 'auto';
+    commentRef.current.style.height = commentRef.current?.scrollHeight + 'px';
+  }, [commentRef]);
   return (
     <div>
       <UserQuestion
@@ -20,9 +28,9 @@ const PrivacyConsent = ({ sortIndex, question, onRemove }) => {
         question={question}
       >
         <Display>
-          <Content>{question}</Content>
+          <Content>{consent}</Content>
           <CheckboxDisplay>
-            <CheckText> 개인 정보 동의 여부 체크 확인 </CheckText>
+            <CheckText>개인정보 수집 및 이용에 동의합니다.</CheckText>
             <ForCheck
               type="checkbox"
               {...register(`userData[${sortIndex - 1}].agreement`, {
@@ -51,12 +59,12 @@ const Content = styled.p`
   line-height: 28px;
   border: 1px solid;
   border-radius: 3px;
-  height: 94px;
+  height: auto;
   width: 70%;
   resize: none;
   padding: 4px 9px;
   margin: 20px 0 20px 100px;
-  color: rgba(0, 41, 130, 0.33);
+  color: rgba(0, 41, 130, 0.8);
   border-color: rgba(0, 41, 130, 0.5);
   background-color: rgba(0, 41, 130, 0.05);
 `;

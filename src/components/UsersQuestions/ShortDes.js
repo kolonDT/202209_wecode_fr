@@ -54,7 +54,7 @@ const ShortInput = styled.input`
   padding: 4px 9px;
   margin-top: 20px;
   outline: none;
-  color: black;
-  border-color: ${props => props.theme.style.boxBorderColor};
-  background-color: ${props => props.theme.style.boxColor};
+  color: rgba(0, 41, 130, 0.8);
+  border-color: rgba(0, 41, 130, 0.5);
+  background-color: rgba(0, 41, 130, 0.05);
 `;

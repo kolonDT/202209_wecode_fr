@@ -17,7 +17,7 @@ export const SurveyForm = styled.div`
   box-shadow: 1px 1px 10px #ddd;
 `;
 export const Title = styled.div`
-  height: 100px;
+  padding: 30px 50px;
   ${props => props.theme.variables.flex()};
   font-size: ${props => props.theme.style.bigFont};
 `;
