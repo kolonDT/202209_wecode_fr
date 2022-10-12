@@ -167,6 +167,25 @@ export const Answers = styled.div`
   margin-top: 3px;
 `;
 
+export const Sorts = styled.div`
+  ${props => props.theme.variables.flex('column', ' ', 'flex-start')};
+  align-items: stretch;
+`;
+
+export const Sort = styled.div`
+  ${props => props.theme.variables.flex('row', 'flex-start')};
+  margin-top: 2px;
+  font-size: 15px;
+  min-width: 20px;
+  font-weight: 600;
+  align-items: stretch;
+  color: #8884d8;
+`;
+
+export const SortValue = styled.div``;
+export const SortName = styled.div`
+  margin-right: 20px;
+`;
 // 핸드폰 번호
 
 export const PhoneList = styled(MultipleLayout)`
@@ -177,8 +196,13 @@ export const PhoneText = styled(Num)`
   font-weight: 500;
 `;
 
-export const PhoneNums = styled.div``;
-export const PhoneNum = styled(Answer)``;
+export const PhoneNums = styled.div`
+  /* ${props => props.theme.variables.flex('column')}; */
+  /* text-align: center; */
+`;
+export const PhoneNum = styled(Answer)`
+  ${props => props.theme.variables.flex('row', ' flex-start')};
+`;
 
 // NonePhoneList style
 
@@ -191,3 +215,17 @@ export const LayoutNonePhoneList = styled.div`
 `;
 
 export const NonePhoneListGuide = styled.div``;
+
+export const PhoneId = styled.div`
+  ${props => props.theme.variables.flex()};
+  width: 50px;
+  height: 32px;
+  background-color: #2087c9;
+  color: white;
+  margin: 0 100px 0 50px;
+`;
+
+export const PersonName = styled.div`
+  margin-right: 60px;
+`;
+export const PersonPhone = styled.div``;

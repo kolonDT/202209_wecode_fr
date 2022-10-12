@@ -21,14 +21,14 @@ const StatisticsPage = () => {
   const [info, setInfo] = useState({}); // 해당 서베이 info
   const [multiple, setMultiple] = useState(); // 해당 서베이 객관식 데이터 (차트)
   const [subjectives, setSubjectives] = useState([]); // 해당 서베이 서술형 데이터
-  const [phones, setPhones] = useState([]); // 해당 서베이 응답자의 번호
+  const [personal, setPersonal] = useState([]); // 해당 서베이 응답자의 번호
   const [nonePhones, setNonePhones] = useState(true);
 
   useEffect(() => {
     getInfo();
     getChart();
     getSubjective();
-    phoneNum();
+    person();
   }, []);
 
   const goToMain = () => {
@@ -94,9 +94,8 @@ const StatisticsPage = () => {
       navigate('/admin/login');
     }
   };
-
   // 핸드폰 번호 받는 함수
-  const phoneNum = async () => {
+  const person = async () => {
     if (adminToken) {
       try {
         const res = await axios.get(`${API.MAIN}/statistic/phone/${id}`, {
@@ -105,10 +104,8 @@ const StatisticsPage = () => {
           },
         });
         const { data } = res;
-        setPhones(data);
-
-        const phone = data[0];
-        if (phone.phone === null) {
+        setPersonal(data);
+        if (data[0].phone === null) {
           setNonePhones(false);
         }
       } catch (err) {
@@ -138,7 +135,7 @@ const StatisticsPage = () => {
           <S.StatisticsBox>
             <MulitpleList multiples={multiple} />
             <SubjectiveList subjectives={subjectives} />
-            {nonePhones === true && <PhoneList phone={phones} />}
+            {nonePhones === true && <PhoneList personal={personal} />}
             <S.ButtonBox>
               <S.GotoMainButton onClick={goToMain}>돌아가기</S.GotoMainButton>
             </S.ButtonBox>
