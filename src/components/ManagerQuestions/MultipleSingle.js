@@ -18,6 +18,7 @@ const MultipleSingle = ({ sortIndex, onRemove, formId, option }) => {
   const onDelete = index => {
     setOptionIndexes(optionIndexes.filter(i => i !== index));
   };
+
   return (
     <div>
       <GlobalQuestion

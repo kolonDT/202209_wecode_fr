@@ -6,7 +6,7 @@ import LongDescription from '../../components/ManagerQuestions/LongDescription';
 import EmptyContainer from '../../components/ManagerQuestions/EmptyContainer';
 import MultipleMultiple from '../../components/ManagerQuestions/MultipleMultiple';
 import styled from 'styled-components';
-import { constSelector, useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { formListState, formNumState } from '../../store/store';
 import { useFormContext } from 'react-hook-form';
 import ImageUpload from '../../components/ManagerQuestions/ImageUpload';
@@ -255,6 +255,7 @@ const DateInput = styled.input`
   word-break: break-word;
   word-wrap: break-word;
 `;
+
 const SurveyContainer = styled.div`
   z-index: 1;
   padding: 5px 10px;
@@ -304,7 +305,6 @@ export const QUESTION_ARRAY = (sortIndex, formId, ...args) => {
     1: (
       <MultipleSingle
         sortIndex={sortIndex}
-        label="multipleSingle"
         question={args[0]}
         option={args[1]}
         onRemove={args[2]}
@@ -314,7 +314,6 @@ export const QUESTION_ARRAY = (sortIndex, formId, ...args) => {
     2: (
       <MultipleMultiple
         sortIndex={sortIndex}
-        label="multipleMultiple"
         question={args[0]}
         option={args[1]}
         onRemove={args[2]}
@@ -324,7 +323,6 @@ export const QUESTION_ARRAY = (sortIndex, formId, ...args) => {
     3: (
       <ShortDescription
         sortIndex={sortIndex}
-        label="shortDescription"
         question={args[0]}
         onRemove={args[2]}
         formId={formId}
@@ -333,7 +331,6 @@ export const QUESTION_ARRAY = (sortIndex, formId, ...args) => {
     4: (
       <LongDescription
         sortIndex={sortIndex}
-        label="longDescription"
         question={args[0]}
         onRemove={args[2]}
         formId={formId}
@@ -342,7 +339,6 @@ export const QUESTION_ARRAY = (sortIndex, formId, ...args) => {
     5: (
       <ImageUpload
         sortIndex={sortIndex}
-        label="imageUpload"
         question={args[0]}
         onRemove={args[2]}
         formId={formId}
@@ -360,7 +356,6 @@ export const QUESTION_ARRAY = (sortIndex, formId, ...args) => {
     7: (
       <PrivacyConsent
         sortIndex={sortIndex}
-        label="imageUpload"
         question={args[0]}
         onRemove={args[2]}
         formId={formId}

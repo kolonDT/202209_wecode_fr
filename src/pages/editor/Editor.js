@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router';
 import OptionBox from '../../components/OptionBox';
 import SurveyEditor from './SurveyEditor';
 import { API } from '../../config';
-import { useRecoilState } from 'recoil';
-import {
-  formListState,
-  formNumState,
-  linkState,
-  openState,
-} from '../../store/store';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { formNumState, linkState, openState } from '../../store/store';
 import { FormProvider, useForm } from 'react-hook-form';
 import EditorModal from '../../components/EditorModal/EditorModal';
 import {
@@ -33,8 +28,7 @@ const Editor = () => {
   } = methods;
 
   const [formNum, setFormNum] = useRecoilState(formNumState);
-  const [formList, setFormList] = useRecoilState(formListState);
-  const [linkData, setLinkData] = useRecoilState(linkState);
+  const setLinkData = useSetRecoilState(linkState);
   const [openEditorModal, setOpenEditorModal] = useRecoilState(openState);
   const adminToken = localStorage.getItem('token');
   const location = useLocation();
@@ -51,20 +45,17 @@ const Editor = () => {
   ];
 
   const onSubmit = data => {
-    console.log(data);
+    fetch(`${API.EDITOR}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: adminToken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(result => setLinkData(result));
   };
-  // const onSubmit = data => {
-  //   fetch(`${API.EDITOR}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: adminToken,
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => setLinkData(result));
-  // };
 
   return (
     <Container>
