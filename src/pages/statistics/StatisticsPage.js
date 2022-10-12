@@ -105,7 +105,7 @@ const StatisticsPage = () => {
         });
         const { data } = res;
         setPersonal(data);
-        if (data.length === null) {
+        if (data[0].phone === null) {
           setNonePhones(false);
         }
       } catch (err) {
@@ -135,7 +135,7 @@ const StatisticsPage = () => {
           <S.StatisticsBox>
             <MulitpleList multiples={multiple} />
             <SubjectiveList subjectives={subjectives} />
-            {nonePhones === true && <PhoneList phoneNum={personal} />}
+            {nonePhones === true && <PhoneList personal={personal} />}
             <S.ButtonBox>
               <S.GotoMainButton onClick={goToMain}>돌아가기</S.GotoMainButton>
             </S.ButtonBox>

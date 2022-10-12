@@ -6,10 +6,10 @@ const PhoneList = ({ personal }) => {
     <S.PhoneList>
       <S.PhoneText> 참여자 정보 </S.PhoneText>
       <S.PhoneNums>
-        {personal.map((person, idx) => {
+        {personal.map(person => {
           const { id, phone, name } = person;
           return (
-            <S.PhoneNum key={idx}>
+            <S.PhoneNum key={id}>
               <S.PhoneId> {id}번</S.PhoneId>
               {name !== null ? (
                 <S.PersonName> 이름 : {name} </S.PersonName>
