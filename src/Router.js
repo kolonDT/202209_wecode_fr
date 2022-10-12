@@ -15,15 +15,18 @@ const Router = () => {
         <Route path="/" element={<Main />}>
           <Route path="" element={<Nav />} />
         </Route>
-        <Route path="/admin/login" element={<Login />} />
 
         <Route path="/link/:id" element={<Link />}>
           <Route path="" element={<Nav />} />
         </Route>
 
+        <Route path="/statistic/:id" element={<Statistics />}>
+          <Route path="" element={<Nav />} />
+        </Route>
+
+        <Route path="/admin/login" element={<Login />} />
         <Route path="/editor/:id" element={<Editor />} />
         <Route path="/surveypage/:id" element={<UserSurvey />} />
-        <Route path="/statistic/:id" element={<Statistics />} />
       </Routes>
     </BrowserRouter>
   );

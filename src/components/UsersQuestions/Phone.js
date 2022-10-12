@@ -38,12 +38,17 @@ const PhoneInput = ({ sortIndex, question }) => {
           <Phone
             placeholder="ex)01068203867"
             {...register(`userData[${sortIndex - 1}].phone`, {
+              pattern: {
+                value: /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/,
+                message: '유효한 핸드폰 번호를 입력해주세요',
+              },
               required: {
                 value: '폰',
                 message: `핸드폰 번호를 입력해주세요`,
               },
             })}
           />
+
           <ErrorMessage
             errors={errors}
             name={`userData[${sortIndex - 1}].phone`}
