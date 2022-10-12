@@ -105,7 +105,7 @@ const StatisticsPage = () => {
         });
         const { data } = res;
         setPersonal(data);
-        if (data.length === null) {
+        if (data[0].phone === null) {
           setNonePhones(false);
         }
       } catch (err) {
