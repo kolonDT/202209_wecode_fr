@@ -198,7 +198,7 @@ const Main = () => {
       </S.Layout>
     </S.Background>
   );
-};;
+};
 export default Main;
 
 export const FILTERMENU = [
