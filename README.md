@@ -19,7 +19,7 @@
   <tr>
     <td>
       <a href="">
-            <img src="https://ca.slack-edge.com/TH0U6FBTN-U03JHPL4GQJ-4d6154be5763-512" width="100px" />
+            <img src="" />
         </a>
     </td>
     <td>
