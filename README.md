@@ -57,14 +57,14 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 <table>
   <tr>
     <td>
-    	 <a href="https://github.com/Mjj4682">
-          <img src="https://avatars.githubusercontent.com/u/105341553?v=4"  width="100px"/>
-        </a>
+       <a href="https://github.com/sockwon">
+          <img src="https://avatars.githubusercontent.com/u/88824305?v=4"/>
+      </a>
     </td>
      <td>
-    	 <a href="https://github.com/sockwon">
-          <img src="https://avatars.githubusercontent.com/u/88824305?v=4"  width="100px"/>
-      </a>
+    	 <a href="https://github.com/Mjj4682">
+          <img src="https://avatars.githubusercontent.com/u/105341553?v=4"/>
+       </a>
     </td>
   </tr>
   <tr>
