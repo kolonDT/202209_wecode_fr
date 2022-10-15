@@ -57,14 +57,14 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 <table>
   <tr>
     <td>
-       <a href="https://github.com/sockwon">
-          <img src="https://avatars.githubusercontent.com/u/88824305?v=4"/>
-      </a>
+    	 <a href="https://github.com/Mjj4682">
+          <img src="https://avatars.githubusercontent.com/u/105341553?v=4" width="100px"/>
+        </a>
     </td>
      <td>
-    	 <a href="https://github.com/Mjj4682">
-          <img src="https://avatars.githubusercontent.com/u/105341553?v=4"/>
-       </a>
+    	 <a href="https://github.com/sockwon">
+          <img src="https://avatars.githubusercontent.com/u/88824305?v=4" width="100px"/>
+      </a>
     </td>
   </tr>
   <tr>
@@ -173,19 +173,20 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 ## 💘 (FE) 담당 페이지 소개 
 - 조은지 : 로그인, 메인, 링크, 통계 페이지, 공통 모달
 <br>
+<br>
 - 1. 로그인 페이지 구현
 jwt 방식을 통해 구현
 각각 id, pw 4글자 입력시 버튼 활성화
-
+<br>
 - 2. 메인 페이지 구현
 서베이 페이지 네이션 기능 구현
-
+<br>
 - 3. 링크 페이지 구현
 해당 페이지 설문조사 응답자용 링크 복사 기능
-
+<br>
 - 4. 통계 페이지
 Rechart 라이브러리 사용 (객관식 통계)
-
+<br>
 - 5. 공통 모달
 메인과 에디터 페이지에서 쓰이는 공통 모달 작업 
 
