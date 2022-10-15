@@ -5,13 +5,20 @@
 
 # Team Koda
 --- 
-
-- 사진 예정 
+<img width="1440" alt="스크린샷 2022-10-15 오후 1 57 22" src="https://user-images.githubusercontent.com/95282989/195969547-07829d43-6bfd-4d8c-8cac-cf4479857adc.png">
 
 ## 프로젝트 소개
 ---
 
+코오롱글로벌 x 위코드 
+BPS Form - Survey Tool 기획으로 Survey Tool 제작
 
+
+유저 플로우
+로그인 > 템플릿 > 에디터(내용 입력 및 스타일 수정) > 배포 > 응답자 설문지 작성 후 통계 확인
+
+
+개발은 초기 세팅부터 모두 직접 구현하였습니다
 ---
 
 ### FE
@@ -130,10 +137,10 @@
 
 - 사진
 
-- 5MILLION NOTION
+- KODA NOTION
   - tickets 관리
   - convention 공유  
-- &#128073; [NOTION 페이지 보러가기](https://www.notion.so/5MILLION-44f8de800da145ecb6304292d14df0e1)
+- &#128073; [NOTION 페이지 보러가기](https://www.notion.so/wecode/e45886a68bc94c62bca33747dba8a43e)
 
 <br/>
 
@@ -163,12 +170,12 @@
 
  
   
-- 이주영 :
+- 이주영 : 
   
 
 ## 팀 프로젝트 노션 링크 
- - [코다 노션 페이지로 가기]()
+ - [코다 노션 페이지로 가기](https://www.notion.so/wecode/e45886a68bc94c62bca33747dba8a43e)
 
 
 ## 팀 회고록 
-- [코다 회고록 보러가기]()
+- [코다 회고록 보러가기](https://www.notion.so/wecode/90fad7f2897245e1bb79711d24f9a316)
