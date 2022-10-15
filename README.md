@@ -18,8 +18,8 @@
 <table>
   <tr>
     <td>
-      <a href="">
-            <img src="" />
+      <a href="https://github.com/Joeunji0119">
+            <img src="https://avatars.githubusercontent.com/u/95282989?v=4" width="100px"/>
         </a>
     </td>
     <td>
@@ -157,7 +157,10 @@
 <br/>
 
 ## 💘 (FE) 담당 페이지 소개 
-- 조은지 : 
+- 조은지 : 로그인, 메인, 링크, 통계 페이지, 공통 모달
+
+
+
  
   
 - 이주영 :
