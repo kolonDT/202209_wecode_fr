@@ -14,10 +14,9 @@
 <br>
 BPS Form - Survey Tool 기획으로 Survey Tool 제작
 <br>
-
-
-유저 플로우
 <br>
+
+유저 플로우 :
 <br>
 로그인 > 템플릿 > 에디터(내용 입력 및 스타일 수정) > 배포 > 응답자 설문지 작성 후 통계 확인
 <br>
@@ -58,13 +57,13 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 <table>
   <tr>
     <td>
-    	 <a href="">
-          <img src=""/>
+    	 <a href="https://github.com/Mjj4682">
+          <img src="https://avatars.githubusercontent.com/u/105341553?v=4"/>
         </a>
     </td>
      <td>
-    	 <a href="">
-          <img src=""/>
+    	 <a href="https://github.com/sockwon">
+          <img src="https://avatars.githubusercontent.com/u/88824305?v=4"/>
       </a>
     </td>
   </tr>
@@ -163,15 +162,32 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 
 <br/>
 
-![API 명세서](https://velog.velcdn.com/images/nextlinehappy516/post/83ecbed7-32b8-4c68-bd02-49de5b4c68c1/image.png)
+<img width="1440" alt="스크린샷 2022-10-15 오후 2 27 51" src="https://user-images.githubusercontent.com/95282989/195970530-d087b8cb-e3c0-4ac7-9dc0-c27e031b9247.png">
+
 
 - API 명세서  
-- &#128073; [API 명세서 보러가기](https://documenter.getpostman.com/view/22697866/VV4xuvL2#0cc2f620-598b-47bb-a228-a5636c2291d8)
+- &#128073; [API 명세서 보러가기](https://www.notion.so/wecode/API-postman-Doc-19b7789bf4db41e392c1eca5d09d8444)
 
 <br/>
 
 ## 💘 (FE) 담당 페이지 소개 
 - 조은지 : 로그인, 메인, 링크, 통계 페이지, 공통 모달
+<br>
+- 1. 로그인 페이지 구현
+jwt 방식을 통해 구현
+각각 id, pw 4글자 입력시 버튼 활성화
+
+- 2. 메인 페이지 구현
+서베이 페이지 네이션 기능 구현
+
+- 3. 링크 페이지 구현
+해당 페이지 설문조사 응답자용 링크 복사 기능
+
+- 4. 통계 페이지
+Rechart 라이브러리 사용 (객관식 통계)
+
+- 5. 공통 모달
+메인과 에디터 페이지에서 쓰이는 공통 모달 작업 
 
 
 
