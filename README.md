@@ -140,8 +140,9 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 ### 노션 페이지
 
 <br/>
+<img width="1218" alt="스크린샷 2022-10-15 오후 2 38 07" src="https://user-images.githubusercontent.com/95282989/195970941-d291888b-5e4f-4e55-b8ff-434710e24b20.png">
 
-<img width="1440" alt="스크린샷 2022-10-15 오후 2 27 51" src="https://user-images.githubusercontent.com/95282989/195970843-fad8a5db-e4e0-406b-9c8a-b83f209a1b5b.png">
+
 
 
 - KODA NOTION
@@ -178,22 +179,31 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 <br>
 - 1. 로그인 페이지 구현
 <br>
+<br>
 jwt 방식을 통해 구현
 각각 id, pw 4글자 입력시 버튼 활성화
 <br>
+<br>
 - 2. 메인 페이지 구현
+<br>
 <br>
 서베이 페이지 네이션 기능 구현
 <br>
+<br>
 - 3. 링크 페이지 구현
+<br>
 <br>
 해당 페이지 설문조사 응답자용 링크 복사 기능
 <br>
+<br>
 - 4. 통계 페이지
+<br>
 <br>
 Rechart 라이브러리 사용 (객관식 통계)
 <br>
+<br>
 - 5. 공통 모달
+<br>
 <br>
 메인과 에디터 페이지에서 쓰이는 공통 모달 작업 
 <br>
