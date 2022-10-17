@@ -51,7 +51,7 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
   </tr>
 </table>
 
-[프론트 깃허브로 ]()
+[프론트 깃허브로](https://github.com/kolonDT/202209_wecode_fr)
 
 ### BE
 <table>
@@ -77,7 +77,7 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
   </tr>
 </table>
 
-[백앤드 깃허브]()
+[백앤드 깃허브](https://github.com/kolonDT/202209_wecode_en)
 
 
 ## 프로젝트 소개
