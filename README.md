@@ -106,7 +106,6 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
   <img src="https://img.shields.io/badge/Express-000080?style=flat-square&logo=Express&logoColor=white"/>
   <img src="https://img.shields.io/badge/ MySQL8.0-6441a5?style=flat-square&logo=MySQL&logoColor=white"/>
   <img src="https://img.shields.io/badge/Postman-F6BB43?style=flat-square&logo=Postman&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Bcrypt-F6BB43?style=flat-square&logo=Bcrypt&logoColor=white"/>
   <img src="https://img.shields.io/badge/JWT-F6BB43?style=flat-square&logo=JWT&logoColor=white"/>
 <br>
  - 협업 툴 <img src="https://img.shields.io/badge/Notion-1c1c1c?style=flat-square&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/Slack-553830?style=flat-square&logo=Slack&logoColor=white"/> <img src="https://img.shields.io/badge/Gather-8B00F?style=flat-square&logo=Gather&logoColor=white"/>
@@ -122,7 +121,55 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 
 <br/>
 
-### 문정진
+### 문정진 : 로그인, 메인, 링크 & 강제종료, 폼 데이터 저장, 미들웨어, 도커 배포
+
+<br>
+<br>
+1. 로그인 기능 구현
+<br>
+<br>
+- jwt 방식을 통해 구현 <br>
+- 입력값이 데이터베이스와 일치하지 않으면 에러 구현
+<br>
+<br>
+2. 메인 페이지 구현
+<br>
+<br>
+- 검색 and 필터링 and pageNo and limit -> 모든 조건을 하나의 쿼리문으로 해결 (다중 필터 기능) <br>
+- MySQL 이벤트 스케줄러 사용 (날짜에 따른 상태 자동 업데이트)
+<br>
+<br>
+3. 링크 & 강제 종료 기능 구현
+<br>
+<br>
+- 링크 URL 제공 기능 <br>
+- Survey 강제 종료 기능 
+<br>
+<br>
+4. 에디터 폼 데이터 저장 기능
+<br>
+<br>
+- 날짜 형식의 정규식 사용 <br>
+- Survey 페이지에 필요한 제목, 질문, 날짜, 랜딩 페이지 등을 DB에 저장 <br>
+- 쿼리문 총 5개 실행 -> 추후 리팩터링에 트랜잭션 적용 예정
+<br>
+<br>
+5. 미들웨어
+<br>
+<br>
+- 토큰의 일치 여부 확인 미들웨어 <br>
+- 에러 핸들링에 필요한 미들웨어
+<br>
+<br>
+6. 도커 배포
+<br>
+<br>
+- compose 파일로 db, 프론트엔드, 백엔드 한 번에 배포 가능 <br>
+- 도커 허브를 통한 이미지 태그 관리
+<br>
+<br>
+<br>
+<br>
 
 
 <br/>
@@ -157,7 +204,7 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 
 <br/>
 
-사진
+<img width="992" alt="image" src="https://user-images.githubusercontent.com/105341553/196307488-5c28e2a7-3c49-4149-9616-05ea0846643e.png">
 
 <br/>
 
