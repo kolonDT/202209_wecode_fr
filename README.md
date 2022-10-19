@@ -272,43 +272,44 @@ React-Router-dom의 Outlet 내장 함수를 활용하여 원하는 페이지에�
 - 2. 선택 질문 항목 추가 및 삭제 기능 
 <br>
 <br>
-*****
+<img src="https://user-images.githubusercontent.com/93697790/196628966-e0f21167-9328-433b-a4f6-544c8e6f329d.gif">
 <br>
 <br>
 - 3.객관식 질문 양식 중 문제 추가 삭제 기능 
 <br>
 <br>
-*****
+<img src="https://user-images.githubusercontent.com/93697790/196628966-e0f21167-9328-433b-a4f6-544c8e6f329d.gif">
 <br>
 <br>
 - 4. 폼 데이터 생성 및 삭제 기능 
 <br>
 <br>
-*****
+<img src="">
 <br>
 <br>
-- 5. 폼 데이터 안에서 이미지 보내는 기능 
+- 5. 
+ 데이터 안에서 이미지 보내는 기능 
 <br>
 <br>
-*****
+<img src="https://user-images.githubusercontent.com/93697790/196628841-66341773-fa1b-4cbe-8eca-4b641e28f03d.gif">
 <br>
 <br>
 - 6. 에디터 및 고객 폼 데이터 유효성 검사 기능 
 <br>
 <br>
-***** 
+<img src="">
 <br>
 <br>
 - 7. 고객 페이지 폼데이터 생성 기능 
 <br>
 <br>
-*****
+<img src="">
 <br>
 <br>
--8. 고객 페이지 폼데이터  유효성 검사 기능  
+-8. 고객 페이지 폼데이터 유효성 검사 기능  
 <br>
 <br>
-*****
+<img src="https://user-images.githubusercontent.com/93697790/196628501-a09f9194-b36c-45f6-ae31-0acab6e927dd.gif">
 <br>
 <br>
 
