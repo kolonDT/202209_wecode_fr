@@ -91,7 +91,6 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 <div align=left>
 - 프론트엔드 <img src="https://img.shields.io/badge/JavaScript-FFCA28?style=flat-square&logo=javascript&logoColor=white"/>
   <img src="https://img.shields.io/badge/React.js-58c3cc?style=flat-square&logo=React&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Sass-58c3cc?style=flat-square&logo=Sass&logoColor=white"/>
   <img src="https://img.shields.io/badge/React.js-58c3cc?style=flat-square&logo=React&logoColor=white"/>
   <img src="https://img.shields.io/badge/CRA-58c3cc?style=flat-square&logo=Create-React-App&logoColor=white"/>
   <img src="https://img.shields.io/badge/React Router Dom-gray?style=flat-square&logo=React-Router&logoColor=F6BB43"/>
@@ -261,8 +260,60 @@ Rechart 라이브러리 사용 (객관식 통계)
 
  
   
-- 이주영 : 
-  
+- 이주영 : : 공통 네브, 관리자 에디터 페이지, 고객 설문지 페이지 
+<br>
+<br>
+- 1. 공통 네브 Router 기능 (중첩 라우팅)
+<br>
+<br>
+React-Router-dom의 Outlet 내장 함수를 활용하여 원하는 페이지에서만 상단 nav가 보이도록 함.
+<br>
+<br>
+- 2. 선택 질문 항목 추가 및 삭제 기능 
+<br>
+<br>
+*****
+<br>
+<br>
+- 3.객관식 질문 양식 중 문제 추가 삭제 기능 
+<br>
+<br>
+*****
+<br>
+<br>
+- 4. 폼 데이터 생성 및 삭제 기능 
+<br>
+<br>
+*****
+<br>
+<br>
+- 5. 폼 데이터 안에서 이미지 보내는 기능 
+<br>
+<br>
+*****
+<br>
+<br>
+- 6. 에디터 및 고객 폼 데이터 유효성 검사 기능 
+<br>
+<br>
+***** 
+<br>
+<br>
+
+- 7. 고객 페이지 폼데이터 생성 기능 
+<br>
+<br>
+*****
+<br>
+<br>
+
+- 8. 고객 페이지 폼데이터  유효성 검사 기능  
+<br>
+<br>
+*****
+<br>
+<br>
+
 
 ## 팀 프로젝트 노션 링크 
  - [코다 노션 페이지로 가기](https://www.notion.so/wecode/e45886a68bc94c62bca33747dba8a43e)
