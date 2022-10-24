@@ -261,6 +261,7 @@ Rechart 라이브러리 사용 (객관식 통계)
  
   
 - 이주영: 공통 네브, 관리자 에디터 페이지, 고객 설문지 페이지 
+
 <br>
 <br>
 - 1. 공통 네브 Router 기능 (중첩 라우팅)
@@ -272,45 +273,42 @@ React-Router-dom의 Outlet 내장 함수를 활용하여 원하는 페이지에�
 - 2. 선택 질문 항목 추가 및 삭제 기능 
 <br>
 <br>
-<img src="https://user-images.githubusercontent.com/93697790/196628966-e0f21167-9328-433b-a4f6-544c8e6f329d.gif">
+<img src="https://user-images.githubusercontent.com/93697790/197448417-5bcb5aa5-2775-48b8-aa76-14ac81765f3e.gif" width="600px">
 <br>
 <br>
 - 3.객관식 질문 양식 중 문제 추가 삭제 기능 
 <br>
 <br>
-<img src="https://user-images.githubusercontent.com/93697790/196628966-e0f21167-9328-433b-a4f6-544c8e6f329d.gif">
+<img src="https://user-images.githubusercontent.com/93697790/196628966-e0f21167-9328-433b-a4f6-544c8e6f329d.gif" width="600px">
 <br>
 <br>
 - 4. 폼 데이터 생성 및 삭제 기능 
 <br>
 <br>
-<img src="">
+<img src="https://user-images.githubusercontent.com/93697790/197449438-9b72c090-8a08-470f-a15b-d0b2de9ba2fa.gif"
+width="600px">
 <br>
 <br>
 - 5. 
  데이터 안에서 이미지 보내는 기능 
 <br>
 <br>
-<img src="https://user-images.githubusercontent.com/93697790/196628841-66341773-fa1b-4cbe-8eca-4b641e28f03d.gif">
+<img src="https://user-images.githubusercontent.com/93697790/196628841-66341773-fa1b-4cbe-8eca-4b641e28f03d.gif"
+width="600px">
 <br>
 <br>
 - 6. 에디터 및 고객 폼 데이터 유효성 검사 기능 
 <br>
 <br>
-<img src="">
+<img src="https://user-images.githubusercontent.com/93697790/197449820-0fc53a72-70dc-4525-a4e9-8a1438ee7a42.gif"
+width="600px">
 <br>
 <br>
 - 7. 고객 페이지 폼데이터 생성 기능 
 <br>
 <br>
-<img src="">
-<br>
-<br>
--8. 고객 페이지 폼데이터 유효성 검사 기능  
-<br>
-<br>
-<img src="https://user-images.githubusercontent.com/93697790/196628501-a09f9194-b36c-45f6-ae31-0acab6e927dd.gif">
-<br>
+<img src="https://user-images.githubusercontent.com/93697790/197450258-3042aeb2-3bc0-48f1-b489-21d15804292c.gif"
+width="600px">
 <br>
 
 
