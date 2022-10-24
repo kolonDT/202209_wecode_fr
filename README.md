@@ -220,7 +220,7 @@ BPS Form - Survey Tool 기획으로 Survey Tool 제작
 <br/>
 
 ## 💘 (FE) 담당 페이지 소개 
-- 조은지 : 로그인, 메인, 링크, 통계 페이지, 공통 모달
+### 조은지 : 로그인, 메인, 링크, 통계 페이지, 공통 모달
 <br>
 <br>
 - 1. 로그인 페이지 구현
@@ -257,10 +257,7 @@ Rechart 라이브러리 사용 (객관식 통계)
 <br>
 <br>
 
-
- 
-  
-- 이주영: 공통 네브, 관리자 에디터 페이지, 고객 설문지 페이지 
+### 이주영: 공통 네브, 관리자 에디터 페이지, 고객 설문지 페이지 
 
 <br>
 <br>
@@ -274,12 +271,55 @@ React-Router-dom의 Outlet 내장 함수를 활용하여 원하는 페이지에�
 <br>
 <br>
 <img src="https://user-images.githubusercontent.com/93697790/197448417-5bcb5aa5-2775-48b8-aa76-14ac81765f3e.gif" width="600px">
+
+```jsx
+export const QUESTION_ARRAY = (sortIndex, formId, ...args) => {
+  return {
+    1: (
+      <MultipleSingle
+        sortIndex={sortIndex}
+        question={args[0]}
+        option={args[1]}
+        onRemove={args[2]}
+        formId={formId}
+      />
+    ),
+    
+    2: (
+      <MultipleMultiple
+       ...
+      />
+    ),
+    
+    3: (
+      <ShortDescription
+      ...
+      />
+    ),
+```
+왼쪽 선택항목 7개는 각각 id를 가지고 있고 7개 중 하나를 선택하면 해당하는 컴포넌트가 그려지도록 설계했다. 여기서 인자가 3개 이상 있을 경우는 객체로 바꾸는 것이 좋다는 것도 알게 돼어 수정하려고 합니다. 
 <br>
 <br>
 - 3.객관식 질문 양식 중 문제 추가 삭제 기능 
 <br>
 <br>
 <img src="https://user-images.githubusercontent.com/93697790/196628966-e0f21167-9328-433b-a4f6-544c8e6f329d.gif" width="600px">
+
+```jsx
+const [optionIndexes, setOptionIndexes] = useState(Object.keys(option));
+//객관식 문항수를 상위 컴포넌트로부터 option이라는 props로 받고 있다.
+
+const addOptionIndexes = () => {
+    setOptionIndexes([...optionIndexes, optionIndexes.length.toString()]);
+  };
+...
+
+{optionIndexes.map(idx => (
+       <Choice key={idx}>
+        ...}
+```
+객관식 문항이라는 option을 받고 option의 index는 계속 변하는 값이므로 state로 지정하여 관리했습니다. 그리고 이 값을 map을 사용하여 option의 갯수에 따라 문항이 생성되도록 만들었습니다. 여기서 어려움이 있었던 부분은 addOptionIndexes 부분이었습니다,. Object.keys(option)을 사용하면 결과값이 배열에 **문자열**이 담기는 것을 모르고 기능 작동이 안되는 것이었습니다. 알고보니 optionIndexes.length의 결과값이 숫자타입이라는 것을 알게 됐고 어려워보였던 문제지만 굉장히 간단한 문제였다는 것을 알게 됐습니다.
+
 <br>
 <br>
 - 4. 폼 데이터 생성 및 삭제 기능 
@@ -287,10 +327,35 @@ React-Router-dom의 Outlet 내장 함수를 활용하여 원하는 페이지에�
 <br>
 <img src="https://user-images.githubusercontent.com/93697790/197449438-9b72c090-8a08-470f-a15b-d0b2de9ba2fa.gif"
 width="600px">
+
+```jsx
+  //생성
+  //최상위 컴포넌트 Editor.js
+ <MakeSurvey onSubmit={methods.handleSubmit(onSubmit)}>
+ 
+  //상위 컴포넌트 SurveyEditor.js
+  <TitleInput
+    placeholder="제목을 입력하세요"
+    {...register('surveyName', {
+    shouldSelect: true,
+    required: {
+      value: 'title',
+      message: `제목은 필수!`,
+               },
+     })}
+    />
+```
+각 인풋에 register을 등록하고 마지막 onsubmit이 될때 한번에 폼이 생성되어 보내지도록 하였습니다.
+<br>
+```jsx
+  //삭제
+  const methods = useForm({shouldUnregister: true});
+```
+여기서 많이 해맸었습니다. 선택 항목을 삭제했음에도 불구하고 보내지는 폼에서는 적용이 되지 않는 어려움을 마주했습니다. 하루 종일 다양한 방법을 시도했고 결과적으로 Usehook-Form 공식문서를 통해 shouldUnregister:true를 정의하면 마지막 onsubmit 될때 register된 상태인 input의 form만 생성된다는 것을 알았습니다.
+
 <br>
 <br>
-- 5. 
- 데이터 안에서 이미지 보내는 기능 
+- 5. 폼 데이터 안에서 이미지 보내는 기능 
 <br>
 <br>
 <img src="https://user-images.githubusercontent.com/93697790/196628841-66341773-fa1b-4cbe-8eca-4b641e28f03d.gif"
@@ -302,6 +367,24 @@ width="600px">
 <br>
 <img src="https://user-images.githubusercontent.com/93697790/197449820-0fc53a72-70dc-4525-a4e9-8a1438ee7a42.gif"
 width="600px">
+
+```jsx
+  <ErrorMessage
+            errors={errors}
+            name="surveyName"
+            render={({ message }) => (
+              <ErrorM>
+                <Icon>
+                  <MdInfo />
+                </Icon>
+                {message}
+              </ErrorM>
+            )}
+          />
+```
+
+ErrorMessage라는 react-hook-form안에 있는 컴포넌트를 import하여 설정해서 커스텀해주었습니다. name은 해당 register된 이름과 동일하게 설정해주어야 원하는 동작을 하였고 message 또한 미리 설정해주어야 에러 객체가 있을때 message가 보여졌습니다.
+
 <br>
 <br>
 - 7. 고객 페이지 폼데이터 생성 기능 
@@ -309,6 +392,7 @@ width="600px">
 <br>
 <img src="https://user-images.githubusercontent.com/93697790/197450258-3042aeb2-3bc0-48f1-b489-21d15804292c.gif"
 width="600px">
+고객 페이지 폼데이터 또한 관리자 에디터 페이지와 마찬가지로 동일하게 useForm 라이브러리를 사용하여 생성 및 삭제해주었습니다. 
 <br>
 
 
