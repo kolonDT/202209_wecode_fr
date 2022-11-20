@@ -3,7 +3,7 @@
 ## 내부 설문조사 툴 제작 프로젝트
 
 
-# Team Koda
+
 --- 
 <img width="1440" alt="스크린샷 2022-10-15 오후 1 57 22" src="https://user-images.githubusercontent.com/95282989/195969547-07829d43-6bfd-4d8c-8cac-cf4479857adc.png">
 
